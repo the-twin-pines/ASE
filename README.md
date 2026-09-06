@@ -41,6 +41,21 @@ Keep full transcripts or captions when obtainable and appropriate to store. Summ
 
 Raw URL/title/playlist metadata may be kept for acquisition, but it is low-maturity material and must never be presented as though the source itself was reviewed.
 
+<!-- atomic-video-sources:start -->
+## Atomic video sources
+
+Canonical video records live in [`sources/videos/`](sources/videos/), one file per platform video ID. Playlist order and duplicates live separately in [`sources/playlists/`](sources/playlists/). Title-grouped import notes are legacy acquisition material, not reviewed source evidence.
+
+Current imported corpus:
+
+- A1 Engine Repair: 26 unique videos from 26 playlist positions;
+- Brakes: 169 unique videos from 175 playlist positions;
+- individual source passes complete: 0;
+- playlist/series synthesis: blocked.
+
+See [`SOURCE_ARCHITECTURE.md`](SOURCE_ARCHITECTURE.md) and run `python3 check_sources.py` before committing source changes.
+<!-- atomic-video-sources:end -->
+
 ## Tests
 
 - [`tests/`](https://github.com/isomorphisms/ASE/tree/main/tests) — a lightweight place to preserve an occasional before/after check when one is worth keeping.
