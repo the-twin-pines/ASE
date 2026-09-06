@@ -1,0 +1,45 @@
+{
+  "schema_version": 2,
+  "corpus": "engine-repair",
+  "playlist_positions": [
+    5
+  ],
+  "video_id": "Q0N-f7J36HE",
+  "url": "https://www.youtube.com/watch?v=Q0N-f7J36HE",
+  "metadata": {
+    "id": "Q0N-f7J36HE",
+    "title": "Installing a piston into a cylinder",
+    "channel": "Justin Miller",
+    "channel_id": "UCrSyh8HR1phJTAIqfImoqnA",
+    "duration_seconds": 297,
+    "upload_date": "2015-02-19T09:55:55-08:00",
+    "description": "How to prepare a piston and install it into a cylinder using a piston ring compressor.",
+    "webpage_url": "https://www.youtube.com/watch?v=Q0N-f7J36HE",
+    "availability": "public",
+    "live_status": "not_live",
+    "acquired_via": "piped",
+    "acquisition_instance": "https://api.piped.private.coffee"
+  },
+  "captions": {
+    "language": "en",
+    "is_generated": true,
+    "source": "piped_subtitle",
+    "acquisition_instance": "https://api.piped.private.coffee",
+    "track_name": "English",
+    "mime_type": "application/ttml+xml",
+    "text": "in this video we're going to demonstrate how to install a piston into a cylinder and to do this we usually start off by letting the Piston soak in the oil so we just have some clean motor oil that's been soaking in here and they've got the bearing installed we know which cylinder this is going to go to they've already measured the cylinder measured the piston and match the two up um we made sure that we know which direction the Piston goes into the cylinder by the marks on the top of the the piston and uh so to do this we've got our our protective caps here these are just a couple pieces of hose that will stick over these bolts so that the rod bolts don't Nick the crankshaft as they go in we turn the crankshaft until this journal for this cylinder is a is a bottom dead center got that in place and then we'll grab this oil squirt can squirt a little bit of oil onto the cylinder walls here we also have the installation tool that we'll use to make sure that the Rings get compressed if you look at the specifications it also will probably specify how to place your piston rings on the on the Piston so you've got the Piston Ring gaps set up they're 180 degrees from each other they're not over the uh wrist pin or the skirt they've got the also the oil rings have been turned so the gaps don't line up with each other so they've got the Piston Ring gaps placed in the right spot we'll bring this over notice the dot on the Piston that goes toward the front of the engine we're going to install cylinder number one this tool has a top and a bottom you notice how where it clamps there it's offset this should go toward the bottom or toward the block I think it shows you right here on that has an arrow staying bottom so we'll drop that down in there clamp around and make sure that we grab all of the piston rings we also want to make sure that none of the gaps of the piston rings fall into the Gap here into the Gap in the [Music] tool we make sure that it's this dot that the direction of the Piston is lined up exactly perpendicular to the crank shed with the handle of a rubber Mall we're going to try to make sure that the tool is sitting flat against the block and now we're going to tap the pins there are two ways to do this some people like to try to do it with one blow and I've also learned over over time that it works almost just as well if you just tap it slowly you just have to watch and make sure that none of the piston rings pop out pop out of the gap between the tool and the block here make sure that we we keep that down as much as as possible in some cases the the tool gets bent a little bit and if it's bent you have to just make sure that it's straight so that it sits flat if at any time one of the Rings pops out we're going to stop and start all over we don't just keep pounding or we'll break a ring so now that we've got that started we'll turn it over we push the Piston up carefully you can use the use the hammer to tap it now make sure that the bearing is still in place you see that the bearing looks good and this is where we would apply some engine oil or some assembly Lo to that bearing and once we get that up into that position we can take off the rubber caps so once we've got this in place we get the cap we would plastic gaug this bearing to make sure that the clearance is within specification before we do anything once we've plastic gauged and determine that everything is all right we would Place some assembly Lube on this bearing and install it put the put the bolts or the nuts on there and torque them specification and once you've torqued one down we should then rotate the crankshaft and make sure that it turns freely go one or two rotations make sure everything turns freely and and smoothly and nothing's binding and if it works well turn the next cylinder to bottom dead center the crankshaft and install the next piston following the same procedure just make sure to plas gauge each bearing and uh journal to make sure the clearance is is proper"
+  },
+  "acquisition_errors": [
+    "piped https://pipedapi.kavin.rocks: HTTPError 403: Forbidden",
+    "piped https://pipedapi.leptons.xyz: HTTPError 502: Bad Gateway",
+    "piped https://pipedapi-libre.kavin.rocks: URLError: [Errno 101] Network is unreachable",
+    "piped https://piped-api.privacy.com.de: URLError: [Errno -2] Name or service not known",
+    "piped https://pipedapi.adminforge.de: HTTPError 403: Forbidden",
+    "piped https://api.piped.yt: URLError: [Errno -2] Name or service not known",
+    "piped https://pipedapi.drgns.space: URLError: [Errno -2] Name or service not known",
+    "piped https://pipedapi.owo.si: URLError: [Errno -5] No address associated with hostname",
+    "piped https://pipedapi.ducks.party: HTTPError 500: Internal Server Error",
+    "piped https://piped-api.codespace.cz: URLError: [Errno -2] Name or service not known",
+    "piped https://pipedapi.reallyaweso.me: HTTPError 502: Bad Gateway"
+  ]
+}

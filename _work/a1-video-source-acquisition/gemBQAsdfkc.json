@@ -1,0 +1,41 @@
+{
+  "schema_version": 2,
+  "corpus": "engine-repair",
+  "playlist_positions": [
+    2
+  ],
+  "video_id": "gemBQAsdfkc",
+  "url": "https://www.youtube.com/watch?v=gemBQAsdfkc",
+  "metadata": {},
+  "captions": {},
+  "acquisition_errors": [
+    "piped https://pipedapi.kavin.rocks: HTTPError 403: Forbidden",
+    "piped https://pipedapi.leptons.xyz: HTTPError 502: Bad Gateway",
+    "piped https://pipedapi-libre.kavin.rocks: URLError: [Errno 101] Network is unreachable",
+    "piped https://piped-api.privacy.com.de: URLError: [Errno -2] Name or service not known",
+    "piped https://pipedapi.adminforge.de: HTTPError 403: Forbidden",
+    "piped https://api.piped.yt: URLError: [Errno -2] Name or service not known",
+    "piped https://pipedapi.drgns.space: URLError: [Errno -2] Name or service not known",
+    "piped https://pipedapi.owo.si: URLError: [Errno -5] No address associated with hostname",
+    "piped https://pipedapi.ducks.party: HTTPError 500: Internal Server Error",
+    "piped https://piped-api.codespace.cz: URLError: [Errno -2] Name or service not known",
+    "piped https://pipedapi.reallyaweso.me: HTTPError 502: Bad Gateway",
+    "piped https://api.piped.private.coffee: HTTPError 500: Internal Server Error",
+    "invidious https://yewtu.be: HTTPError 403: Forbidden",
+    "invidious https://vid.puffyan.us: URLError: [Errno 101] Network is unreachable",
+    "invidious https://invidious.flokinet.to: HTTPError 500: Internal Server Error",
+    "invidious https://invidious.projectsegfau.lt: JSONDecodeError: Expecting value: line 1 column 1 (char 0)",
+    "invidious https://inv.bp.projectsegfau.lt: JSONDecodeError: Expecting value: line 1 column 1 (char 0)",
+    "invidious https://inv.in.projectsegfau.lt: JSONDecodeError: Expecting value: line 1 column 1 (char 0)",
+    "invidious https://invidious.tiekoetter.com: HTTPError 403: Forbidden",
+    "invidious https://invidious.slipfox.xyz: JSONDecodeError: Expecting value: line 1 column 1 (char 0)",
+    "invidious https://invidious.privacydev.net: URLError: [Errno -2] Name or service not known",
+    "invidious https://vid.priv.au: URLError: [Errno -5] No address associated with hostname",
+    "invidious https://iv.ggtyler.dev: URLError: timed out",
+    "invidious https://invidious.0011.lt: URLError: [Errno -2] Name or service not known",
+    "invidious https://inv.zzls.xyz: HTTPError 403: Forbidden",
+    "invidious https://invidious.protokolla.fi: JSONDecodeError: Expecting value: line 2 column 1 (char 1)",
+    "yt-dlp: CalledProcessError: Command '['yt-dlp', '--skip-download', '--dump-single-json', '--no-warnings', '--no-playlist', 'https://www.youtube.com/watch?v=gemBQAsdfkc']' returned non-zero exit status 1.",
+    "youtube-transcript-api: primary=RequestBlocked: \nCould not retrieve a transcript for the video https://www.youtube.com/watch?v=gemBQAsdfkc! This is most likely caused by:\n\nYouTube is blocking requests from your IP. This usually is due to one of the following reasons:\n- You have done too many requests and your IP has been blocked by YouTube\n- You are doing requests from an IP belonging to a cloud provider (like AWS, Google Cloud Platform, Azure, etc.). Unfortunately, most IPs from cloud providers are blocked by YouTube.\n\nThere are two things you can do to work around this:\n1. Use proxies to hide your IP address, as explained in the \"Working around IP bans\" section of the README (https://github.com/jdepoix/youtube-transcript-api?tab=readme-ov-file#working-around-ip-bans-requestblocked-or-ipblocked-exception).\n2. (NOT RECOMMENDED) If you authenticate your requests using cookies, you will be able to continue doing requests for a while. However, YouTube will eventually permanently ban the account that you have used to authenticate with! So only do this if you don't mind your account being banned!\n\nIf you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an issue at https://github.com/jdepoix/youtube-transcript-api/issues. Please add which version of youtube_transcript_api you are using and provide the information needed to replicate the error. Also make sure that there are no open issues which already describe your problem!; fallback=AttributeError: type object 'YouTubeTranscriptApi' has no attribute 'get_transcript'"
+  ]
+}

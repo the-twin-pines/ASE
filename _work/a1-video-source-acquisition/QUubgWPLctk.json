@@ -1,0 +1,45 @@
+{
+  "schema_version": 2,
+  "corpus": "engine-repair",
+  "playlist_positions": [
+    11
+  ],
+  "video_id": "QUubgWPLctk",
+  "url": "https://www.youtube.com/watch?v=QUubgWPLctk",
+  "metadata": {
+    "id": "QUubgWPLctk",
+    "title": "Carburetor Rebuilding Trick For Beginners",
+    "channel": "Uncle Tony's Garage",
+    "channel_id": "UC9SzQNYLqsPQGY_nbHogDDw",
+    "duration_seconds": 198,
+    "upload_date": "2019-01-31T19:29:56-08:00",
+    "description": "Locating and cleaning those low speed passages makes all the difference.",
+    "webpage_url": "https://www.youtube.com/watch?v=QUubgWPLctk",
+    "availability": "public",
+    "live_status": "not_live",
+    "acquired_via": "piped",
+    "acquisition_instance": "https://api.piped.private.coffee"
+  },
+  "captions": {
+    "language": "en",
+    "is_generated": true,
+    "source": "piped_subtitle",
+    "acquisition_instance": "https://api.piped.private.coffee",
+    "track_name": "English",
+    "mime_type": "application/ttml+xml",
+    "text": "I don't care how long you're doing this or how elaborate your shop is the kitchen table is the classic place to rebuild a carburetor and for you first homers who were just actually getting into this and and trying to master the order of rebuilding the carburetor it really is that simple take it apart clean everything put it back together again but what they don't tell you anywhere and especially you're not going to find it in any of the instructions is where the problems generally happen Okay so a carboard has been sitting forever like this H this little 1820 Holly old Chrysler product and you can see what it looks like inside right I mean it's a disaster so you're going to take it all apart you're going to clean up all the pieces and you're going to soak them in carb cleaner however you're going to do it and you're going to blow out the big pages with compressed air if you've got it but where the problem with almost every single carboard that's been sitting for any amount of time happens is in the idle passages and no matter how long you soak it no matter how much compressed a you th blow through it you're not going to clean them out the passenges are too small they're only a few thousand of an inch in diameter and once that gasoline or whatever it is solidifies and turns to gak inside there you're not it's it becomes impenetrable and that's where this comes in this is the universal carburetor cleaning tool a bristle from a wire brush like this one is all you need now every carburetor is a little bit different they all have different configurations but they all have tiny low speed passages on a holly you'll find them in the metering block the primary metering block you if you go and you Google fuel flow through primary metering block on a Hol you'll see which are the low speed passenges and those are the ones that you have to go through with the wire brush now on these AFB an Brock ABS type Carters you'll find them in the booster bodies it's these passages here and again you're going to pass the wire brush through all of these little the wire bristle through all of these little orifices and clean them out some of them are a little tricky like this Holly and these and that's why these carburetors never run right I'm going to show you why the low speed passeng say this is the metum block for a little Holly here and the low speed passage is actually hidden it's it's underneath the this lead plug that they stick in there and what you've got to do is you've got to actually dig the plug out I'm not going to be able to do it like this but you've got to dig this plug out of here and then you'll see that there's a passage that goes straight down and into the the main jet over here joins that's where you have to pass the wire through that when you're all finished with it don't worry about putting lead over it what I do with these is cut a little piece of aluminum like with v can and JB Weld that over the top of the metum block let it sit for you know a few hours and put it back together again good as new but that's it like I says you're not going to find any of this in the instruction manual you're not going to uh you know this is something that you just have to know about and you have to go through it and that's the difference between having a carboard that works right the first time and one that you got to go through a 100 times or finally toss it in the trash by a new one"
+  },
+  "acquisition_errors": [
+    "piped https://pipedapi.kavin.rocks: HTTPError 403: Forbidden",
+    "piped https://pipedapi.leptons.xyz: HTTPError 502: Bad Gateway",
+    "piped https://pipedapi-libre.kavin.rocks: URLError: [Errno 101] Network is unreachable",
+    "piped https://piped-api.privacy.com.de: URLError: [Errno -2] Name or service not known",
+    "piped https://pipedapi.adminforge.de: HTTPError 403: Forbidden",
+    "piped https://api.piped.yt: URLError: [Errno -2] Name or service not known",
+    "piped https://pipedapi.drgns.space: URLError: [Errno -2] Name or service not known",
+    "piped https://pipedapi.owo.si: URLError: [Errno -5] No address associated with hostname",
+    "piped https://pipedapi.ducks.party: HTTPError 500: Internal Server Error",
+    "piped https://piped-api.codespace.cz: URLError: [Errno -2] Name or service not known",
+    "piped https://pipedapi.reallyaweso.me: HTTPError 502: Bad Gateway"
+  ]
+}

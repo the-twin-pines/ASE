@@ -1,0 +1,45 @@
+{
+  "schema_version": 2,
+  "corpus": "engine-repair",
+  "playlist_positions": [
+    17
+  ],
+  "video_id": "lv9YjOHAh_0",
+  "url": "https://www.youtube.com/watch?v=lv9YjOHAh_0",
+  "metadata": {
+    "id": "lv9YjOHAh_0",
+    "title": "Weak Acceleration? Rough Idle? Diagnose a Car or Truck Throttle Body! #shorts",
+    "channel": "1A Auto: Repair Tips & Secrets Only Mechanics Know",
+    "channel_id": "UCVvE8kQTuZEykvMFZBVzftg",
+    "duration_seconds": 59,
+    "upload_date": "2023-04-14T09:01:02-07:00",
+    "description": "Shop for New Auto Parts at 1AAuto.com <a href=\"https://1aau.to/c-229-ad\">https://1aau.to/c-229-ad</a><br><br>If your vehicle is experiencing weak acceleration, or rough idle, one of the areas you can diagnose is the throttle body. Over time, the valve of the throttle body collects debris and oil as the engine sucks air through it. This buildup can cause the throttle valve to drag or stick, resulting in poor throttle response, or incorrect air volumes! In this video, Len shows you how to diagnose and clean the throttle body to get your engine performing again. <a href=\"https://www.youtube.com/hashtag/shorts\">#shorts</a><br><br>🔧 List of tools used:<br>• No Tools Needed<br><br>Subscribe: <a href=\"https://www.youtube.com/channel/UCVvE8kQTuZEykvMFZBVzftg\">@1aauto</a><br><br>Check out our playlist:<br>Driveway Diagnostics!: <a href=\"https://www.youtube.com/playlist?list=PL17C5A3ED23485B90\">Driveway Diagnostics!</a><br><br>📱 Download the 1A Auto Repair App for more videos, torque specifications, and car repair information: <a href=\"https://1aau.to/appdownloadyt\">https://1aau.to/appdownloadyt</a><br><br>🚗 For More Info visit us at <a href=\"https://1aau.to/h-esY\">https://1aau.to/h-esY</a><br><br>⚠ DISCLAIMER:<br>While 1A Auto strives to make the information provided in this video as accurate as possible, it makes no claims, promises, or guarantees about the accuracy, completeness or applicability of the content. &nbsp;No information contained in this video shall create any expressed or implied warranty or guarantee of any particular result. All do-it-yourself projects entail some risk. &nbsp;It is the sole responsibility of the viewer to assume this risk. &nbsp;1A Auto is not responsible or liable for any loss damage (including, but not limited to, actual, consequential, or punitive), liability, claim, or any other injury or cause related to or resulting from any information posted in this video.",
+    "webpage_url": "https://www.youtube.com/watch?v=lv9YjOHAh_0",
+    "availability": "public",
+    "live_status": "not_live",
+    "acquired_via": "piped",
+    "acquisition_instance": "https://api.piped.private.coffee"
+  },
+  "captions": {
+    "language": "en",
+    "is_generated": true,
+    "source": "piped_subtitle",
+    "acquisition_instance": "https://api.piped.private.coffee",
+    "track_name": "English",
+    "mime_type": "application/ttml+xml",
+    "text": "what is wrong with this thing now okay poor acceleration seemed like it was idling funny I think I know where to look all right I want to get under here oh look at that okay friends so we made our way over the bench with a couple of throttle bodies here because I want to be able to show you them right out in the open if you were to look at the front of this you could tell that it's not really in the worst of conditions of course if I was to turn it over and look at the back side we've got a kind of different story here so as this is trying to turn or spin so it can open up as you accelerate any of this that's built up could be slowing this down from moving if you were having an issue with acceleration or any of the symptoms that I had mentioned before that's what you're going to see on the back side more than likely to watch the full-length version of this video click on the link in the description and check out the 1A Auto YouTube channel we have thousands of do-it-yourself diagnostic videos in our library"
+  },
+  "acquisition_errors": [
+    "piped https://pipedapi.kavin.rocks: HTTPError 403: Forbidden",
+    "piped https://pipedapi.leptons.xyz: HTTPError 502: Bad Gateway",
+    "piped https://pipedapi-libre.kavin.rocks: URLError: [Errno 101] Network is unreachable",
+    "piped https://piped-api.privacy.com.de: URLError: [Errno -2] Name or service not known",
+    "piped https://pipedapi.adminforge.de: HTTPError 403: Forbidden",
+    "piped https://api.piped.yt: URLError: [Errno -2] Name or service not known",
+    "piped https://pipedapi.drgns.space: URLError: [Errno -2] Name or service not known",
+    "piped https://pipedapi.owo.si: URLError: [Errno -5] No address associated with hostname",
+    "piped https://pipedapi.ducks.party: HTTPError 500: Internal Server Error",
+    "piped https://piped-api.codespace.cz: URLError: [Errno -2] Name or service not known",
+    "piped https://pipedapi.reallyaweso.me: HTTPError 502: Bad Gateway"
+  ]
+}

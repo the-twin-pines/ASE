@@ -1,0 +1,45 @@
+{
+  "schema_version": 2,
+  "corpus": "engine-repair",
+  "playlist_positions": [
+    24
+  ],
+  "video_id": "vnkm0Dvn_Ys",
+  "url": "https://www.youtube.com/watch?v=vnkm0Dvn_Ys",
+  "metadata": {
+    "id": "vnkm0Dvn_Ys",
+    "title": "We Solved The Misfire",
+    "channel": "Brilliant Auto Care",
+    "channel_id": "UCbjtq8VBXEf9lEHq1MfcLSw",
+    "duration_seconds": 59,
+    "upload_date": "2024-02-27T15:00:44-08:00",
+    "description": "A customer came in with a Heavy misfire, and a diagnosis from Autozone stating he needed a fuel pump. This was definitely not the case, since a dead fuel pump isnt gonna get you very far. Once we found which cylinder was misfiring, it was a simple coil pack swap and now this car is ready to go. <br>.<br>.<br><a href=\"https://www.youtube.com/hashtag/mechanic\">#mechanic</a> <a href=\"https://www.youtube.com/hashtag/misfire\">#misfire</a> <a href=\"https://www.youtube.com/hashtag/checkengine\">#checkengine</a> <a href=\"https://www.youtube.com/hashtag/repair\">#repair</a>",
+    "webpage_url": "https://www.youtube.com/watch?v=vnkm0Dvn_Ys",
+    "availability": "public",
+    "live_status": "not_live",
+    "acquired_via": "piped",
+    "acquisition_instance": "https://api.piped.private.coffee"
+  },
+  "captions": {
+    "language": "en",
+    "is_generated": true,
+    "source": "piped_subtitle",
+    "acquisition_instance": "https://api.piped.private.coffee",
+    "track_name": "English",
+    "mime_type": "application/ttml+xml",
+    "text": "he's good as gold it was misfiring really really bad he went over to AutoZone I don't mean to laugh but they were telling him that he needed a fuel pump but he drove the vehicle here so um I asked him hey U how's the car been driving just to kind of get an idea he said it's been it drives rough but he's he just knows that the check engine light is blinking so he was at the point where he was going to buy a fuel pump and I told him well hey if you really needed a fuel pump you wouldn't be able to go from place to place so anyways this was the coil that was misfiring all this here are the burn marks of it uh misfiring in the wrong place mind you it's supposed to have a spark plug that sits right underneath it and the spark once the spark plug ignites the engine starts doing its thing to let the car move but because it was misfiring at the wrong time the engine would run really rough his was so rough the light was actually blinking and anytime when you have a misfire where the check engine light blinks that's a serious misfire"
+  },
+  "acquisition_errors": [
+    "piped https://pipedapi.kavin.rocks: HTTPError 403: Forbidden",
+    "piped https://pipedapi.leptons.xyz: HTTPError 502: Bad Gateway",
+    "piped https://pipedapi-libre.kavin.rocks: URLError: [Errno 101] Network is unreachable",
+    "piped https://piped-api.privacy.com.de: URLError: [Errno -2] Name or service not known",
+    "piped https://pipedapi.adminforge.de: HTTPError 403: Forbidden",
+    "piped https://api.piped.yt: URLError: [Errno -2] Name or service not known",
+    "piped https://pipedapi.drgns.space: URLError: [Errno -2] Name or service not known",
+    "piped https://pipedapi.owo.si: URLError: [Errno -5] No address associated with hostname",
+    "piped https://pipedapi.ducks.party: HTTPError 500: Internal Server Error",
+    "piped https://piped-api.codespace.cz: URLError: [Errno -2] Name or service not known",
+    "piped https://pipedapi.reallyaweso.me: HTTPError 502: Bad Gateway"
+  ]
+}
