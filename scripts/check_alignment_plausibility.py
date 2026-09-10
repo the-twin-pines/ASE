@@ -6,7 +6,6 @@ from enum import Enum
 from math import atan, degrees, isfinite, radians, sin
 
 
-DAKOTA_CASTER_NOMINAL_DEG = 3.5
 DAKOTA_CAM_ADJUSTMENT_SCALE_DEG = 2.0
 DAKOTA_ABSURD_CASTER_TRIPWIRE_DEG = 45.0
 
@@ -30,6 +29,7 @@ class SweepRecord:
     declared_direction_order_ok: bool = True
     prescribed_half_sweep_deg: float | None = None
     allowed_turn_error_deg: float | None = None
+    symmetry_tolerance_deg: float | None = None
 
 
 @dataclass(frozen=True)
@@ -67,8 +67,12 @@ def validate_sweep(record: SweepRecord) -> str | None:
         return "sweep direction/position labels do not match the declared formula convention"
     if not (record.t1_deg < 0.0 < record.t2_deg):
         return "caster sweep must straddle the declared zero/reference"
-    if abs(abs(record.t1_deg) - abs(record.t2_deg)) > 0.25:
-        return "caster sweep is not symmetric within 0.25 degree"
+    if record.symmetry_tolerance_deg is None:
+        return "measurement method supplied no sweep-symmetry tolerance"
+    if record.symmetry_tolerance_deg < 0.0:
+        return "sweep-symmetry tolerance cannot be negative"
+    if abs(abs(record.t1_deg) - abs(record.t2_deg)) > record.symmetry_tolerance_deg:
+        return "caster sweep does not meet the measurement method symmetry tolerance"
     if record.prescribed_half_sweep_deg is not None:
         tolerance = record.allowed_turn_error_deg
         if tolerance is None:
@@ -79,18 +83,36 @@ def validate_sweep(record: SweepRecord) -> str | None:
     return None
 
 
-def gate_dakota_caster(record: SweepRecord, *, spec_low_deg: float | None, spec_high_deg: float | None) -> GatedCaster:
+def gate_dakota_caster(
+    record: SweepRecord,
+    *,
+    spec_low_deg: float | None,
+    spec_high_deg: float | None,
+) -> GatedCaster:
     problem = validate_sweep(record)
     if problem:
         return GatedCaster(None, ResultState.INVALID, problem)
 
-    caster = caster_symmetric_exact_deg(record.c1_deg, record.c2_deg, record.t1_deg, record.t2_deg)
+    caster = caster_symmetric_exact_deg(
+        record.c1_deg,
+        record.c2_deg,
+        record.t1_deg,
+        record.t2_deg,
+    )
 
     if abs(caster) >= DAKOTA_ABSURD_CASTER_TRIPWIRE_DEG:
-        return GatedCaster(caster, ResultState.INVALID, "caster trips the 45 degree Dakota data-integrity stop")
+        return GatedCaster(
+            caster,
+            ResultState.INVALID,
+            "caster trips the 45 degree Dakota data-integrity stop",
+        )
 
     if spec_low_deg is None or spec_high_deg is None:
-        return GatedCaster(caster, ResultState.UNKNOWN, "exact vehicle-specific service envelope not verified")
+        return GatedCaster(
+            caster,
+            ResultState.UNKNOWN,
+            "exact vehicle-specific service envelope not verified",
+        )
     if spec_low_deg > spec_high_deg:
         return GatedCaster(None, ResultState.INVALID, "service envelope is reversed")
 
@@ -98,8 +120,16 @@ def gate_dakota_caster(record: SweepRecord, *, spec_low_deg: float | None, spec_
     if distance == 0.0:
         return GatedCaster(caster, ResultState.IN_SPEC, "inside supplied verified service envelope")
     if distance <= DAKOTA_CAM_ADJUSTMENT_SCALE_DEG:
-        return GatedCaster(caster, ResultState.OUT_OF_SPEC_BELIEVABLE, "outside service envelope but within one ordinary Dakota cam adjustment scale")
-    return GatedCaster(caster, ResultState.SUSPECT, "more than one ordinary Dakota cam adjustment scale beyond the service envelope")
+        return GatedCaster(
+            caster,
+            ResultState.OUT_OF_SPEC_BELIEVABLE,
+            "outside service envelope but within one ordinary Dakota cam adjustment scale",
+        )
+    return GatedCaster(
+        caster,
+        ResultState.SUSPECT,
+        "more than one ordinary Dakota cam adjustment scale beyond the service envelope",
+    )
 
 
 def assert_close(actual: float | None, expected: float, tolerance: float = 0.01) -> None:
@@ -117,6 +147,7 @@ def fixture_record(c1: float, c2: float) -> SweepRecord:
         road_wheel_angles_measured=True,
         prescribed_half_sweep_deg=15.0,
         allowed_turn_error_deg=0.25,
+        symmetry_tolerance_deg=0.25,  # synthetic fixture tolerance, not a universal rule
     )
 
 
@@ -125,17 +156,29 @@ def main() -> None:
     test_spec_low = 3.0
     test_spec_high = 4.0
 
-    normal = gate_dakota_caster(fixture_record(+0.5, -1.3), spec_low_deg=test_spec_low, spec_high_deg=test_spec_high)
+    normal = gate_dakota_caster(
+        fixture_record(+0.5, -1.3),
+        spec_low_deg=test_spec_low,
+        spec_high_deg=test_spec_high,
+    )
     assert_close(normal.caster_deg, 3.47285)
     assert normal.state == ResultState.IN_SPEC
 
     # Regression: +0.5 copied as +5.0 yields nearly +12 degrees. Arithmetic is valid;
     # plausibility must stop the pipeline and force a return to the raw observation.
-    decimal_error = gate_dakota_caster(fixture_record(+5.0, -1.3), spec_low_deg=test_spec_low, spec_high_deg=test_spec_high)
+    decimal_error = gate_dakota_caster(
+        fixture_record(+5.0, -1.3),
+        spec_low_deg=test_spec_low,
+        spec_high_deg=test_spec_high,
+    )
     assert_close(decimal_error.caster_deg, 11.98048)
     assert decimal_error.state == ResultState.SUSPECT
 
-    sign_error = gate_dakota_caster(fixture_record(-0.5, +1.3), spec_low_deg=test_spec_low, spec_high_deg=test_spec_high)
+    sign_error = gate_dakota_caster(
+        fixture_record(-0.5, +1.3),
+        spec_low_deg=test_spec_low,
+        spec_high_deg=test_spec_high,
+    )
     assert_close(sign_error.caster_deg, -3.47285)
     assert sign_error.state == ResultState.SUSPECT
 
@@ -149,8 +192,13 @@ def main() -> None:
         declared_direction_order_ok=False,
         prescribed_half_sweep_deg=15.0,
         allowed_turn_error_deg=0.25,
+        symmetry_tolerance_deg=0.25,
     )
-    swapped = gate_dakota_caster(direction_swap, spec_low_deg=test_spec_low, spec_high_deg=test_spec_high)
+    swapped = gate_dakota_caster(
+        direction_swap,
+        spec_low_deg=test_spec_low,
+        spec_high_deg=test_spec_high,
+    )
     assert swapped.caster_deg is None
     assert swapped.state == ResultState.INVALID
 
@@ -162,7 +210,11 @@ def main() -> None:
         t2_deg=+(360.0 / 17.4),
         road_wheel_angles_measured=False,
     )
-    ratio_result = gate_dakota_caster(assumed_ratio, spec_low_deg=test_spec_low, spec_high_deg=test_spec_high)
+    ratio_result = gate_dakota_caster(
+        assumed_ratio,
+        spec_low_deg=test_spec_low,
+        spec_high_deg=test_spec_high,
+    )
     assert ratio_result.caster_deg is None
     assert ratio_result.state == ResultState.INVALID
 
@@ -175,15 +227,28 @@ def main() -> None:
         road_wheel_angles_measured=True,
         prescribed_half_sweep_deg=15.0,
         allowed_turn_error_deg=0.25,
+        symmetry_tolerance_deg=0.25,
     )
-    wrong_sweep_result = gate_dakota_caster(wrong_sweep, spec_low_deg=test_spec_low, spec_high_deg=test_spec_high)
+    wrong_sweep_result = gate_dakota_caster(
+        wrong_sweep,
+        spec_low_deg=test_spec_low,
+        spec_high_deg=test_spec_high,
+    )
     assert wrong_sweep_result.state == ResultState.INVALID
 
-    absurd = gate_dakota_caster(fixture_record(+20.0, -20.0), spec_low_deg=test_spec_low, spec_high_deg=test_spec_high)
+    absurd = gate_dakota_caster(
+        fixture_record(+20.0, -20.0),
+        spec_low_deg=test_spec_low,
+        spec_high_deg=test_spec_high,
+    )
     assert_close(absurd.caster_deg, 52.88389)
     assert absurd.state == ResultState.INVALID
 
-    no_spec = gate_dakota_caster(fixture_record(+0.5, -1.3), spec_low_deg=None, spec_high_deg=None)
+    no_spec = gate_dakota_caster(
+        fixture_record(+0.5, -1.3),
+        spec_low_deg=None,
+        spec_high_deg=None,
+    )
     assert no_spec.state == ResultState.UNKNOWN
 
     print("normal caster regression: ok")
