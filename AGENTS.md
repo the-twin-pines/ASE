@@ -15,8 +15,9 @@ Before recommending an alignment adjustment, answer these questions from evidenc
 7. Which readings are direct instrument observations, which are reference corrections, and which are derived quantities?
 8. Was caster actually measured with a valid steering sweep using the required **actual road-wheel angle for each wheel**, or was a steering-wheel turn/ratio merely assumed?
 9. Does the caster procedure use the instrument's required sweep and sign convention? Are the two positions symmetric about the required reference, and were hysteresis and turn-plate freedom controlled?
-10. What does the actual suspension let you adjust, and which other angles move when that adjustment is made?
-11. What must be remeasured after the adjustment?
+10. Has every derived result passed the result-integrity gate: arithmetic, input transcription, geometry, vehicle plausibility, and independent cross-check?
+11. What does the actual suspension let you adjust, and which other angles move when that adjustment is made?
+12. What must be remeasured after the adjustment?
 
 If any prerequisite for a claimed quantity is missing, mark that quantity **UNKNOWN**. Do not fill a gap with a nominal specification, steering ratio, generic alignment lore, or a value from the other side.
 
@@ -32,6 +33,31 @@ Use these labels explicitly:
 
 Do not call all five categories “measurements.”
 
+## Result-integrity gate
+
+A numerically calculable result is not automatically a mechanically credible result. Before reporting a derived alignment value as usable, apply `notes/alignment-result-plausibility.md`.
+
+Every result must pass, in order:
+
+1. **Arithmetic consistency** — recompute from preserved raw observations.
+2. **Input consistency** — verify decimal point, sign, units, wheel, sweep position/direction, and transcription against the original record.
+3. **Geometric consistency** — verify that the formula, actual sweep, reference, and instrument procedure match the physical measurement.
+4. **Vehicle plausibility** — compare with exact service information and the scale of the real suspension/adjuster.
+5. **Cross-check consistency** — compare with the opposite side, repeat measurements, ride height, toe/thrust, SAI/included angle, or other independent constraints that actually apply.
+
+Use these control states: **IN-SPEC**, **OUT-OF-SPEC / BELIEVABLE**, **SUSPECT**, **INVALID**, **UNKNOWN**.
+
+`SUSPECT`, `INVALID`, and `UNKNOWN` stop adjustment advice. Do not soften them into “very out of spec.”
+
+Preserve every raw observation separately from corrected or derived values. Never overwrite a handwritten/photo reading with an inferred correction. Ambiguous source material remains ambiguous until re-read or remeasured.
+
+For the current Dakota corpus, a result around `+12°` caster is not accepted as an ordinary adjustment value merely because a formula generated it: it is many degrees outside the normal service/adjustment scale and must trigger the failed-result diagnostic tree. A tens-of-degrees result such as `+50°` must be rejected by the absurd-result tripwire.
+
+Run both alignment check scripts after changing equations, examples, thresholds, or result states:
+
+- `python3 scripts/check_alignment_math.py`
+- `python3 scripts/check_alignment_plausibility.py`
+
 ## Forbidden alignment shortcuts
 
 Do not:
@@ -40,6 +66,7 @@ Do not:
 - omit tire pressure, tire equivalence, ride height, wheel/runout, or mechanical inspection from the validity check;
 - infer four-corner level from a level across the hood, frame, bumper, one axle, or one pair of pads;
 - use a straight-ahead inclinometer reading as absolute camber when transverse pad slope is unknown;
+- insert a straight-ahead camber reading into the branch's two-position caster calculation;
 - call the difference of two unsupported caster estimates “cross-caster”;
 - convert steering-wheel degrees to individual road-wheel degrees with the nominal steering ratio and treat that as a caster sweep;
 - assume both front wheels turned the same angle; toe-out-on-turns/Ackermann and total toe make that unsafe;
@@ -47,6 +74,7 @@ Do not:
 - mix a digital gauge's 15° procedure with a vial gauge's 20° procedure;
 - claim physical floor slope “cancels” in caster merely because a constant camber-sensor zero cancels from a symmetric camber-difference formula;
 - treat a PSI-to-camber number as universal;
+- accept an arithmetically correct result that fails a vehicle-plausibility or cross-check gate;
 - infer a bent, worn, or adjustable component until setup error and unstable geometry have been separated from a real angle error;
 - replace vehicle-specific adjustment geometry with “always caster first” or “always camber first”;
 - finish toe before a coupled caster/camber adjustment is complete;
@@ -75,6 +103,8 @@ If spoken content is unavailable, say it is unavailable and use an inspectable a
 For alignment work, read:
 
 - `notes/alignment-measurement-validity.md`
+- `notes/alignment-result-plausibility.md`
 - `notes/alignment-measurement-checklist.md`
 - `sources/reviewed/alignment-measurement-sources.md`
+- `sources/reviewed/alignment-plausibility-sources.md`
 - the applicable vehicle service procedure

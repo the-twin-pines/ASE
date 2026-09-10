@@ -2,7 +2,7 @@
 
 Case review date: 2026-09-10
 
-This applies `alignment-measurement-validity.md` to the truck measurements recovered from the current working context and the photographed notebook. It deliberately does not fill missing measurements.
+This applies `alignment-measurement-validity.md` and `alignment-result-plausibility.md` to the truck measurements recovered from the current working context and photographed notebook. It deliberately does not fill missing measurements.
 
 ## Evidence presently available
 
@@ -17,6 +17,21 @@ This applies `alignment-measurement-validity.md` to the truck measurements recov
 - Exact LF/RF/LR/RR wheel-pad elevations have not been recovered.
 - A level placed across the truck body/hood does not establish the four contact patches are coplanar and does not provide a pad correction.
 - OEM ride-height measurements at the spindle/lower-control-arm-pivot datums have not been recovered.
+
+## Known reasoning failure that prompted this repair
+
+A recent caster calculation copied a handwritten camber observation of roughly `+0.5°` as `+5°`. With the other sweep observation and an assumed sweep, the decimal error propagated into a driver-side caster result near `+12°`. The arithmetic was then reported without a vehicle-plausibility stop.
+
+Treat this as a **reasoning regression case**, not as a new accepted truck measurement. The exact handwritten sweep data are not promoted here unless they can be reconstructed from the original artifact with unambiguous wheel/position labels and actual road-wheel angles.
+
+The failure had two independent layers:
+
+1. **input failure** — `0.5` became `5`, a factor-of-ten transcription error;
+2. **plausibility failure** — a result around `+12°` was accepted despite being many degrees away from the Dakota's ordinary service/adjustment scale.
+
+Either layer should have stopped the pipeline. The executable regression in `scripts/check_alignment_plausibility.py` deliberately recreates the same decimal-error shape: a synthetic `+0.5°/-1.3°` camber pair at a valid measured `±15°` sweep gives about `+3.47°`; copying `+0.5°` as `+5.0°` gives about `+11.98°`, which must be classified **SUSPECT** and sent back to the raw record.
+
+A tens-of-degrees caster result such as `+50°` is not to be described as merely very far out of specification. On an assembled stock Dakota it fails the physical/data-integrity gate and the calculation is **INVALID** pending investigation.
 
 ## Classification
 
@@ -63,7 +78,7 @@ A subtraction of two estimates made from the same unvalidated steering-wheel-tur
 - rear toe/thrust reference;
 - wheel/runout compensation;
 - exact installed tire size/model equivalence and placard PSI in the preserved case evidence;
-- current vehicle-specific caster/camber specifications for the exact variant.
+- current vehicle-specific caster/camber specification envelope for the exact variant.
 
 ## What equal tire pressure does and does not establish
 
@@ -86,13 +101,15 @@ No component is justified as “the” cause from the current notebook alone.
 
 ## Smallest measurements needed next
 
-1. Record LF/RF/LR/RR pad elevations from one common datum, including all six pairwise differences.
-2. Verify installed tire size/model/application at all four corners and exact cold placard pressure; pressure equality itself is already checked.
-3. Measure 2005 Dakota ride height by the service-manual spindle/lower-control-arm-pivot method on both sides.
-4. Roll/jounce/settle the truck on free turn/slip surfaces.
-5. Repeat straight-ahead camber with the gauge reference documented.
-6. For caster, measure **actual LF and actual RF road-wheel angles independently** at the instrument-prescribed symmetric sweep and record camber at each position. Do not substitute one steering-wheel revolution.
-7. Record rear toe/thrust or otherwise state the reference used by the caster/toe method.
+1. Preserve a photo/literal transcription of every caster-sweep observation with wheel and sweep-position labels; resolve any `0.5`/`5`, sign, or position ambiguity before calculation.
+2. Record LF/RF/LR/RR pad elevations from one common datum, including all six pairwise differences.
+3. Verify installed tire size/model/application at all four corners and exact cold placard pressure; pressure equality itself is already checked.
+4. Measure 2005 Dakota ride height by the service-manual spindle/lower-control-arm-pivot method on both sides.
+5. Roll/jounce/settle the truck on free turn/slip surfaces.
+6. Repeat straight-ahead camber with the gauge reference documented.
+7. For caster, measure **actual LF and actual RF road-wheel angles independently** at the instrument-prescribed symmetric sweep and record camber at each position. Do not substitute one steering-wheel revolution.
+8. Record rear toe/thrust or otherwise state the reference used by the caster/toe method.
+9. Verify the exact readable 2005 service specification table/variant before labeling any result **IN-SPEC**.
 
 Only then can the raw camber be corrected/qualified, individual caster be derived, and cross-caster become a meaningful quantity.
 
