@@ -46,19 +46,25 @@ Monroe's service guidance distinguishes acceptable light weepage from real leaka
 
 This is a useful correction to simplistic videos that say any visible oil means replacement.
 
-## Alignment is downstream of mechanical condition
+## Alignment is downstream of measurement validity
 
-Do not use an alignment rack to hide looseness, sag, or bent parts.
+Do not use an alignment rack or inclinometer to hide looseness, sag, tire force, or a bad reference surface.
 
-Before treating toe/camber/caster adjustment as the repair:
+Before treating caster/camber/toe adjustment as the repair, pass the complete gate in `alignment-measurement-validity.md` and record the field data in `alignment-measurement-checklist.md`.
 
-1. verify tire condition and pressure;
-2. inspect steering and suspension joints for looseness or binding;
-3. verify ride height when relevant;
-4. repair loose, worn, bent, or sagged components;
-5. then measure and adjust alignment.
+At minimum:
 
-Tie-rod replacement directly changes toe and normally calls for alignment. Control-arm, strut, knuckle, cradle, or ride-height changes can also alter alignment depending on architecture.
+1. verify tire application, pressure, wear/damage, and wheel/runout concerns;
+2. inspect steering/suspension for looseness or binding with the design-correct loading method;
+3. measure OEM ride height at its specified datum;
+4. survey all four wheel-contact/pad elevations, not one vague “level” reference;
+5. settle the suspension and establish the instrument/runout/turn-plate references;
+6. distinguish **RAW**, **REFERENCE-CORRECTED**, **DERIVED**, and **UNKNOWN** values;
+7. derive caster only from a valid instrument-specific, actual-per-wheel steering sweep;
+8. inspect the vehicle-specific adjustment geometry before prescribing movement;
+9. remeasure every angle that the chosen adjustment couples into; set toe last only where the vehicle procedure says it is final.
+
+Tie-rod replacement directly changes toe. Control-arm, strut, knuckle, cradle, or ride-height changes can also alter alignment depending on architecture. The direction and sequence of correction come from the actual suspension/service procedure, not a generic mnemonic.
 
 ## Separate free articulation from free play
 
@@ -78,8 +84,13 @@ When given a symptom, avoid dumping a parts list. A better response is:
 4. say what the test does **not** rule out;
 5. choose the next boundary if the first one is tight.
 
-Example structure:
+For alignment photographs, the equivalent answer shape is:
 
-> Rock the wheel while watching the outer tie-rod joint itself. If the knuckle changes direction before the tie rod takes up motion, that joint has play. If the tie rod follows immediately, keep the same input but watch the hub/knuckle and ball-joint/control-arm boundaries rather than replacing the tie rod because the wheel moved.
+1. transcribe only what is actually legible as **RAW**;
+2. state the setup/reference facts already known;
+3. state which displayed/raw values survive those setup uncertainties;
+4. mark unsupported corrections/derived quantities **UNKNOWN**;
+5. ask for the smallest missing measurement that makes the next inference valid;
+6. only then prescribe an adjustment.
 
-That is the kind of reasoning this branch should reinforce.
+That structure prevents a precise-looking number from outrunning its evidence.

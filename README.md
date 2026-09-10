@@ -8,19 +8,27 @@ The useful material here should make an assistant better at answering real suspe
 
 - `sources/reviewed/1a-auto-front-end-diagnosis.md` — transcript-reviewed videos covering ball-joint play, tie-rod play, wheel-bearing play/noise, sway-bar links, and shocks/struts.
 - `sources/reviewed/1a-auto-tires-alignment.md` — full transcript review of the 1A Auto tire video, including tire-pull and four-wheel-measurement material.
-- `notes/front-end-diagnostic-patterns.md` — reusable diagnostic lessons distilled from reviewed sources and cross-checks.
-- `notes/alignment-diagnostic-patterns.md` — detailed alignment reasoning: measurement conditions, frame angle, caster/camber/toe order, thrust line, SAI/included angle, ride height, bump steer, memory steer, tire pull, torque steer, DIY measurement limits, and diagnostic sequence.
-- `sources/alignment-video-audit.md` — accounting of every old branch video target plus the complete Hunter Alignment Angles catalog and additional Hunter procedure-video set found during the audit.
-- `sources/cross-checks.md` — inspectable manufacturer/training sources used to keep source demonstrations from turning into universal rules.
+- `sources/reviewed/alignment-measurement-sources.md` — inspected ASE, Dakota service, SAE caster, instrument, rack-setup, and tire-stiffness sources with source-status boundaries.
+- `notes/front-end-diagnostic-patterns.md` — reusable front-end diagnostic lessons.
+- `notes/alignment-diagnostic-patterns.md` — pull/SAI/thrust/bump-steer/memory-steer interpretation after the measurement gate; no generic camber/caster ordering rule.
+- `notes/alignment-measurement-validity.md` — validity-first alignment procedure, four-corner level model, caster derivation, quantitative tire-pressure sensitivity, and Dakota coupled adjustment geometry.
+- `notes/alignment-measurement-checklist.md` — field checklist that forces tire, ride-height, four-pad, raw/corrected/derived, and actual-per-wheel caster-sweep data to be recorded.
+- `notes/dakota-alignment-case.md` — application of the repaired method to the currently recovered 2005 Dakota notebook data without manufacturing caster/cross-caster.
+- `sources/alignment-video-audit.md` — accounting of every old branch video target plus the Hunter alignment catalogs found during the audit.
+- `sources/cross-checks.md` — source hierarchy and cross-checks that keep generic demonstrations from becoming universal rules.
+- `AGENTS.md` — alignment inference gate and diagnostic anti-patterns.
+- `scripts/check_alignment_math.py` — reproducible checks for the geometry and tire-pressure sensitivity numbers used in the notes.
 
 ## Acquisition queue
 
-- `sources/video-queue.md` — remaining OldSchoolNoe, Hunter, and other suspension/steering videos whose spoken material still needs acquisition. Video-page inspection is kept separate from transcript/spoken-content review.
+- `sources/video-queue.md` — OldSchoolNoe, Hunter, and other suspension/steering videos whose spoken material still needs acquisition. Video-page inspection is kept separate from transcript/spoken-content review.
 
-## Working rule
+## Working rules
 
 A wheel that moves when shaken is not yet a diagnosis. Watch the relevant parts while the load is applied and identify the **relative motion**: knuckle versus control arm, tie-rod stud/socket versus knuckle, rotor/hub versus knuckle, and so on.
 
-Likewise, do not turn a generic inspection trick into a universal procedure. Ball-joint loading and acceptable play depend on suspension design and service information; a light oil film on a shock/strut is not automatically the same thing as a failed leaking unit.
+An alignment number is also not yet a diagnosis. Before an adjustment prescription, establish tire/wheel condition and pressure, stable mechanical geometry, OEM ride height, four wheel-contact elevations, gauge/runout/turn-plate references, and the validity of every derived quantity.
 
-For alignment, establish tires, mechanical condition, ride height, load, and the relevant vehicle/frame reference before interpreting the numbers. On a total four-wheel alignment, rear geometry establishes the thrust reference; at the front, the working order is **caster → camber → toe**, subject to the vehicle-specific procedure and any coupled adjustments.
+Do not call a straight-ahead inclinometer reading “true camber” on an unknown transverse slope. Do not call anything “cross-caster” unless both individual caster values came from valid per-wheel sweeps.
+
+Do not hard-code a generic caster-versus-camber order. On the 2005 Dakota represented by the current case, both lower-control-arm pivots participate in a **coupled** caster/camber adjustment: rear-pivot motion is primarily a caster control, common front/rear motion is primarily a camber control, both angles must be remeasured as the cams are iterated, and toe is final.
