@@ -10,17 +10,20 @@ The useful material here should make an assistant better at answering real suspe
 - `sources/reviewed/1a-auto-tires-alignment.md` — full transcript review of the 1A Auto tire video, including tire-pull and four-wheel-measurement material.
 - `sources/reviewed/alignment-measurement-sources.md` — inspected ASE, Dakota service, SAE caster, instrument, rack-setup, and tire-stiffness sources with source-status boundaries.
 - `sources/reviewed/alignment-plausibility-sources.md` — sources used for the explicit result-integrity repair, including the 2005 Dakota alignment procedure/table, SAE caster geometry, Longacre sweep requirements, and the Dakota lower-control-arm adjustment scale.
+- [Gromov curvature source record](sources/reviewed/gromov-curvature-suspension.md) — primary-paper passages and Dakota mechanism sources behind the new mathematical cross-post; links back to Walnut/Burgundy, Coxeter, and Hopf-fibration reading guides.
 - `notes/front-end-diagnostic-patterns.md` — reusable front-end diagnostic lessons.
 - `notes/alignment-diagnostic-patterns.md` — pull/SAI/thrust/bump-steer/memory-steer interpretation after the measurement gate; no generic camber/caster ordering rule.
 - `notes/alignment-measurement-validity.md` — validity-first alignment procedure, four-corner level model, caster derivation, quantitative tire-pressure sensitivity, and Dakota coupled adjustment geometry.
 - `notes/alignment-result-plausibility.md` — mandatory arithmetic/input/geometry/vehicle/cross-check gate, failed-result diagnostic tree, sweep uncertainty, and deliberate bad-data regression examples.
 - `notes/alignment-measurement-checklist.md` — field worksheet that preserves immutable raw observations and forces every derived value through the result-integrity gate.
 - `notes/dakota-alignment-case.md` — application of the repaired method to the currently recovered 2005 Dakota notebook data without manufacturing caster/cross-caster.
+- [Dakota cam Jacobians and curvature](notes/dakota-cam-jacobian-curvature.md) — coupled compensation, eccentric parameterization, tangent/normal response, flatness versus path curvature, tolerance bands, and uncertainty; no measured truck calibration claimed.
 - `sources/alignment-video-audit.md` — accounting of every old branch video target plus the Hunter alignment catalogs found during the audit.
 - `sources/cross-checks.md` — source hierarchy and cross-checks that keep generic demonstrations from becoming universal rules.
 - `AGENTS.md` — alignment inference gate and diagnostic anti-patterns.
 - `scripts/check_alignment_math.py` — reproducible checks for the geometry and tire-pressure sensitivity numbers used in the notes.
 - `scripts/check_alignment_plausibility.py` — regression checks proving decimal, sign, direction, sweep, missing-spec, and absurd-result failures stop before adjustment advice.
+- [Cam-response geometry checks](scripts/check_cam_jacobian_curvature.py) — synthetic compensation, flat-metric/curved-path, eccentric-speed, normal-offset, and finite-difference examples; not vehicle measurements.
 
 ## Acquisition queue
 
