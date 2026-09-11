@@ -40,3 +40,10 @@ A derived angle must also be mechanically credible. Recompute it from preserved 
 Do not call a straight-ahead inclinometer reading “true camber” on an unknown transverse slope. Do not call anything “cross-caster” unless both individual caster values came from valid per-wheel sweeps and passed the plausibility gate.
 
 Do not hard-code a generic caster-versus-camber order. On the 2005 Dakota represented by the current case, both lower-control-arm pivots participate in a **coupled** caster/camber adjustment: rear-pivot motion is primarily a caster control, common front/rear motion is primarily a camber control, both angles must be remeasured as the cams are iterated, and toe is final.
+
+## Cross-repository response-map notes
+
+[Suspension response: geometry, identification, and linked notes](notes/suspension-response-cross-repository.md)
+connects the existing Dakota derivation to Econometrician in a Box, Fulton, and
+Coxeter, and records the proposed observation/identification evidence. This is a
+documentation cross-post, not new vehicle measurements or an adjustment prescription.
