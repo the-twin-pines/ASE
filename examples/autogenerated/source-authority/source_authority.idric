@@ -1,0 +1,16 @@
+module SourceAuthority
+
+choice review_state one_of
+  metadata_only
+  captions_acquired
+  partial_review
+  scoped_review
+
+eligible : review_state → Bool
+eligible metadata_only = False
+eligible captions_acquired = False
+eligible partial_review = False
+eligible scoped_review = True
+
+main : IO ()
+main = printLn (eligible captions_acquired)

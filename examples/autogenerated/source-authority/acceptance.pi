@@ -1,0 +1,148 @@
+from pathlib import Path
+from typing import Any
+from builtins import list, dict, len
+import subprocess
+import tempfile
+import shutil
+import sys
+import ase
+
+catalog_fields ∈ list[str] ← ["source_id", "path", "status", "scope", "citation", "edition", "location", "eligible", "sha256", "authority"]
+passage_fields ∈ list[str] ← ["passage_id", "source_ids", "scope", "path", "sha256", "status", "citation"]
+
+def require(condition ∈ bool, message ∈ str) → None:
+    if condition == False:
+        sys.exit("FAIL: " + message)
+    print("PASS: " + message)
+
+def copy_fixture(root ∈ Path) → Path:
+    temporary ∈ Path ← Path(tempfile.mkdtemp(prefix="ase-negative-"))
+    destination ∈ Path ← temporary.joinpath("ASE")
+    shutil.copytree(root, destination, ignore=shutil.ignore_patterns(".git", "_ithon", "__pycache__"))
+    return destination
+
+def rejected(root ∈ Path, expected ∈ str) → None:
+    errors ∈ list[str] ← ase.validate(root)
+    joined ∈ str ← " | ".join(errors)
+    found ∈ bool ← expected in joined
+    require(found, "negative mutation rejected: " + expected)
+    shutil.rmtree(root.parent)
+
+def run(root ∈ Path) → None:
+    original ∈ list[str] ← ase.validate(root)
+    original_count ∈ int ← ase.count(original)
+    require(original_count == 0, "unmutated source admission")
+    bad ∈ Path ← copy_fixture(root)
+    rows ∈ list[dict] ← ase.table(bad, "sources/catalog.tsv")
+    row ∈ dict ← rows.__getitem__(0)
+    row.update(dict(status="transcript-reviewed", eligible="true"))
+    ase.save_table(bad, "sources/catalog.tsv", catalog_fields, rows)
+    rejected(bad, "review receipt mismatch")
+    bad ∈ Path ← copy_fixture(root)
+    rows ∈ list[dict] ← ase.table(bad, "sources/catalog.tsv")
+    rows.append(dict(rows.__getitem__(0)))
+    ase.save_table(bad, "sources/catalog.tsv", catalog_fields, rows)
+    rejected(bad, "duplicate canonical source ID")
+    bad ∈ Path ← copy_fixture(root)
+    rows ∈ list[dict] ← ase.table(bad, "sources/catalog.tsv")
+    doc ∈ dict ← ase.find(rows, "source_id", "trw-1250-2002")
+    doc.update(dict(status="partial"))
+    ase.save_table(bad, "sources/catalog.tsv", catalog_fields, rows)
+    rejected(bad, "unreviewed/partial source promoted")
+    bad ∈ Path ← copy_fixture(root)
+    passage_rows ∈ list[dict] ← ase.table(bad, "sources/passages.tsv")
+    passage ∈ dict ← passage_rows.__getitem__(0)
+    source_path ∈ str ← ase.field(passage, "path")
+    copied ∈ Path ← bad.joinpath("tests/approved-looking.md")
+    copied.write_bytes(bad.joinpath(source_path).read_bytes())
+    passage.update(dict(path="tests/approved-looking.md"))
+    ase.save_table(bad, "sources/passages.tsv", passage_fields, passage_rows)
+    rejected(bad, "excluded or missing passage path")
+    bad ∈ Path ← copy_fixture(root)
+    passage_rows ∈ list[dict] ← ase.table(bad, "sources/passages.tsv")
+    passage ∈ dict ← passage_rows.__getitem__(0)
+    original_path ∈ Path ← bad.joinpath(ase.field(passage, "path"))
+    content ∈ bytes ← original_path.read_bytes()
+    original_path.unlink()
+    bad.joinpath("tests/alias-target.md").write_bytes(content)
+    original_path.symlink_to(bad.joinpath("tests/alias-target.md"))
+    rejected(bad, "excluded or missing passage path")
+    bad ∈ Path ← copy_fixture(root)
+    bad.joinpath("sources/passages/torque-conflict.md").write_text("invented final torque")
+    rejected(bad, "passage digest mismatch")
+    bad ∈ Path ← copy_fixture(root)
+    bad.joinpath("sources/reviewed/power-steering-review.md").write_text("unsupported blanket review")
+    rejected(bad, "review note digest mismatch")
+    bad ∈ Path ← copy_fixture(root)
+    videos ∈ list[Path] ← list(bad.joinpath("sources/videos").glob("youtube-*.md"))
+    video ∈ Path ← videos.__getitem__(0)
+    text ∈ str ← video.read_text()
+    video.write_text(text.replace('"positions": [', '"positions": [999,', 1))
+    result ∈ Any ← subprocess.run(["python3", str(bad.joinpath("check_sources.py"))], capture_output=True, text=True)
+    output ∈ str ← result.stdout
+    code ∈ int ← result.returncode
+    require(code != 0, "broken playlist membership exits nonzero")
+    membership_found ∈ bool ← "membership/positions disagree" in output
+    require(membership_found, "broken playlist rejected for intended reason")
+    shutil.rmtree(bad.parent)
+    ref ∈ str ← "2ec8f4a9ae24a1cc68e4b67d14710b15ca22e71b"
+    paths ∈ list[str] ← subprocess.check_output(["git", "-C", str(root), "ls-tree", "-r", "--name-only", ref], text=True).splitlines()
+    preserved ∈ int ← 0
+    for path in paths:
+        if path != "README.md":
+            destination ∈ str ← path
+            if path == "AGENTS.md":
+                destination ← "notes/AGENTS.md"
+            expected ∈ bytes ← subprocess.check_output(["git", "-C", str(root), "show", ref + ":" + path])
+            actual ∈ bytes ← root.joinpath(destination).read_bytes()
+            if expected != actual:
+                sys.exit("FAIL: A4 copy changed " + path)
+            preserved ← preserved + 1
+    print("PASS: {} pinned A4 files byte-identical".format(preserved))
+    request ∈ dict ← dict(vehicle="FICTIONAL-CAR", year="2099", drive="4WD", configuration="fictional-fixture", component="fixture arm", point="fixture cam bolt", operation="fixture adjustment", load="fixture loaded", kind="torque")
+    record ∈ dict ← dict(request)
+    record.update(dict(state="VERIFIED-FOR-EXACT-PROCEDURE", value="100", unit="N.m", converted_value="73.76", converted_unit="ft-lb", authority="fictional-test-only", source_id="fixture", edition="fictional 2099", location="fictional p1", citation="urn:ase:fictional-not-a-car-spec", review_basis="test only", reviewed_at="2099-01-01", conflicts="none"))
+    receipts ∈ list[dict] ← []
+    catalog ∈ list[dict] ← ase.table(root, "sources/catalog.tsv")
+    decision ∈ str ← ase.specification(request, record, receipts, catalog, root, True)
+    require(decision == "VERIFIED-FOR-EXACT-PROCEDURE", "fictional exact-match positive fixture only")
+    composed ∈ str ← ase.compose(request, record, receipts, catalog, root)
+    fictional_rejected ∈ bool ← composed.startswith("STOP:")
+    require(fictional_rejected, "real composition rejects fictional authority")
+    for label in ["drive", "configuration", "operation", "load", "point", "kind"]:
+        variant ∈ dict ← dict(record)
+        variant.update(dict.fromkeys([label], "different"))
+        decision ∈ str ← ase.specification(request, variant, receipts, catalog, root, True)
+        mismatch ∈ bool ← "procedure mismatch" in decision
+        require(mismatch, "spec mismatch: " + label)
+    variant ∈ dict ← dict(record)
+    variant.update(dict(conflicts="110;150;180", state="VERIFIED-FOR-EXACT-PROCEDURE"))
+    decision ∈ str ← ase.specification(request, variant, receipts, catalog, root, True)
+    require(decision == "CONFLICTING", "conflicting Dakota candidates cannot be promoted by relabeling state")
+    allowed ∈ bool ← ase.answer_allowed("Tighten the Dakota cam bolt to 150 ft-lb.", request, variant, receipts, catalog, root)
+    require(allowed == False, "deliberately broken numeric composition rejected")
+    variant ∈ dict ← dict(record)
+    variant.update(dict(authority="secondary-mirror"))
+    decision ∈ str ← ase.specification(request, variant, receipts, catalog, root, True)
+    require(decision == "UNKNOWN: unsupported authority", "correct conversion cannot verify unsupported source")
+    variant ∈ dict ← dict(record)
+    variant.update(dict(edition="UNKNOWN"))
+    decision ∈ str ← ase.specification(request, variant, receipts, catalog, root, True)
+    require(decision == "UNKNOWN: missing provenance edition", "missing edition rejected")
+    variant ∈ dict ← dict(record)
+    variant.update(dict(location="UNKNOWN"))
+    decision ∈ str ← ase.specification(request, variant, receipts, catalog, root, True)
+    require(decision == "UNKNOWN: missing provenance location", "missing page/section rejected")
+    variant ∈ dict ← dict(record)
+    variant.update(dict(converted_value="150"))
+    decision ∈ str ← ase.specification(request, variant, receipts, catalog, root, True)
+    require(decision == "UNKNOWN: conversion mismatch", "wrong unit conversion rejected")
+    variant ∈ dict ← dict(record)
+    variant.update(dict(value="NaN"))
+    decision ∈ str ← ase.specification(request, variant, receipts, catalog, root, True)
+    require(decision == "UNKNOWN: invalid numeric value", "non-finite number rejected")
+    variant ∈ dict ← dict(record)
+    variant.update(dict(authority="OEM"))
+    decision ∈ str ← ase.specification(request, variant, receipts, catalog, root, False)
+    require(decision == "UNKNOWN: no current exact-procedure review receipt", "invented OEM provenance cannot approve a spec")
+    print("PASS: structural source/spec fixtures; no model answer or physical acceptance")

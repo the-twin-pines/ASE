@@ -1,0 +1,410 @@
+{
+  "source_kind": "playlist",
+  "platform": "youtube",
+  "playlist_id": "PLsL28no_u_qTMnCGZzthq88dzpxOuThHm",
+  "playlist_title": "ASE ENGINES A1",
+  "url": "https://www.youtube.com/playlist?list=PLsL28no_u_qTMnCGZzthq88dzpxOuThHm",
+  "snapshot": {
+    "entry_count": 26,
+    "unique_video_count": 26,
+    "metadata_commit": "803ccc4589cac6429072c0198db8f6545cebc581",
+    "merged_at": "2026-09-05"
+  },
+  "conversion_status": {
+    "atomic_records_created": 26,
+    "individual_passes_complete_at_conversion": 0,
+    "synthesis_status": "blocked"
+  },
+  "entries": [
+    {
+      "positions": [
+        1
+      ],
+      "video_id": "mB9ta-By88M",
+      "record": "../videos/youtube-mB9ta-By88M.md",
+      "title": "Inspecting Parts For The Home Engine Rebuilder",
+      "channel": "Uncle Tony's Garage",
+      "duration": "17:59",
+      "coverage": "a1-engine-repair",
+      "title_based_topic_hints": [
+        "inspection-measurement-blueprinting"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        2
+      ],
+      "video_id": "gemBQAsdfkc",
+      "record": "../videos/youtube-gemBQAsdfkc.md",
+      "title": "Blueprinting For The Home Engine Builder - How To Get The Most From The Parts You Already Have",
+      "channel": "Uncle Tony's Garage",
+      "duration": "13:51",
+      "coverage": "a1-engine-repair",
+      "title_based_topic_hints": [
+        "inspection-measurement-blueprinting"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        3
+      ],
+      "video_id": "syyJEaxHEck",
+      "record": "../videos/youtube-syyJEaxHEck.md",
+      "title": "How To Get A Beautiful, Long Lasting Paint Job On Your Engine For One Dollar",
+      "channel": "Uncle Tony's Garage",
+      "duration": "17:13",
+      "coverage": "a1-engine-repair",
+      "title_based_topic_hints": [
+        "gaskets-assembly-rebuild"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        4
+      ],
+      "video_id": "unwAKlCdyas",
+      "record": "../videos/youtube-unwAKlCdyas.md",
+      "title": "Your First Engine Job - Checking Cylinder Bores For Roundness And Taper Using An Old Piston Ring",
+      "channel": "Uncle Tony's Garage",
+      "duration": "21:34",
+      "coverage": "a1-engine-repair",
+      "title_based_topic_hints": [
+        "inspection-measurement-blueprinting"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        5
+      ],
+      "video_id": "Q0N-f7J36HE",
+      "record": "../videos/youtube-Q0N-f7J36HE.md",
+      "title": "Installing a piston into a cylinder",
+      "channel": "Justin Miller",
+      "duration": "4:57",
+      "coverage": "a1-engine-repair",
+      "title_based_topic_hints": [
+        "pistons-rings-rods-cylinders"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        6
+      ],
+      "video_id": "pzjjB7EcuE0",
+      "record": "../videos/youtube-pzjjB7EcuE0.md",
+      "title": "Installing Pistons and Connecting Rod Assemblies (Engine Building 101)",
+      "channel": "Summit Racing",
+      "duration": "8:37",
+      "coverage": "a1-engine-repair",
+      "title_based_topic_hints": [
+        "pistons-rings-rods-cylinders"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        7
+      ],
+      "video_id": "QUX76rwzBTc",
+      "record": "../videos/youtube-QUX76rwzBTc.md",
+      "title": "Swapping Pressed Pistons For The Home Engine Builder",
+      "channel": "Uncle Tony's Garage",
+      "duration": "9:45",
+      "coverage": "a1-engine-repair",
+      "title_based_topic_hints": [
+        "pistons-rings-rods-cylinders"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        8
+      ],
+      "video_id": "3uvc5v4ssJM",
+      "record": "../videos/youtube-3uvc5v4ssJM.md",
+      "title": "The CAR WIZARD Shares Top 10 Issues with LS Truck Engine",
+      "channel": "Car Wizard",
+      "duration": "11:13",
+      "coverage": "a1-engine-repair",
+      "title_based_topic_hints": [
+        "general-design-diagnosis-crankcase"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        9
+      ],
+      "video_id": "wSn2YGY4rCY",
+      "record": "../videos/youtube-wSn2YGY4rCY.md",
+      "title": "Head Gaskets - Myths Busted, History And Types For The Home Engine Builder",
+      "channel": "Uncle Tony's Garage",
+      "duration": "16:59",
+      "coverage": "a1-engine-repair",
+      "title_based_topic_hints": [
+        "gaskets-assembly-rebuild"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        10
+      ],
+      "video_id": "p5OMLjjts1c",
+      "record": "../videos/youtube-p5OMLjjts1c.md",
+      "title": "Everything You Need To Know About Edelbrock Carbs In A Minute",
+      "channel": "Uncle Tony's Garage",
+      "duration": "1:03",
+      "coverage": "a1-engine-repair",
+      "title_based_topic_hints": [
+        "adjacent-cross-area"
+      ],
+      "relevance_status": "boundary-review"
+    },
+    {
+      "positions": [
+        11
+      ],
+      "video_id": "QUubgWPLctk",
+      "record": "../videos/youtube-QUubgWPLctk.md",
+      "title": "Carburetor Rebuilding Trick For Beginners",
+      "channel": "Uncle Tony's Garage",
+      "duration": "3:18",
+      "coverage": "a1-engine-repair",
+      "title_based_topic_hints": [
+        "adjacent-cross-area"
+      ],
+      "relevance_status": "boundary-review"
+    },
+    {
+      "positions": [
+        12
+      ],
+      "video_id": "0m-nBL2N8l4",
+      "record": "../videos/youtube-0m-nBL2N8l4.md",
+      "title": "2002 Dodge Dakota 4.7L V8 Engine Rebuild (Part 4)",
+      "channel": "Mechanical Mike",
+      "duration": "11:51",
+      "coverage": "a1-engine-repair",
+      "title_based_topic_hints": [
+        "gaskets-assembly-rebuild"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        13
+      ],
+      "video_id": "X3Crh_URvrk",
+      "record": "../videos/youtube-X3Crh_URvrk.md",
+      "title": "Honing For The Home Engine Builder",
+      "channel": "Uncle Tony's Garage",
+      "duration": "8:16",
+      "coverage": "a1-engine-repair",
+      "title_based_topic_hints": [
+        "inspection-measurement-blueprinting"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        14
+      ],
+      "video_id": "qQJ6LCOSvmI",
+      "record": "../videos/youtube-qQJ6LCOSvmI.md",
+      "title": "Your First Engine Job - Honing For Crosshatch And Choosing The Right Stones For Your Rings",
+      "channel": "Uncle Tony's Garage",
+      "duration": "17:26",
+      "coverage": "a1-engine-repair",
+      "title_based_topic_hints": [
+        "inspection-measurement-blueprinting"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        15
+      ],
+      "video_id": "sxtFoODc9vw",
+      "record": "../videos/youtube-sxtFoODc9vw.md",
+      "title": "Nothing Is Ever Simple! Deep Piston Ring Knowledge For The Home Engine Builder",
+      "channel": "Uncle Tony's Garage",
+      "duration": "25:42",
+      "coverage": "a1-engine-repair",
+      "title_based_topic_hints": [
+        "pistons-rings-rods-cylinders"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        16
+      ],
+      "video_id": "H9LYrjbFj6I",
+      "record": "../videos/youtube-H9LYrjbFj6I.md",
+      "title": "Piston Rings: Types, Gapping, Prep And Break-In For The Home Engine Builder",
+      "channel": "Uncle Tony's Garage",
+      "duration": "29:41",
+      "coverage": "a1-engine-repair",
+      "title_based_topic_hints": [
+        "pistons-rings-rods-cylinders"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        17
+      ],
+      "video_id": "lv9YjOHAh_0",
+      "record": "../videos/youtube-lv9YjOHAh_0.md",
+      "title": "Weak Acceleration? Rough Idle? Diagnose a Car or Truck Throttle Body! #shorts",
+      "channel": "1A Auto: Repair Tips & Secrets Only Mechanics Know",
+      "duration": "0:59",
+      "coverage": "a1-engine-repair",
+      "title_based_topic_hints": [
+        "adjacent-cross-area"
+      ],
+      "relevance_status": "boundary-review"
+    },
+    {
+      "positions": [
+        18
+      ],
+      "video_id": "rYnXOYkwAdw",
+      "record": "../videos/youtube-rYnXOYkwAdw.md",
+      "title": "Build An Engine. Or Just Watch Me Do It. Whatever.",
+      "channel": "SuperfastMatt",
+      "duration": "17:15",
+      "coverage": "a1-engine-repair",
+      "title_based_topic_hints": [
+        "gaskets-assembly-rebuild"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        19
+      ],
+      "video_id": "qyVHzJ40JqM",
+      "record": "../videos/youtube-qyVHzJ40JqM.md",
+      "title": "The Secret Life of the Engine - remastered",
+      "channel": "tim hunkin",
+      "duration": "31:37",
+      "coverage": "a1-engine-repair",
+      "title_based_topic_hints": [
+        "general-design-diagnosis-crankcase"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        20
+      ],
+      "video_id": "KnUFH5GX_fI",
+      "record": "../videos/youtube-KnUFH5GX_fI.md",
+      "title": "Nobody understands the point of hybrid cars",
+      "channel": "Technology Connections",
+      "duration": "55:51",
+      "coverage": "a1-engine-repair",
+      "title_based_topic_hints": [
+        "adjacent-cross-area"
+      ],
+      "relevance_status": "boundary-review"
+    },
+    {
+      "positions": [
+        21
+      ],
+      "video_id": "-SunMqEV-kE",
+      "record": "../videos/youtube--SunMqEV-kE.md",
+      "title": "One Man, On The Floor Transmission Install- So Easy Even An Old, Crippled Guy Can Do It",
+      "channel": "Uncle Tony's Garage",
+      "duration": "9:06",
+      "coverage": "a1-engine-repair",
+      "title_based_topic_hints": [
+        "adjacent-cross-area"
+      ],
+      "relevance_status": "boundary-review"
+    },
+    {
+      "positions": [
+        22
+      ],
+      "video_id": "s4moCCh2zDE",
+      "record": "../videos/youtube-s4moCCh2zDE.md",
+      "title": "I Was Fixing a Fuel Tank - It Did Not Go Well",
+      "channel": "Watch Wes Work",
+      "duration": "38:46",
+      "coverage": "a1-engine-repair",
+      "title_based_topic_hints": [
+        "adjacent-cross-area"
+      ],
+      "relevance_status": "boundary-review"
+    },
+    {
+      "positions": [
+        23
+      ],
+      "video_id": "rxRyxD8-tyM",
+      "record": "../videos/youtube-rxRyxD8-tyM.md",
+      "title": "I Bought a Broken Portable Welder - Can I Fix It? | Miller Bluestar 2E Part 1",
+      "channel": "Watch Wes Work",
+      "duration": "32:51",
+      "coverage": "a1-engine-repair",
+      "title_based_topic_hints": [
+        "adjacent-cross-area"
+      ],
+      "relevance_status": "boundary-review"
+    },
+    {
+      "positions": [
+        24
+      ],
+      "video_id": "vnkm0Dvn_Ys",
+      "record": "../videos/youtube-vnkm0Dvn_Ys.md",
+      "title": "We Solved The Misfire",
+      "channel": "Brilliant Auto Care",
+      "duration": "0:59",
+      "coverage": "a1-engine-repair",
+      "title_based_topic_hints": [
+        "general-design-diagnosis-crankcase"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        25
+      ],
+      "video_id": "sAHuBJ6tOUc",
+      "record": "../videos/youtube-sAHuBJ6tOUc.md",
+      "title": "The Wonder Of Positive Crankcase Ventilation",
+      "channel": "Uncle Tony's Garage",
+      "duration": "11:48",
+      "coverage": "a1-engine-repair",
+      "title_based_topic_hints": [
+        "general-design-diagnosis-crankcase"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        26
+      ],
+      "video_id": "CWuOrHAEr-k",
+      "record": "../videos/youtube-CWuOrHAEr-k.md",
+      "title": "Small Block and Big Block Engines Explained | Tech Talk",
+      "channel": "CJ Pony Parts",
+      "duration": "7:29",
+      "coverage": "a1-engine-repair",
+      "title_based_topic_hints": [
+        "general-design-diagnosis-crankcase"
+      ],
+      "relevance_status": "active"
+    }
+  ]
+}

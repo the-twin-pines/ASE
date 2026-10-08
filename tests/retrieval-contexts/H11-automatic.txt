@@ -1,0 +1,53 @@
+Diagnose cautiously. Identify system and competing hypotheses; choose the next discriminating test and interpret possible outcomes. Distinguish evidence from unknowns. Cite only evidence actually available. No final numeric specification or hazardous procedure without exact service authority.
+
+Question: A bubble level across the hood is level. Can I trust the camber without four wheel-pad heights?
+
+ID=alignment-integrity SOURCES=a4-measurement-note;a4-front-end-note STATUS=scoped-reviewed-paraphrase-with-labeled-inference SCOPE=qualitative validity and component-localization boundaries only CITATION=https://github.com/the-twin-pines/ASE/blob/2ec8f4a9ae24a1cc68e4b67d14710b15ca22e71b/sources/reviewed/alignment-measurement-sources.md, A4 2ec8f4a9ae24a1cc68e4b67d14710b15ca22e71b, entire review note; qualitative setup/measurement boundaries; https://github.com/the-twin-pines/ASE/blob/2ec8f4a9ae24a1cc68e4b67d14710b15ca22e71b/sources/reviewed/1a-auto-front-end-diagnosis.md, A4 2ec8f4a9ae24a1cc68e4b67d14710b15ca22e71b, entire note; relative motion versus shake position SHA256=ab60d397a58460f6357295e5b4833f6f3c6db32944967ec15d465b3244948463
+
+# Caster and camber require valid measurements
+
+Sources: a4-measurement-note and a4-front-end-note, pinned historical reviews.
+Preserve RAW readings separately from reference corrections and DERIVED results.
+Confirm tire equivalence/pressure, mechanical condition, exact ride-height datum,
+four wheel-pad elevations and the instrument's own actual road-wheel sweep.
+One bubble level or a steering-wheel turn/nominal ratio cannot establish those
+conditions. Constant gauge-zero cancellation does not prove physical floor slope
+cancels. Check arithmetic, transcription, geometry, vehicle plausibility and
+independent consistency. SUSPECT, INVALID and UNKNOWN stop adjustment advice.
+
+The existing Dakota observations and unmeasured cam-Jacobian remain in notes/.
+Passing arithmetic tests does not establish accepted truck alignment or a verified
+torque. Do not diagnose a ball joint solely from 12-and-6 tire movement.
+
+
+ID=torque-conflict SOURCES=dakota-conflict-issue STATUS=scoped-reviewed-paraphrase-with-labeled-inference SCOPE=unresolved Dakota conflict; no numeric prescription CITATION=https://github.com/the-twin-pines/ASE/issues/6, original issue inspected 2026-10-08, full incident and acceptance requirements SHA256=92d0237379fc714832be64a2654b73ae40c37c32ce27c2bcc80463d1b9682543
+
+# Dakota cam-bolt torque remains unresolved
+
+Source dakota-conflict-issue, original issue 6. The recorded 110/150/180 ft-lb
+candidates are incident evidence, not recommendations. Stop numerical composition
+until exact vehicle/VIN/drive/configuration, front/rear pivot fastener, service
+operation, hardware condition and tightening/load state match current identified
+OEM or licensed service information with edition, page/section and review receipt.
+Alignment adjustment and arm installation can be different procedures. Readable
+primary service evidence must explain why each conflicting candidate does or does
+not apply; voting among mirrors or unit conversion cannot settle the conflict.
+
+This work implements that stop. It does not determine the correct Dakota torque.
+
+
+ID=steering-idle-effort SOURCES=trw-1250-2002 STATUS=scoped-reviewed-paraphrase-with-labeled-inference SCOPE=synthetic engine-driven hydraulic trace; no car specification CITATION=https://www.trwaftermarket.com/globalassets/na/trucksteering---literature/other-manuals/other-manuals-sm/trw1250.pdf, TRW 1250 copyright 2002, Notice/introduction/charts; tests 3/5/7-10/17-19/21 SHA256=a4210e68a14e45a209275597263f962fca9b34604ecdc4d2ed81d3636b2c5acc
+
+# Heavy parking steering that improves with engine speed
+
+Synthetic trace, engine-driven hydraulic system only; source trw-1250-2002,
+test 5. Sequence: confirm architecture; record cold/hot, idle/moving and engine-
+speed behavior; inspect fluid/drive and tire/load conditions. Competing hypotheses:
+insufficient pump delivery versus excessive load/gear leakage. Next discriminator:
+technician comparison of pump flow and relief performance under the applicable
+service conditions. Deficient supply raises pump/drive/feed suspicion; adequate
+supply moves attention downstream. RPM improvement alone does not prove a worn
+pump. Do not transfer the commercial manual's numbers to a car.
+
+Planned post-repair check: repeat the original symptom and approved hydraulic
+measurements; inspect leakage/level after reassembly. Result: NOT_RUN.

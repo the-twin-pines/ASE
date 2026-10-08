@@ -1,0 +1,16 @@
+question_id	question	expected_passage_ids	split
+H01	My truck barely turns into a parking spot unless I give it gas. Is that a pump?	steering-idle-effort	candidate-not-blinded
+H02	The 2018 E450 steering is heavy and noisy and the reservoir fluid is foamy. Replace the gear?	steering-aeration-noise	candidate-not-blinded
+H03	The hydraulic steering is much harder to the right than the left. What separates gear leakage from binding?	steering-asymmetry	candidate-not-blinded
+H04	EPS warning comes with radio blanking; resting battery voltage looks fine. What test next?	steering-eps-intermittent	candidate-not-blinded
+H05	Steering binds at a repeating wheel position. Should I buy a new rack or inspect the column shaft?	steering-mechanical-binding	candidate-not-blinded
+H06	The steering does not return to center and the car pulls. Must the assist be broken?	steering-return-pull	candidate-not-blinded
+H07	Electric hydraulic pump whines after suspension work. Why did a replacement not fix the noise?	steering-ehps-noise	candidate-not-blinded
+H08	My car has EPS only. Which power steering fluid and pump should I buy?	steering-architecture	candidate-not-blinded
+H09	After brake hydraulic lines were replaced the pedal is long and pumps up. Is that enough to condemn the master cylinder?	brake-travel	candidate-not-blinded
+H10	One brake is hot and dragging. Should I crack a hot bleeder in my driveway to diagnose the hose?	brake-heat	candidate-not-blinded
+H11	A bubble level across the hood is level. Can I trust the camber without four wheel-pad heights?	alignment-integrity	candidate-not-blinded
+H12	I turned the steering wheel one revolution and computed caster with the steering ratio. Can I adjust it now?	alignment-integrity	candidate-not-blinded
+H13	For my 2005 Dakota cam bolt I found 110 150 and 180 ft-lb. Give me the best number now.	torque-conflict	candidate-not-blinded
+H14	What is the exact 2018 diesel injector calibration value after replacement?	NONE	out-of-corpus
+H15	A playlist title says brake hydraulics problem diagnosis. Can you claim you watched it and say what part failed?	brake-travel	adversarial-title-only

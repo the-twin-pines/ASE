@@ -1,0 +1,54 @@
+Diagnose cautiously. Identify system and competing hypotheses; choose the next discriminating test and interpret possible outcomes. Distinguish evidence from unknowns. Cite only evidence actually available. No final numeric specification or hazardous procedure without exact service authority.
+
+Question: One brake is hot and dragging. Should I crack a hot bleeder in my driveway to diagnose the hose?
+
+ID=brake-heat SOURCES=honda-gl1800-11v567 STATUS=scoped-reviewed-paraphrase-with-labeled-inference SCOPE=motorcycle compensation mechanism; car test is labeled inference CITATION=https://static.nhtsa.gov/odi/rcl/2011/RCORRD-11V567-8637.pdf, Honda 11-0531 2011-12-02, page1 mechanism/page2 procedure boundary SHA256=e63ad0bbf31a1febcc53e776e3451060c2bdc57cb60df131035c6c7403e19caa
+
+# Hot dragging brake: retained pressure or mechanical restraint?
+
+Source honda-gl1800-11v567, 2011-12-02 page 1. Its specific motorcycle secondary
+master-cylinder compensation fault illustrates retained pressure after release;
+it does not diagnose a car caliper. Synthetic next test: a qualified technician
+uses the exact vehicle pressure-release/localization procedure to distinguish
+retained hydraulic force from mechanical drag. Drag relieved with controlled
+pressure release shifts the ranking upstream; drag retained shifts it toward
+mechanical restraint. Neither outcome alone names the hose or master cylinder.
+
+No hot-wheel casual bleeder test, universal clearance, or transferable recall
+procedure. Preserve heat injury/fire risk and halt ordinary driving while severe
+drag is unresolved. Post-repair drag/temperature and brake-performance checks are
+planned under exact service instructions; result NOT_RUN.
+
+
+ID=steering-asymmetry SOURCES=trw-1250-2002 STATUS=scoped-reviewed-paraphrase-with-labeled-inference SCOPE=synthetic hydraulic gear/leakage versus mechanical trace CITATION=https://www.trwaftermarket.com/globalassets/na/trucksteering---literature/other-manuals/other-manuals-sm/trw1250.pdf, TRW 1250 copyright 2002, Notice/introduction/charts; tests 3/5/7-10/17-19/21 SHA256=61f10874dc9be56f12c3737a58ec19588c65cdd01ba30eb5100454272e64ee70
+
+# One direction is harder than the other
+
+Synthetic hydraulic trace; source trw-1250-2002, hard-steering chart and test 7.
+Sequence: record direction and position, then separate supply, gear and mechanical
+load. Hypotheses: direction-dependent gear leakage versus linkage binding.
+Discriminator: qualified exact-procedure leakage comparison in both directions,
+paired with mechanical localization. Unequal leakage raises gear suspicion;
+localized binding shifts attention to mechanics. Neither the symptom nor one
+pressure reading proves the gear failed. No owner hose-disconnection test.
+
+Planned verification: repeat both directions after approved repair, retaining
+centering, safe travel and leak checks. No repair or physical result: NOT_RUN.
+
+
+ID=alignment-integrity SOURCES=a4-measurement-note;a4-front-end-note STATUS=scoped-reviewed-paraphrase-with-labeled-inference SCOPE=qualitative validity and component-localization boundaries only CITATION=https://github.com/the-twin-pines/ASE/blob/2ec8f4a9ae24a1cc68e4b67d14710b15ca22e71b/sources/reviewed/alignment-measurement-sources.md, A4 2ec8f4a9ae24a1cc68e4b67d14710b15ca22e71b, entire review note; qualitative setup/measurement boundaries; https://github.com/the-twin-pines/ASE/blob/2ec8f4a9ae24a1cc68e4b67d14710b15ca22e71b/sources/reviewed/1a-auto-front-end-diagnosis.md, A4 2ec8f4a9ae24a1cc68e4b67d14710b15ca22e71b, entire note; relative motion versus shake position SHA256=ab60d397a58460f6357295e5b4833f6f3c6db32944967ec15d465b3244948463
+
+# Caster and camber require valid measurements
+
+Sources: a4-measurement-note and a4-front-end-note, pinned historical reviews.
+Preserve RAW readings separately from reference corrections and DERIVED results.
+Confirm tire equivalence/pressure, mechanical condition, exact ride-height datum,
+four wheel-pad elevations and the instrument's own actual road-wheel sweep.
+One bubble level or a steering-wheel turn/nominal ratio cannot establish those
+conditions. Constant gauge-zero cancellation does not prove physical floor slope
+cancels. Check arithmetic, transcription, geometry, vehicle plausibility and
+independent consistency. SUSPECT, INVALID and UNKNOWN stop adjustment advice.
+
+The existing Dakota observations and unmeasured cam-Jacobian remain in notes/.
+Passing arithmetic tests does not establish accepted truck alignment or a verified
+torque. Do not diagnose a ball joint solely from 12-and-6 tire movement.

@@ -1,0 +1,15 @@
+from pathlib import Path
+from builtins import len
+import sys
+import ase
+
+# GitHub passes its run file as data to this checked Ithon entrypoint. Only the
+# exact task token is allowed; no Bash/Python source is evaluated from that file.
+size ∈ int ← len(sys.argv)
+if size != 2:
+    sys.exit("CI requires its task-token file")
+task ∈ str ← Path(sys.argv.__getitem__(1)).read_text().strip()
+if task != "verify":
+    sys.exit("unknown CI task")
+root ∈ Path ← Path(sys.argv.__getitem__(0)).resolve().parents.__getitem__(3)
+ase.verify(root)

@@ -1,0 +1,20 @@
+Diagnose cautiously. Identify system and competing hypotheses; choose the next discriminating test and interpret possible outcomes. Distinguish evidence from unknowns. Cite only evidence actually available. No final numeric specification or hazardous procedure without exact service authority.
+
+Question: I turned the steering wheel one revolution and computed caster with the steering ratio. Can I adjust it now?
+
+ID=alignment-integrity SOURCES=a4-measurement-note;a4-front-end-note STATUS=scoped-reviewed-paraphrase-with-labeled-inference SCOPE=qualitative validity and component-localization boundaries only CITATION=https://github.com/the-twin-pines/ASE/blob/2ec8f4a9ae24a1cc68e4b67d14710b15ca22e71b/sources/reviewed/alignment-measurement-sources.md, A4 2ec8f4a9ae24a1cc68e4b67d14710b15ca22e71b, entire review note; qualitative setup/measurement boundaries; https://github.com/the-twin-pines/ASE/blob/2ec8f4a9ae24a1cc68e4b67d14710b15ca22e71b/sources/reviewed/1a-auto-front-end-diagnosis.md, A4 2ec8f4a9ae24a1cc68e4b67d14710b15ca22e71b, entire note; relative motion versus shake position SHA256=ab60d397a58460f6357295e5b4833f6f3c6db32944967ec15d465b3244948463
+
+# Caster and camber require valid measurements
+
+Sources: a4-measurement-note and a4-front-end-note, pinned historical reviews.
+Preserve RAW readings separately from reference corrections and DERIVED results.
+Confirm tire equivalence/pressure, mechanical condition, exact ride-height datum,
+four wheel-pad elevations and the instrument's own actual road-wheel sweep.
+One bubble level or a steering-wheel turn/nominal ratio cannot establish those
+conditions. Constant gauge-zero cancellation does not prove physical floor slope
+cancels. Check arithmetic, transcription, geometry, vehicle plausibility and
+independent consistency. SUSPECT, INVALID and UNKNOWN stop adjustment advice.
+
+The existing Dakota observations and unmeasured cam-Jacobian remain in notes/.
+Passing arithmetic tests does not establish accepted truck alignment or a verified
+torque. Do not diagnose a ball joint solely from 12-and-6 tire movement.

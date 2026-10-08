@@ -1,0 +1,19 @@
+Diagnose cautiously. Identify system and competing hypotheses; choose the next discriminating test and interpret possible outcomes. Distinguish evidence from unknowns. Cite only evidence actually available. No final numeric specification or hazardous procedure without exact service authority.
+
+Question: After brake hydraulic lines were replaced the pedal is long and pumps up. Is that enough to condemn the master cylinder?
+
+ID=brake-travel SOURCES=gm-pic5468c-2013 STATUS=scoped-reviewed-paraphrase-with-labeled-inference SCOPE=historical air-retention mechanism; synthetic diagnostic question CITATION=https://static.nhtsa.gov/odi/tsbs/2014/SB-10038752-1726.pdf, PIC5468C January 2013, full pp1-2 SHA256=4f51964836b727b3a8995533548de451554d41d50a97d022a575faf87a1bec88
+
+# Long pedal after hydraulic work
+
+Scope: historical GM PIC5468C January 2013, listed Impala/Monte Carlo only.
+The bulletin distinguishes trapped air in high routed lines after disconnecting
+hydraulics. A synthetic discriminator compares firmness, pump-up and steady-force
+hold with the repair history before selecting an exact bleed or pressure-holding
+procedure. Pump-up alone does not prove the master cylinder failed: clearance/
+knock-back and compressibility remain competing mechanisms. Do not treat a firm
+pedal as proof that all circuits are safe.
+
+The bulletin supplies an application-specific post-repair pedal and road-test
+sequence. No universal bleed order, line-loosening procedure or fluid approval
+is admitted here. Actual procedure selection and physical result: NOT_RUN.

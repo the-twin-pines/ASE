@@ -1,0 +1,57 @@
+Diagnose cautiously. Identify system and competing hypotheses; choose the next discriminating test and interpret possible outcomes. Distinguish evidence from unknowns. Cite only evidence actually available. No final numeric specification or hazardous procedure without exact service authority.
+
+Question: EPS warning comes with radio blanking; resting battery voltage looks fine. What test next?
+
+ID=steering-eps-intermittent SOURCES=gm-18-na-161-v4 STATUS=scoped-reviewed-paraphrase-with-labeled-inference SCOPE=synthetic LD EPS supply versus control trace; match bulletin table CITATION=https://static.nhtsa.gov/odi/tsbs/2020/MC-10181672-9999.pdf, September 2020 version 4, pages 1-7; loaded-drop order pp2-4 SHA256=a67be426d03ffbf628ab66d4b0a333b5b0abb1d0717368e2888b89a2a160440b
+
+# EPS warning and intermittent assist with other electrical symptoms
+
+Synthetic trace; source gm-18-na-161-v4, pages 1–4. Match the model/year table
+and LD EPS qualification before applying the bulletin. Sequence: preserve codes,
+event conditions and other blanking/stall symptoms; measure loaded supply/ground
+behavior before manipulating connections. Competing hypotheses: shared supply/
+ground resistance versus a local torque-input/control/motor fault. Discriminator:
+loaded voltage-drop observation with the bulletin's applicable SI method.
+An excessive localized drop ranks that connection above a speculative rack
+replacement; satisfactory power leaves input, communication, control and motor
+tests pending. Resting battery voltage or a restart does not prove the supply good.
+
+Do not invent thresholds or recommend a hydraulic pump. 17-NA-345 and current
+exact SI remain unacquired. Planned verification repeats the original event and
+checks DTC recurrence after approved correction; outcome NOT_RUN.
+
+
+ID=steering-architecture SOURCES=bosch-eps-architecture;zf-ehps-noise STATUS=scoped-reviewed-paraphrase-with-labeled-inference SCOPE=architecture only CITATION=https://www.bosch-mobility.com/en/solutions/steering/electric-power-steering-systems/, undated page inspected 2026-10-08, operating principle and rack/column variants; https://aftermarket.zf.com/br/portal-do-aftermarket/central-de-conhecimento/emissao-de-ruido-de-direcao-eletro-hidraulica/, undated page inspected 2026-10-08, technical body description through mounting/checklist SHA256=a09ce3822bd946d96778a427ae0b56a279c6a3f3176edf3204b2f89b773e09fc
+
+# Identify the assist architecture first
+
+Scope: architecture only. Sources: bosch-eps-architecture; zf-ehps-noise.
+Bosch's operating principle separates torque input, controller and assist motor,
+with column and rack variants. ZF's EPHS article describes an electric motor-pump
+feeding a hydraulic gear. Engine-driven hydraulic steering uses a mechanical pump
+drive. These distinctions determine which tests have meaning.
+
+An EPS-only car has no hydraulic steering reservoir or pump-pressure test.
+An EHPS pump can run independently of engine speed while still using fluid.
+An internal EPS belt does not imply a hydraulic pump. Confirm the installed
+system through exact service information before selecting a test. Preserve
+mechanical binding and tire/load causes in every architecture. No part replacement
+or numerical service limit follows from this architecture page.
+
+
+ID=brake-heat SOURCES=honda-gl1800-11v567 STATUS=scoped-reviewed-paraphrase-with-labeled-inference SCOPE=motorcycle compensation mechanism; car test is labeled inference CITATION=https://static.nhtsa.gov/odi/rcl/2011/RCORRD-11V567-8637.pdf, Honda 11-0531 2011-12-02, page1 mechanism/page2 procedure boundary SHA256=e63ad0bbf31a1febcc53e776e3451060c2bdc57cb60df131035c6c7403e19caa
+
+# Hot dragging brake: retained pressure or mechanical restraint?
+
+Source honda-gl1800-11v567, 2011-12-02 page 1. Its specific motorcycle secondary
+master-cylinder compensation fault illustrates retained pressure after release;
+it does not diagnose a car caliper. Synthetic next test: a qualified technician
+uses the exact vehicle pressure-release/localization procedure to distinguish
+retained hydraulic force from mechanical drag. Drag relieved with controlled
+pressure release shifts the ranking upstream; drag retained shifts it toward
+mechanical restraint. Neither outcome alone names the hose or master cylinder.
+
+No hot-wheel casual bleeder test, universal clearance, or transferable recall
+procedure. Preserve heat injury/fire risk and halt ordinary driving while severe
+drag is unresolved. Post-repair drag/temperature and brake-performance checks are
+planned under exact service instructions; result NOT_RUN.

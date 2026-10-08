@@ -1,0 +1,2561 @@
+{
+  "source_kind": "playlist",
+  "platform": "youtube",
+  "playlist_id": "PLsL28no_u_qSN_m4HWRO7y5S3ebMUksYy",
+  "playlist_title": "Brakes",
+  "url": "https://www.youtube.com/playlist?list=PLsL28no_u_qSN_m4HWRO7y5S3ebMUksYy",
+  "snapshot": {
+    "entry_count": 175,
+    "unique_video_count": 169,
+    "metadata_commit": "803ccc4589cac6429072c0198db8f6545cebc581",
+    "merged_at": "2026-09-05"
+  },
+  "conversion_status": {
+    "atomic_records_created": 169,
+    "individual_passes_complete_at_conversion": 0,
+    "synthesis_status": "blocked"
+  },
+  "entries": [
+    {
+      "positions": [
+        1
+      ],
+      "video_id": "qzUk8W1-2pw",
+      "record": "../videos/youtube-qzUk8W1-2pw.md",
+      "title": "PROPORTIONING VALVES EXPLAINED by TheRamManINC.com",
+      "channel": "TheRamManINC",
+      "duration": "12:35",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "boosters-valves-switches"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        2
+      ],
+      "video_id": "ROONOeOUEys",
+      "record": "../videos/youtube-ROONOeOUEys.md",
+      "title": "How To Unstuck a Seized Brake Caliper",
+      "channel": "Classic Car Maintenance",
+      "duration": "2:42",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "disc-brakes-calipers-pads"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        3
+      ],
+      "video_id": "IwbzrOhDuZw",
+      "record": "../videos/youtube-IwbzrOhDuZw.md",
+      "title": "How to remove a stuck brake caliper piston (EASY FIX)",
+      "channel": "MechanicKid",
+      "duration": "1:17",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "disc-brakes-calipers-pads"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        4
+      ],
+      "video_id": "kFwAHLmg93U",
+      "record": "../videos/youtube-kFwAHLmg93U.md",
+      "title": "“fixing” a SEIZED brake caliber for $3 bucks (complete diagnostics￼)",
+      "channel": "Live Free",
+      "duration": "5:10",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "disc-brakes-calipers-pads"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        5
+      ],
+      "video_id": "lJsHz6ctAMI",
+      "record": "../videos/youtube-lJsHz6ctAMI.md",
+      "title": "How to Stop Brake Pad Knocking or Rattling Noise in the Calipers",
+      "channel": "Auto Reviews",
+      "duration": "2:32",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "rotors-runout-bedding-noise"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        6
+      ],
+      "video_id": "wp2V4p0JG-I",
+      "record": "../videos/youtube-wp2V4p0JG-I.md",
+      "title": "“installing” ANTI-RATTLE SPRING (a4 audi volkswagen b7 front caliper)",
+      "channel": "Live Free",
+      "duration": "1:24",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "disc-brakes-calipers-pads"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        7
+      ],
+      "video_id": "otZQXG6Ry8Y",
+      "record": "../videos/youtube-otZQXG6Ry8Y.md",
+      "title": "BrakeBest - Disc Brake Hardware Overview",
+      "channel": "O'Reilly Auto Parts",
+      "duration": "0:53",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "disc-brakes-calipers-pads"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        8
+      ],
+      "video_id": "qN8Hv9km4Eo",
+      "record": "../videos/youtube-qN8Hv9km4Eo.md",
+      "title": "Inspect drum brakes like a boss!",
+      "channel": "Way of the Wrench",
+      "duration": "19:27",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "drum-parking-brakes"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        9
+      ],
+      "video_id": "axaTTwEUYNQ",
+      "record": "../videos/youtube-axaTTwEUYNQ.md",
+      "title": "How to Adjust Rear Disc Brake Caliper Parking Brake Mechanism",
+      "channel": "First Place Auto Parts",
+      "duration": "6:43",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "drum-parking-brakes"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        10
+      ],
+      "video_id": "YT8ySllYqDE",
+      "record": "../videos/youtube-YT8ySllYqDE.md",
+      "title": "How a Brake Booster works and diagnosing with a pedal check (Season 7/E8)",
+      "channel": "RockAuto Auto Parts",
+      "duration": "4:55",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "boosters-valves-switches"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        11
+      ],
+      "video_id": "n1NvtUwfRJc",
+      "record": "../videos/youtube-n1NvtUwfRJc.md",
+      "title": "How to do a Complete Brake Flush and Bleed",
+      "channel": "ChrisFix",
+      "duration": "12:53",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "hydraulics-bleeding-lines-master-cylinder"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        12,
+        173,
+        174
+      ],
+      "video_id": "1O1dOgG9cII",
+      "record": "../videos/youtube-1O1dOgG9cII.md",
+      "title": "Most Common Brake Installation Mistakes!",
+      "channel": "1A Auto: Repair Tips & Secrets Only Mechanics Know",
+      "duration": "13:29",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "diagnosis-inspection-general"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        13
+      ],
+      "video_id": "GDUODN1Obt8",
+      "record": "../videos/youtube-GDUODN1Obt8.md",
+      "title": "How to Diagnose a Car Wheel Scraping Noise: Brakes or Dust Shield?",
+      "channel": "1A Auto: Repair Tips & Secrets Only Mechanics Know",
+      "duration": "3:40",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "rotors-runout-bedding-noise"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        14
+      ],
+      "video_id": "qsozrTXfHoc",
+      "record": "../videos/youtube-qsozrTXfHoc.md",
+      "title": "How To Perform a Professional Brake Job (Pads & Rotors)",
+      "channel": "Royalty Auto Service",
+      "duration": "38:48",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "rotors-runout-bedding-noise"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        15
+      ],
+      "video_id": "9PIeyn9BSTQ",
+      "record": "../videos/youtube-9PIeyn9BSTQ.md",
+      "title": "It’s Easy to Screw Up a Brake Job",
+      "channel": "Jack Fletcher",
+      "duration": "0:56",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "diagnosis-inspection-general"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        16
+      ],
+      "video_id": "xJDOuZzEAQc",
+      "record": "../videos/youtube-xJDOuZzEAQc.md",
+      "title": "How to Replace Brake Pads and Rotors Top 10 Brake Job Tips",
+      "channel": "ChrisFix",
+      "duration": "5:57",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "rotors-runout-bedding-noise"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        17
+      ],
+      "video_id": "mW3Uqqi61BM",
+      "record": "../videos/youtube-mW3Uqqi61BM.md",
+      "title": "It’s Vibrating When Braking & It’s Not the Rotors. How to Test! (Nissan Versa)",
+      "channel": "Royalty Auto Service",
+      "duration": "13:58",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "rotors-runout-bedding-noise"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        18
+      ],
+      "video_id": "_Da93hkQiXw",
+      "record": "../videos/youtube-_Da93hkQiXw.md",
+      "title": "How To Remove A Seized or Rusted Brake Bleeder Screw",
+      "channel": "TutorialGenius.com",
+      "duration": "9:19",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "hydraulics-bleeding-lines-master-cylinder"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        19
+      ],
+      "video_id": "IlUUX2bXmp4",
+      "record": "../videos/youtube-IlUUX2bXmp4.md",
+      "title": "should you open bleeder valve when cmpressing caliper",
+      "channel": "RB The Mechanic",
+      "duration": "2:37",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "hydraulics-bleeding-lines-master-cylinder"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        20
+      ],
+      "video_id": "8-viUNCwmjg",
+      "record": "../videos/youtube-8-viUNCwmjg.md",
+      "title": "rebuild brake cylinders WITHOUT EXPENSIVE tools",
+      "channel": "Error Code Guy",
+      "duration": "7:30",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "drum-parking-brakes"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        21
+      ],
+      "video_id": "-9g13eqgN2I",
+      "record": "../videos/youtube--9g13eqgN2I.md",
+      "title": "Common Drum Brake Installation Mistakes!",
+      "channel": "1A Auto: Repair Tips & Secrets Only Mechanics Know",
+      "duration": "12:53",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "drum-parking-brakes"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        22
+      ],
+      "video_id": "ZuW-TqjXqp0",
+      "record": "../videos/youtube-ZuW-TqjXqp0.md",
+      "title": "How to Replace Drum Brake Self Adjuster 2007-2013 Chevrolet Silverado 1500",
+      "channel": "TRQ",
+      "duration": "7:42",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "drum-parking-brakes"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        23
+      ],
+      "video_id": "yuN8Y870rp0",
+      "record": "../videos/youtube-yuN8Y870rp0.md",
+      "title": "How to Clean and Adjust Rear Drum Brakes",
+      "channel": "1A Auto: Repair Tips & Secrets Only Mechanics Know",
+      "duration": "7:11",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "drum-parking-brakes"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        24
+      ],
+      "video_id": "9f7hpI5JvyE",
+      "record": "../videos/youtube-9f7hpI5JvyE.md",
+      "title": "Brake Pliers : How to use both sides",
+      "channel": "Ratcheting Randy",
+      "duration": "1:55",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "diagnosis-inspection-general"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        25
+      ],
+      "video_id": "_Tm6N5l69_c",
+      "record": "../videos/youtube-_Tm6N5l69_c.md",
+      "title": "DIY Brake Lines The Easy (And Correct) Way",
+      "channel": "SuperfastMatt",
+      "duration": "15:11",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "hydraulics-bleeding-lines-master-cylinder"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        26
+      ],
+      "video_id": "0XED-FicmcQ",
+      "record": "../videos/youtube-0XED-FicmcQ.md",
+      "title": "Brakes: machining a brake drum",
+      "channel": "mygarage",
+      "duration": "21:55",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "drum-parking-brakes"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        27
+      ],
+      "video_id": "uSuF9nMIIos",
+      "record": "../videos/youtube-uSuF9nMIIos.md",
+      "title": "Stuck Caliper Slider Pin",
+      "channel": "McAdam's Mechanics",
+      "duration": "0:21",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "disc-brakes-calipers-pads"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        28
+      ],
+      "video_id": "HWi5pPC3VJg",
+      "record": "../videos/youtube-HWi5pPC3VJg.md",
+      "title": "Quick Tip Tuesday: Blind Hole Cleaning",
+      "channel": "South Main Auto LLC",
+      "duration": "3:17",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "diagnosis-inspection-general"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        29
+      ],
+      "video_id": "ykIGsn4B4Ek",
+      "record": "../videos/youtube-ykIGsn4B4Ek.md",
+      "title": "how to make caliper guide pins glide like NEW",
+      "channel": "Live Free",
+      "duration": "2:37",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "disc-brakes-calipers-pads"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        30
+      ],
+      "video_id": "5rTZ7wJUDhc",
+      "record": "../videos/youtube-5rTZ7wJUDhc.md",
+      "title": "PSA Stop Using Permatex Extreme Lube on Slide Pins",
+      "channel": "Flat Rate Master",
+      "duration": "2:57",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "disc-brakes-calipers-pads"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        31
+      ],
+      "video_id": "Y-Hsip4-5Is",
+      "record": "../videos/youtube-Y-Hsip4-5Is.md",
+      "title": "Lesson 21 Tone Ring",
+      "channel": "Goss' Garage",
+      "duration": "3:45",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "abs-wheel-speed-stability"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        32
+      ],
+      "video_id": "LC3jCyHjWqo",
+      "record": "../videos/youtube-LC3jCyHjWqo.md",
+      "title": "The Difference Between Active and Passive Wheel Speed Sensors",
+      "channel": "BCA Bearings by NTN",
+      "duration": "2:42",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "abs-wheel-speed-stability"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        33
+      ],
+      "video_id": "zkExLv1Gdxs",
+      "record": "../videos/youtube-zkExLv1Gdxs.md",
+      "title": "How to perform ABS Brake Bleed with Innova 5610",
+      "channel": "Innova Electronics",
+      "duration": "0:36",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "abs-wheel-speed-stability"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        34
+      ],
+      "video_id": "bz1W8H1Y3nw",
+      "record": "../videos/youtube-bz1W8H1Y3nw.md",
+      "title": "Bleeding an ABS module with different methods - Brakes won't bleed - FIXED!",
+      "channel": "The Daninator",
+      "duration": "14:36",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "abs-wheel-speed-stability"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        35
+      ],
+      "video_id": "OhRd9v13w7k",
+      "record": "../videos/youtube-OhRd9v13w7k.md",
+      "title": "What, how, & why gravity bleeding doesn't work! #shorts",
+      "channel": "Rob The Mechanic",
+      "duration": "1:00",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "hydraulics-bleeding-lines-master-cylinder"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        36
+      ],
+      "video_id": "nQRnKyVyMuQ",
+      "record": "../videos/youtube-nQRnKyVyMuQ.md",
+      "title": "How to Bleed an ABS Brake System - Step by Step!",
+      "channel": "2CarPros",
+      "duration": "10:03",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "abs-wheel-speed-stability"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        37
+      ],
+      "video_id": "dEn92Q-fAeo",
+      "record": "../videos/youtube-dEn92Q-fAeo.md",
+      "title": "How to Bleed Abs Brake Pumps",
+      "channel": "ExpertVillage Leaf Group",
+      "duration": "1:24",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "abs-wheel-speed-stability"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        38
+      ],
+      "video_id": "UmGEYy_gj7A",
+      "record": "../videos/youtube-UmGEYy_gj7A.md",
+      "title": "Brake Bleeding And The ABS HCU | Tech Minute",
+      "channel": "Babcox Media",
+      "duration": "1:24",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "abs-wheel-speed-stability"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        39
+      ],
+      "video_id": "V4LkqdD-26o",
+      "record": "../videos/youtube-V4LkqdD-26o.md",
+      "title": "ABS Pump Failure Symptoms – How To Test And Fix!",
+      "channel": "ECU TESTING",
+      "duration": "4:17",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "abs-wheel-speed-stability"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        40
+      ],
+      "video_id": "Ts-cZj81bUA",
+      "record": "../videos/youtube-Ts-cZj81bUA.md",
+      "title": "Exploring ABS Anti-Lock Brakes: A Deep Dive into Function and Faults",
+      "channel": "ECU TESTING",
+      "duration": "10:09",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "abs-wheel-speed-stability"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        41
+      ],
+      "video_id": "qxcpwO5_3Y8",
+      "record": "../videos/youtube-qxcpwO5_3Y8.md",
+      "title": "Setting The Air Gap For Wheel Speed Sensors And ABS",
+      "channel": "Brake & Front End",
+      "duration": "1:18",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "abs-wheel-speed-stability"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        42
+      ],
+      "video_id": "xKSN3yjThf8",
+      "record": "../videos/youtube-xKSN3yjThf8.md",
+      "title": "ABS light on, Too much air gap at the speed sensor",
+      "channel": "Mechanic Matt",
+      "duration": "2:45",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "abs-wheel-speed-stability"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        43
+      ],
+      "video_id": "T74B_aELnU0",
+      "record": "../videos/youtube-T74B_aELnU0.md",
+      "title": "ABS Wheel Speed Sensor Fault – How to Test and Fix ABS Sensor",
+      "channel": "ECU TESTING",
+      "duration": "3:56",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "abs-wheel-speed-stability"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        44
+      ],
+      "video_id": "OuYueUeRsWs",
+      "record": "../videos/youtube-OuYueUeRsWs.md",
+      "title": "How to Test a Wheel Speed Sensor | Wheel Speed Sensor Testing Methods | Abs Sensor Problem Symptoms",
+      "channel": "Valley Mobile Automotive",
+      "duration": "12:05",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "abs-wheel-speed-stability"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        45
+      ],
+      "video_id": "fAdMPh9UvC0",
+      "record": "../videos/youtube-fAdMPh9UvC0.md",
+      "title": "How to Get Rid of ABS Trac Off Lights - How to Test an ABS Sensor Using a Basic Multimeter",
+      "channel": "Ratchets And Wrenches",
+      "duration": "8:22",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "abs-wheel-speed-stability"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        46
+      ],
+      "video_id": "jjo4hq61f3I",
+      "record": "../videos/youtube-jjo4hq61f3I.md",
+      "title": "A master cylinder explained in under a minute",
+      "channel": "WrenchCoach CAD Publishing for Training",
+      "duration": "0:46",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "hydraulics-bleeding-lines-master-cylinder"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        47
+      ],
+      "video_id": "DNcDtIQAC9s",
+      "record": "../videos/youtube-DNcDtIQAC9s.md",
+      "title": "The Master Cylinder: How It Works",
+      "channel": "Motorcar Parts of America - MPA",
+      "duration": "2:02",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "hydraulics-bleeding-lines-master-cylinder"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        48
+      ],
+      "video_id": "WYB4vOv7Iag",
+      "record": "../videos/youtube-WYB4vOv7Iag.md",
+      "title": "Vehicle Brakes: Master Cylinder(How it works)",
+      "channel": "electronicsNmore",
+      "duration": "8:31",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "hydraulics-bleeding-lines-master-cylinder"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        49
+      ],
+      "video_id": "1wwq1Vlk4Wg",
+      "record": "../videos/youtube-1wwq1Vlk4Wg.md",
+      "title": "How to Make a One Person Brake Bleeder for Under $5",
+      "channel": "ChrisFix",
+      "duration": "4:13",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "hydraulics-bleeding-lines-master-cylinder"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        50
+      ],
+      "video_id": "7rImn6nJ4Dw",
+      "record": "../videos/youtube-7rImn6nJ4Dw.md",
+      "title": "How to Bench Bleed Master Cylinder",
+      "channel": "Garage Gurus",
+      "duration": "6:58",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "hydraulics-bleeding-lines-master-cylinder"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        51
+      ],
+      "video_id": "zoewhwUu3UQ",
+      "record": "../videos/youtube-zoewhwUu3UQ.md",
+      "title": "AutoZone Car Care: How to Bleed the Master Cylinder and Brake System",
+      "channel": "AutoZone",
+      "duration": "7:29",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "hydraulics-bleeding-lines-master-cylinder"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        52
+      ],
+      "video_id": "ZaB7wfuQ6Mk",
+      "record": "../videos/youtube-ZaB7wfuQ6Mk.md",
+      "title": "Brake Master Cylinder Testing",
+      "channel": "DoItYourway Corner",
+      "duration": "9:25",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "hydraulics-bleeding-lines-master-cylinder"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        53
+      ],
+      "video_id": "-kbDLUHZFqU",
+      "record": "../videos/youtube--kbDLUHZFqU.md",
+      "title": "Master Cylinder - How to Bench Bleed!",
+      "channel": "Trick Shift Garage",
+      "duration": "13:25",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "hydraulics-bleeding-lines-master-cylinder"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        54
+      ],
+      "video_id": "xW8L-6u6nko",
+      "record": "../videos/youtube-xW8L-6u6nko.md",
+      "title": "Make a Bench Bleeding Tool! DIY Bleed Car / Truck Master Cylinder",
+      "channel": "1A Auto: Repair Tips & Secrets Only Mechanics Know",
+      "duration": "11:17",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "hydraulics-bleeding-lines-master-cylinder"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        55
+      ],
+      "video_id": "RZJkFcvP65c",
+      "record": "../videos/youtube-RZJkFcvP65c.md",
+      "title": "Soft, Squishy Brakes? Hard to Stop? How to Diagnose Brake Master Cylinder Leak!",
+      "channel": "1A Auto: Repair Tips & Secrets Only Mechanics Know",
+      "duration": "13:17",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "hydraulics-bleeding-lines-master-cylinder"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        56
+      ],
+      "video_id": "q7GqsDhWx3M",
+      "record": "../videos/youtube-q7GqsDhWx3M.md",
+      "title": "Hydro Boost Brakes",
+      "channel": "Studio Hotrods",
+      "duration": "0:53",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "boosters-valves-switches"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        57
+      ],
+      "video_id": "LY_0REE-g0c",
+      "record": "../videos/youtube-LY_0REE-g0c.md",
+      "title": "Animation on How Power Brakes Work",
+      "channel": "Advanced Auto Clinic Delavan",
+      "duration": "0:18",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "boosters-valves-switches"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        58
+      ],
+      "video_id": "zoSQsVZfIcc",
+      "record": "../videos/youtube-zoSQsVZfIcc.md",
+      "title": "Mechanic Tip: Tightening Brake Line Bolts",
+      "channel": "Technician Red",
+      "duration": "1:00",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "hydraulics-bleeding-lines-master-cylinder"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        59
+      ],
+      "video_id": "uvgwU0raLRY",
+      "record": "../videos/youtube-uvgwU0raLRY.md",
+      "title": "repairing a LEAKING “banjo bolt” (fuel line, brake line)",
+      "channel": "Live Free",
+      "duration": "2:03",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "hydraulics-bleeding-lines-master-cylinder"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        60
+      ],
+      "video_id": "BZD2GPowIBk",
+      "record": "../videos/youtube-BZD2GPowIBk.md",
+      "title": "Why is My Brake Light On? Diagnosing Common Brake Failures!",
+      "channel": "1A Auto: Repair Tips & Secrets Only Mechanics Know",
+      "duration": "5:55",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "boosters-valves-switches"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        61
+      ],
+      "video_id": "UR8FUjFOrmA",
+      "record": "../videos/youtube-UR8FUjFOrmA.md",
+      "title": "PROPORTIONING VALVES - HOW TO TEST FOR LEAKS (PART 1 OF 2), BY THERAMMANINC.COM",
+      "channel": "The Ram Man Inc.",
+      "duration": "1:45",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "boosters-valves-switches"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        62
+      ],
+      "video_id": "is0AHkchX9U",
+      "record": "../videos/youtube-is0AHkchX9U.md",
+      "title": "PROPORTIONING VALVES - HOW TO TEST FOR LEAKS (PART 2 OF 2), BY THERAMMANINC.COM",
+      "channel": "The Ram Man Inc.",
+      "duration": "1:06",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "boosters-valves-switches"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        63
+      ],
+      "video_id": "BBTOp-Xzgug",
+      "record": "../videos/youtube-BBTOp-Xzgug.md",
+      "title": "PROPORTIONING VALVES EXPLAINED- BY THERAMMANINC.COM",
+      "channel": "The Ram Man Inc.",
+      "duration": "12:52",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "boosters-valves-switches"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        64
+      ],
+      "video_id": "TS72c7AfV0k",
+      "record": "../videos/youtube-TS72c7AfV0k.md",
+      "title": "Brake proportioning valve safety switch",
+      "channel": "Z Family Garage",
+      "duration": "0:58",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "boosters-valves-switches"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        65
+      ],
+      "video_id": "5e79GU6NyLI",
+      "record": "../videos/youtube-5e79GU6NyLI.md",
+      "title": "Brake Calipers And Electronic Parking Brakes",
+      "channel": "Counterman",
+      "duration": "2:49",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "drum-parking-brakes"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        66
+      ],
+      "video_id": "79IpIcOIex4",
+      "record": "../videos/youtube-79IpIcOIex4.md",
+      "title": "Electric Parking Brake Caliper. How To Rebuild EPB Caliper Piston Using 12V Battery?",
+      "channel": "Auto Mechanic in saudi arabia.",
+      "duration": "0:16",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "drum-parking-brakes"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        67
+      ],
+      "video_id": "O69pf7RgLrM",
+      "record": "../videos/youtube-O69pf7RgLrM.md",
+      "title": "Electronic Parking Brake",
+      "channel": "Nuts & Bolts with Tone",
+      "duration": "1:12",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "drum-parking-brakes"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        68
+      ],
+      "video_id": "UUEPJV-jzL0",
+      "record": "../videos/youtube-UUEPJV-jzL0.md",
+      "title": "How to release electronic brake calipers with a power probe!",
+      "channel": "Mr.GoodOl'Boys",
+      "duration": "0:43",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "drum-parking-brakes"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        69
+      ],
+      "video_id": "wGHWxQWigeM",
+      "record": "../videos/youtube-wGHWxQWigeM.md",
+      "title": "Silicone Grease Rubber Brake Caliper Boots",
+      "channel": "Tech28",
+      "duration": "0:50",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "disc-brakes-calipers-pads"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        70
+      ],
+      "video_id": "ryG07ohauT0",
+      "record": "../videos/youtube-ryG07ohauT0.md",
+      "title": "How Properly to Lubricate a Caliper - Ultra Disc Break Caliper Lube | Permatex",
+      "channel": "Permatex",
+      "duration": "1:15",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "disc-brakes-calipers-pads"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        71
+      ],
+      "video_id": "LThrL8Jjsgc",
+      "record": "../videos/youtube-LThrL8Jjsgc.md",
+      "title": "Power Brakes - Vacuum Assist - Explained",
+      "channel": "Engineering Explained",
+      "duration": "3:54",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "boosters-valves-switches"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        72
+      ],
+      "video_id": "_EJ5s2ZnDwQ",
+      "record": "../videos/youtube-_EJ5s2ZnDwQ.md",
+      "title": "How to flush and bleed your brakes",
+      "channel": "Way of the Wrench",
+      "duration": "31:52",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "hydraulics-bleeding-lines-master-cylinder"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        73
+      ],
+      "video_id": "bLaQGWtd1O4",
+      "record": "../videos/youtube-bLaQGWtd1O4.md",
+      "title": "How To: Apply Brake Lube | PowerStop",
+      "channel": "PowerStop Brakes",
+      "duration": "0:50",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "disc-brakes-calipers-pads"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        74
+      ],
+      "video_id": "DWzttlb7Sw4",
+      "record": "../videos/youtube-DWzttlb7Sw4.md",
+      "title": "How to Lube a Brake Pad. (Regardless of what those other characters tell you)",
+      "channel": "Mikechanic",
+      "duration": "0:28",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "disc-brakes-calipers-pads"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        75
+      ],
+      "video_id": "KVcbqTeuNhM",
+      "record": "../videos/youtube-KVcbqTeuNhM.md",
+      "title": "Use Correct Lube For Brake Slider Pins",
+      "channel": "Tech28",
+      "duration": "0:13",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "disc-brakes-calipers-pads"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        76
+      ],
+      "video_id": "MqLx0SC800I",
+      "record": "../videos/youtube-MqLx0SC800I.md",
+      "title": "What's the Easiest Way to Take a Bearing Race off a Car or Truck Wheel Hub? We'll Show You!",
+      "channel": "1A Auto: Repair Tips & Secrets Only Mechanics Know",
+      "duration": "7:58",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "diagnosis-inspection-general"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        77
+      ],
+      "video_id": "B3JUPt4upxk",
+      "record": "../videos/youtube-B3JUPt4upxk.md",
+      "title": "Disc Thickness Variation and Lateral Runout Discussion",
+      "channel": "Raybestos Brakes",
+      "duration": "4:25",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "rotors-runout-bedding-noise"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        78
+      ],
+      "video_id": "pM0ostManF0",
+      "record": "../videos/youtube-pM0ostManF0.md",
+      "title": "Garage Gurus | Brake Rotor Thickness Variation and Lateral Runout",
+      "channel": "Garage Gurus",
+      "duration": "5:08",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "rotors-runout-bedding-noise"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        79
+      ],
+      "video_id": "av73CXPl4eM",
+      "record": "../videos/youtube-av73CXPl4eM.md",
+      "title": null,
+      "channel": null,
+      "duration": null,
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "diagnosis-inspection-general"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        80
+      ],
+      "video_id": "4S8MFQ74Cvw",
+      "record": "../videos/youtube-4S8MFQ74Cvw.md",
+      "title": "Checking brake rotor runout for brake pulsation complaint?",
+      "channel": "Jimmy, Making it work",
+      "duration": "0:54",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "rotors-runout-bedding-noise"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        81
+      ],
+      "video_id": "rRcvZFcmCLU",
+      "record": "../videos/youtube-rRcvZFcmCLU.md",
+      "title": "How to Bed Brakes",
+      "channel": "Raybestos Brakes",
+      "duration": "3:18",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "rotors-runout-bedding-noise"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        82
+      ],
+      "video_id": "viY7DW2muoM",
+      "record": "../videos/youtube-viY7DW2muoM.md",
+      "title": "Burnishing or Bedding In brakes - Edd China's Workshop Diaries #Shorts",
+      "channel": "Edd China",
+      "duration": "1:01",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "rotors-runout-bedding-noise"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        83
+      ],
+      "video_id": "3fEJ7o_yLFI",
+      "record": "../videos/youtube-3fEJ7o_yLFI.md",
+      "title": "How and Why to Bed Your Brakes",
+      "channel": "AutoZone",
+      "duration": "2:58",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "rotors-runout-bedding-noise"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        84
+      ],
+      "video_id": "MT4OT-HGdvc",
+      "record": "../videos/youtube-MT4OT-HGdvc.md",
+      "title": "Leaking Brake Caliper",
+      "channel": "FordsRule351",
+      "duration": "0:17",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "disc-brakes-calipers-pads"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        85
+      ],
+      "video_id": "C-6mZLUyWyo",
+      "record": "../videos/youtube-C-6mZLUyWyo.md",
+      "title": "How to Rebuild a Brake Caliper or should you Replace it?",
+      "channel": "sixtyfiveford",
+      "duration": "8:42",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "disc-brakes-calipers-pads"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        86
+      ],
+      "video_id": "UeC8fy5SWv0",
+      "record": "../videos/youtube-UeC8fy5SWv0.md",
+      "title": "cracked brake caliper piston",
+      "channel": "well that's one way to do it!",
+      "duration": "0:22",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "disc-brakes-calipers-pads"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        87
+      ],
+      "video_id": "9pcqt_8OezA",
+      "record": "../videos/youtube-9pcqt_8OezA.md",
+      "title": "New Brake Caliper Slide Pin Installation #slidepins #brakecaliper #sliderpins #caliperpins",
+      "channel": "ScrewsNutsAndBolts",
+      "duration": "0:53",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "disc-brakes-calipers-pads"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        88
+      ],
+      "video_id": "_DkKWvkOc1o",
+      "record": "../videos/youtube-_DkKWvkOc1o.md",
+      "title": "4 signs a caliper needs replaced | 4 Tips",
+      "channel": "Babcox Media",
+      "duration": "2:33",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "disc-brakes-calipers-pads"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        89
+      ],
+      "video_id": "qJDq68m4NTM",
+      "record": "../videos/youtube-qJDq68m4NTM.md",
+      "title": "SYMPTOMS OF A BAD BRAKE CALIPER",
+      "channel": "EasyAutoFix",
+      "duration": "1:55",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "disc-brakes-calipers-pads"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        90
+      ],
+      "video_id": "7kTmosL_x1c",
+      "record": "../videos/youtube-7kTmosL_x1c.md",
+      "title": "How To Isolate a Seized Caliper or Failed Brake Hose",
+      "channel": "Colin Chilibeck",
+      "duration": "2:13",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "hydraulics-bleeding-lines-master-cylinder"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        91
+      ],
+      "video_id": "A_paPAN_amQ",
+      "record": "../videos/youtube-A_paPAN_amQ.md",
+      "title": "Brake Shim Science | Quick Tip",
+      "channel": "Babcox Media",
+      "duration": "1:10",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "disc-brakes-calipers-pads"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        92
+      ],
+      "video_id": "FtJXD4KD1dI",
+      "record": "../videos/youtube-FtJXD4KD1dI.md",
+      "title": "3 Steps You May Be Overlooking When Doing A Brake Job!",
+      "channel": "Royalty Auto Service",
+      "duration": "15:49",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "diagnosis-inspection-general"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        93
+      ],
+      "video_id": "ZB9XZturFdk",
+      "record": "../videos/youtube-ZB9XZturFdk.md",
+      "title": "Why Are Good Brake Shims Important?",
+      "channel": "EricTheCarGuy",
+      "duration": "6:35",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "disc-brakes-calipers-pads"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        94
+      ],
+      "video_id": "gAKBZG9kQPw",
+      "record": "../videos/youtube-gAKBZG9kQPw.md",
+      "title": "Common Mistakes Bleeding Brakes! How to Do a Full Brake Bleed the Right Way, and Why!",
+      "channel": "1A Auto: Repair Tips & Secrets Only Mechanics Know",
+      "duration": "23:29",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "hydraulics-bleeding-lines-master-cylinder"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        95
+      ],
+      "video_id": "jG18XmUJoNU",
+      "record": "../videos/youtube-jG18XmUJoNU.md",
+      "title": "How to Test an ABS Wheel Sensor",
+      "channel": "2CarPros",
+      "duration": "1:31",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "abs-wheel-speed-stability"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        96
+      ],
+      "video_id": "JX28yLxYwtU",
+      "record": "../videos/youtube-JX28yLxYwtU.md",
+      "title": "How to check an ABS sensor with a Multimeter EASY",
+      "channel": "DIY KAI",
+      "duration": "0:36",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "abs-wheel-speed-stability"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        97
+      ],
+      "video_id": "MF5fXdLIXkY",
+      "record": "../videos/youtube-MF5fXdLIXkY.md",
+      "title": "ABS sensor Checking",
+      "channel": "Rx Mechanic",
+      "duration": "0:10",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "abs-wheel-speed-stability"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        98
+      ],
+      "video_id": "ZNnOfOMMjgs",
+      "record": "../videos/youtube-ZNnOfOMMjgs.md",
+      "title": "How to Test a Passive Wheel Speed Sensor with a Multi Meter",
+      "channel": "HVAC Mechanic",
+      "duration": "2:11",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "abs-wheel-speed-stability"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        99
+      ],
+      "video_id": "qap4m_FR2J0",
+      "record": "../videos/youtube-qap4m_FR2J0.md",
+      "title": "ABS wheel speed sensor diagnostics",
+      "channel": "SKF Parts Info",
+      "duration": "3:50",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "abs-wheel-speed-stability"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        100
+      ],
+      "video_id": "BfC_c2Hcc6A",
+      "record": "../videos/youtube-BfC_c2Hcc6A.md",
+      "title": "How to machine drum brakes.",
+      "channel": "Way of the Wrench",
+      "duration": "16:02",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "drum-parking-brakes"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        101
+      ],
+      "video_id": "fQnt08Yjti0",
+      "record": "../videos/youtube-fQnt08Yjti0.md",
+      "title": "How to Flare Brake Lines for Your Truck, Car, or SUV",
+      "channel": "1A Auto: Repair Tips & Secrets Only Mechanics Know",
+      "duration": "10:07",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "hydraulics-bleeding-lines-master-cylinder"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        102
+      ],
+      "video_id": "uiGq9vjwrF0",
+      "record": "../videos/youtube-uiGq9vjwrF0.md",
+      "title": "Dangerous Brake Line Fix: Why You Shouldn't Use Compression Fittings",
+      "channel": "Gulf Coast Flips",
+      "duration": "0:42",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "hydraulics-bleeding-lines-master-cylinder"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        103
+      ],
+      "video_id": "0I0cqn6uQCQ",
+      "record": "../videos/youtube-0I0cqn6uQCQ.md",
+      "title": "How to mate brake or fuel lines with a double flare union",
+      "channel": "Projectgattago",
+      "duration": "6:36",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "hydraulics-bleeding-lines-master-cylinder"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        104
+      ],
+      "video_id": "aU37qVvg_Ow",
+      "record": "../videos/youtube-aU37qVvg_Ow.md",
+      "title": "Car or truck pulling to one side but front end is fine. Tips to identify brake or suspension issue",
+      "channel": "1A Auto: Repair Tips & Secrets Only Mechanics Know",
+      "duration": "15:08",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "mixed-brake-suspension"
+      ],
+      "relevance_status": "boundary-review"
+    },
+    {
+      "positions": [
+        105
+      ],
+      "video_id": "hZwlwrMHjlc",
+      "record": "../videos/youtube-hZwlwrMHjlc.md",
+      "title": "Seeping or Leaking Rear Axle Seal on Your Car or Truck? Replace it Before the Brakes Get Damaged!",
+      "channel": "1A Auto: Repair Tips & Secrets Only Mechanics Know",
+      "duration": "3:38",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "diagnosis-inspection-general"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        106
+      ],
+      "video_id": "bnc3VnQ8kUY",
+      "record": "../videos/youtube-bnc3VnQ8kUY.md",
+      "title": "Drum Brakes",
+      "channel": "crashforensics",
+      "duration": "1:27",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "drum-parking-brakes"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        107
+      ],
+      "video_id": "9l_S2EbzWAM",
+      "record": "../videos/youtube-9l_S2EbzWAM.md",
+      "title": "Air Brakes Explained in 23 Seconds",
+      "channel": "Collins Trucking Company",
+      "duration": "0:23",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "diagnosis-inspection-general"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        108,
+        166
+      ],
+      "video_id": "DRlw9zgmUEg",
+      "record": "../videos/youtube-DRlw9zgmUEg.md",
+      "title": "Car or Truck Brake Pedal Doesn't Feel Right? Simple Steps to Find the Problem in Your Brake System",
+      "channel": "1A Auto: Repair Tips & Secrets Only Mechanics Know",
+      "duration": "5:45",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "diagnosis-inspection-general"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        109
+      ],
+      "video_id": "aMDACU9083g",
+      "record": "../videos/youtube-aMDACU9083g.md",
+      "title": "Brake light Switch circuit diagram/how to work brake light switch",
+      "channel": "Electrician Perfect",
+      "duration": "0:32",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "boosters-valves-switches"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        110
+      ],
+      "video_id": "X_hFGyWrE2Y",
+      "record": "../videos/youtube-X_hFGyWrE2Y.md",
+      "title": "Car Brake Lights Stuck On / Off, Can't Start? Brake Switch Diagnosis",
+      "channel": "1A Auto: Repair Tips & Secrets Only Mechanics Know",
+      "duration": "5:14",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "boosters-valves-switches"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        111
+      ],
+      "video_id": "okPbbH-wjKs",
+      "record": "../videos/youtube-okPbbH-wjKs.md",
+      "title": "How To Add A Brake Light Switch To Your Vehicle",
+      "channel": "Holley",
+      "duration": "2:22",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "boosters-valves-switches"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        112
+      ],
+      "video_id": "icgExxzKG1I",
+      "record": "../videos/youtube-icgExxzKG1I.md",
+      "title": "How to Replace Brake Light Switch 2012-2017 Toyota Camry",
+      "channel": "TRQ",
+      "duration": "3:32",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "boosters-valves-switches"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        113
+      ],
+      "video_id": "UldlcFkxoRI",
+      "record": "../videos/youtube-UldlcFkxoRI.md",
+      "title": "SYMPTOMS OF A BAD BRAKE LIGHT SWITCH",
+      "channel": "EasyAutoFix",
+      "duration": "2:21",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "boosters-valves-switches"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        114
+      ],
+      "video_id": "tYYMoZGEzCc",
+      "record": "../videos/youtube-tYYMoZGEzCc.md",
+      "title": "Brake Pedal Goes To The Floor When The Engine Is Running...Solved! Here's What Worked For Me",
+      "channel": "Joe Stoe",
+      "duration": "4:52",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "diagnosis-inspection-general"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        115
+      ],
+      "video_id": "dD1dbNtH-6s",
+      "record": "../videos/youtube-dD1dbNtH-6s.md",
+      "title": "The Different Types of Brake Valves for Your Ride",
+      "channel": "Master Power Brakes",
+      "duration": "6:39",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "boosters-valves-switches"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        116
+      ],
+      "video_id": "WUfjcgxI0Q4",
+      "record": "../videos/youtube-WUfjcgxI0Q4.md",
+      "title": "Proportioning Valve",
+      "channel": "Robert Master Cylinder",
+      "duration": "1:31",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "boosters-valves-switches"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        117
+      ],
+      "video_id": "TSCkvaSb-nI",
+      "record": "../videos/youtube-TSCkvaSb-nI.md",
+      "title": "How to | Identify and Choose Mopar Distribution Blocks and Valves",
+      "channel": "Inline Tube",
+      "duration": "5:11",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "boosters-valves-switches"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        118
+      ],
+      "video_id": "DIVDjqniUX8",
+      "record": "../videos/youtube-DIVDjqniUX8.md",
+      "title": "Brake Residual Valves: How They Work and Why You Need Them",
+      "channel": "Speedway Motors",
+      "duration": "3:35",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "boosters-valves-switches"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        119
+      ],
+      "video_id": "g63mP4HwVEQ",
+      "record": "../videos/youtube-g63mP4HwVEQ.md",
+      "title": "Proportioning Valve Resetting and Shuttle Valve Bleed Tool",
+      "channel": "mechtrician1",
+      "duration": "7:45",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "boosters-valves-switches"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        120
+      ],
+      "video_id": "Ns5R0ja8rL4",
+      "record": "../videos/youtube-Ns5R0ja8rL4.md",
+      "title": "Helping Unstoppable Morgan Stop - 1996 Bronco Brake Job",
+      "channel": "Watch Wes Work",
+      "duration": "39:34",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "diagnosis-inspection-general"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        121
+      ],
+      "video_id": "IKi5O3ZlSu4",
+      "record": "../videos/youtube-IKi5O3ZlSu4.md",
+      "title": "How an ABS Motor Works",
+      "channel": "speedkar99",
+      "duration": "3:18",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "abs-wheel-speed-stability"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        122
+      ],
+      "video_id": "00kNA_uTkOc",
+      "record": "../videos/youtube-00kNA_uTkOc.md",
+      "title": "How Brake Valves Work (Proportioning and Metering Valve)",
+      "channel": "Cody",
+      "duration": "4:54",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "boosters-valves-switches"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        123
+      ],
+      "video_id": "2Ll5jA1tZEw",
+      "record": "../videos/youtube-2Ll5jA1tZEw.md",
+      "title": "ABS System and Components",
+      "channel": "Raybestos Brakes",
+      "duration": "3:02",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "abs-wheel-speed-stability"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        124
+      ],
+      "video_id": "rKAG3bHOYeY",
+      "record": "../videos/youtube-rKAG3bHOYeY.md",
+      "title": "Brake Job Tip With Raybestos: Properly Remove and Store a Caliper That You Aren't Replacing",
+      "channel": "Raybestos Brakes",
+      "duration": "2:03",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "disc-brakes-calipers-pads"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        125
+      ],
+      "video_id": "YAgJpKyAR1Y",
+      "record": "../videos/youtube-YAgJpKyAR1Y.md",
+      "title": "Brake Job Tools: Hose Clamps",
+      "channel": "Raybestos Brakes",
+      "duration": "1:22",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "hydraulics-bleeding-lines-master-cylinder"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        126
+      ],
+      "video_id": "-IUZWwMm7nY",
+      "record": "../videos/youtube--IUZWwMm7nY.md",
+      "title": "ABS Operation (Solenoid)",
+      "channel": "Automotive Mechanism worldwide",
+      "duration": "2:24",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "abs-wheel-speed-stability"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        127
+      ],
+      "video_id": "cLJFwYYSgio",
+      "record": "../videos/youtube-cLJFwYYSgio.md",
+      "title": "Compression fittings on brake lines?",
+      "channel": "Jimmy, Making it work",
+      "duration": "0:16",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "hydraulics-bleeding-lines-master-cylinder"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        128
+      ],
+      "video_id": "idB7Kh27DHA",
+      "record": "../videos/youtube-idB7Kh27DHA.md",
+      "title": "Brake Lubrication Discussion with Raybestos Brakes",
+      "channel": "Raybestos Brakes",
+      "duration": "3:08",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "disc-brakes-calipers-pads"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        129
+      ],
+      "video_id": "46KgDEyD0Pc",
+      "record": "../videos/youtube-46KgDEyD0Pc.md",
+      "title": "How Electric Parking Brakes Work",
+      "channel": "Raybestos Brakes",
+      "duration": "6:17",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "drum-parking-brakes"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        130
+      ],
+      "video_id": "LTD6dxaNdhE",
+      "record": "../videos/youtube-LTD6dxaNdhE.md",
+      "title": "Brake Valve Discussion (Proportioning, Metering and Combination Valves)",
+      "channel": "Raybestos Brakes",
+      "duration": "3:15",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "boosters-valves-switches"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        131
+      ],
+      "video_id": "qg_z290ukDY",
+      "record": "../videos/youtube-qg_z290ukDY.md",
+      "title": "Brake Warning Light Stays On While Driving: What Are the CAUSES and How to Fix It?",
+      "channel": "EnjoyWheels",
+      "duration": "9:25",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "boosters-valves-switches"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        132
+      ],
+      "video_id": "xP8yl5HItY0",
+      "record": "../videos/youtube-xP8yl5HItY0.md",
+      "title": "TR Banjo Bolt",
+      "channel": "TR Fastenings",
+      "duration": "0:53",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "hydraulics-bleeding-lines-master-cylinder"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        133
+      ],
+      "video_id": "gYJsakJo7YE",
+      "record": "../videos/youtube-gYJsakJo7YE.md",
+      "title": "Pressure Brake Light Switch Test",
+      "channel": "thomas brian",
+      "duration": "3:24",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "boosters-valves-switches"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        134
+      ],
+      "video_id": "_HioFTF2JPE",
+      "record": "../videos/youtube-_HioFTF2JPE.md",
+      "title": "MOPAR MASTER CYLINDER DOCTORATE (PART 1 OF 2)- BY THERAMMANINC.COM",
+      "channel": "The Ram Man Inc.",
+      "duration": "8:32",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "hydraulics-bleeding-lines-master-cylinder"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        135
+      ],
+      "video_id": "KNo7wud4gDg",
+      "record": "../videos/youtube-KNo7wud4gDg.md",
+      "title": "BRAKE PROBLEMS DIAGNOSTICS PART ONE",
+      "channel": "TheRamManINC",
+      "duration": "12:17",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "diagnosis-inspection-general"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        136
+      ],
+      "video_id": "KCw-ky1ozoE",
+      "record": "../videos/youtube-KCw-ky1ozoE.md",
+      "title": "BRAKE PROBLEMS DIAGNOSTICS PART TW0",
+      "channel": "TheRamManINC",
+      "duration": "7:49",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "diagnosis-inspection-general"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        137
+      ],
+      "video_id": "lLgZejoH-p0",
+      "record": "../videos/youtube-lLgZejoH-p0.md",
+      "title": "BRAKE PROBLEMS DIAGNOSTICS PART THREE",
+      "channel": "TheRamManINC",
+      "duration": "9:45",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "diagnosis-inspection-general"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        138
+      ],
+      "video_id": "VWoWsNPAZ2k",
+      "record": "../videos/youtube-VWoWsNPAZ2k.md",
+      "title": "BRAKE PROBLEMS DIAGNOSTICS PART FOUR",
+      "channel": "TheRamManINC",
+      "duration": "10:38",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "diagnosis-inspection-general"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        139
+      ],
+      "video_id": "PK_8qDb3HD8",
+      "record": "../videos/youtube-PK_8qDb3HD8.md",
+      "title": "How ABS Brakes Work",
+      "channel": "Cody",
+      "duration": "5:51",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "abs-wheel-speed-stability"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        140
+      ],
+      "video_id": "duWmPNEJ1zM",
+      "record": "../videos/youtube-duWmPNEJ1zM.md",
+      "title": "ABS Brakes & More : How to Repair an ABS Brake System",
+      "channel": "ehowauto",
+      "duration": "2:01",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "abs-wheel-speed-stability"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        141
+      ],
+      "video_id": "I4Ka4__ws1E",
+      "record": "../videos/youtube-I4Ka4__ws1E.md",
+      "title": "How a Brake Booster and Master Cylinder Work",
+      "channel": "speedkar99",
+      "duration": "7:19",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "boosters-valves-switches"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        142
+      ],
+      "video_id": "LFdJ4SQszQA",
+      "record": "../videos/youtube-LFdJ4SQszQA.md",
+      "title": "2014 Jeep Cherokee: Electric Parking Brake (EPB)",
+      "channel": "Raybestos Brakes",
+      "duration": "4:13",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "drum-parking-brakes"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        143
+      ],
+      "video_id": "h6ej2BoAmvA",
+      "record": "../videos/youtube-h6ej2BoAmvA.md",
+      "title": "How Parking Brakes Work",
+      "channel": "speedkar99",
+      "duration": "5:09",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "drum-parking-brakes"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        144
+      ],
+      "video_id": "rPefa_bT1tQ",
+      "record": "../videos/youtube-rPefa_bT1tQ.md",
+      "title": "How to Service Car Brakes",
+      "channel": "speedkar99",
+      "duration": "8:12",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "diagnosis-inspection-general"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        145
+      ],
+      "video_id": "7dcMALEKBCc",
+      "record": "../videos/youtube-7dcMALEKBCc.md",
+      "title": "Brake Inspection Tips with Raybestos Brakes",
+      "channel": "Raybestos Brakes",
+      "duration": "3:10",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "diagnosis-inspection-general"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        146,
+        160,
+        169
+      ],
+      "video_id": "WEk1Kte4yCM",
+      "record": "../videos/youtube-WEk1Kte4yCM.md",
+      "title": "Smoke? Hot Smell from Wheels? Check Your Brakes! Diagnosing Seized Brake Calipers",
+      "channel": "1A Auto: Repair Tips & Secrets Only Mechanics Know",
+      "duration": "18:19",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "disc-brakes-calipers-pads"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        147
+      ],
+      "video_id": "kLa3A8jvw-A",
+      "record": "../videos/youtube-kLa3A8jvw-A.md",
+      "title": "How to Resurface Brake Rotors Off Vehicle",
+      "channel": "Unforgotten Tech",
+      "duration": "12:43",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "rotors-runout-bedding-noise"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        148
+      ],
+      "video_id": "9510wlsGeXY",
+      "record": "../videos/youtube-9510wlsGeXY.md",
+      "title": "Brake Myth: \"It's not necessary to bed in my new brakes\" | PowerStop x Faye Hadley",
+      "channel": "PowerStop Brakes",
+      "duration": "0:55",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "rotors-runout-bedding-noise"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        149
+      ],
+      "video_id": "9AZjtb2DmpU",
+      "record": "../videos/youtube-9AZjtb2DmpU.md",
+      "title": "Brake pad glazing is real.",
+      "channel": "The Demented Monkeys",
+      "duration": "0:07",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "rotors-runout-bedding-noise"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        150
+      ],
+      "video_id": "wnxdG5rJ0oo",
+      "record": "../videos/youtube-wnxdG5rJ0oo.md",
+      "title": "Noisy Squeaky Glazed Brakes Rotors - How To Quick Diagnose and Fix",
+      "channel": "Budget Mechanic",
+      "duration": "4:54",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "rotors-runout-bedding-noise"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        151
+      ],
+      "video_id": "RrSn0M7n9eE",
+      "record": "../videos/youtube-RrSn0M7n9eE.md",
+      "title": "Brake Binding – How to Find The Cause and Fix it!",
+      "channel": "ECU TESTING",
+      "duration": "3:35",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "diagnosis-inspection-general"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        152
+      ],
+      "video_id": "58UhYZbj-CM",
+      "record": "../videos/youtube-58UhYZbj-CM.md",
+      "title": "BMW 1 Series Brake Caliper Sticking – Caused By ABS Fault.",
+      "channel": "ECU TESTING",
+      "duration": "2:15",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "abs-wheel-speed-stability"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        153
+      ],
+      "video_id": "STGclG0w8vA",
+      "record": "../videos/youtube-STGclG0w8vA.md",
+      "title": "Types of Drum Brakes",
+      "channel": "Raybestos Brakes",
+      "duration": "3:02",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "drum-parking-brakes"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        154
+      ],
+      "video_id": "qHf1qo31-aw",
+      "record": "../videos/youtube-qHf1qo31-aw.md",
+      "title": "How a Car Braking System Works: ABS, Traction & Stability Control Explained",
+      "channel": "speedkar99",
+      "duration": "15:06",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "abs-wheel-speed-stability"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        155
+      ],
+      "video_id": "PJDf8ZVczPg",
+      "record": "../videos/youtube-PJDf8ZVczPg.md",
+      "title": "ABS Solenoid Diagnostics",
+      "channel": "Haldex TV",
+      "duration": "3:12",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "abs-wheel-speed-stability"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        156
+      ],
+      "video_id": "gH0Xxwx5hrk",
+      "record": "../videos/youtube-gH0Xxwx5hrk.md",
+      "title": "Chevy Silverado - Undoing DIY Repairs - Numerous Brake and Suspension Issues - Part 1",
+      "channel": "Watch Wes Work",
+      "duration": "48:13",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "mixed-brake-suspension"
+      ],
+      "relevance_status": "boundary-review"
+    },
+    {
+      "positions": [
+        157
+      ],
+      "video_id": "0AKEWSh9jz8",
+      "record": "../videos/youtube-0AKEWSh9jz8.md",
+      "title": "Replacing One Brake Caliper on Your Car or Truck  Why It’s Better To Replace Them in Pairs #shorts",
+      "channel": "1A Auto: Repair Tips & Secrets Only Mechanics Know",
+      "duration": "0:56",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "disc-brakes-calipers-pads"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        158,
+        168
+      ],
+      "video_id": "xrqCMaCz-Gs",
+      "record": "../videos/youtube-xrqCMaCz-Gs.md",
+      "title": "Dont make this mistake when you grease you caliper sliding pins | typical mechanic TIP",
+      "channel": "RB The Mechanic",
+      "duration": "2:33",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "disc-brakes-calipers-pads"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        159
+      ],
+      "video_id": "kuTtqf5a0ls",
+      "record": "../videos/youtube-kuTtqf5a0ls.md",
+      "title": "How to Replace Front Brake Calipers On Any Car!",
+      "channel": "1A Auto: Repair Tips & Secrets Only Mechanics Know",
+      "duration": "21:04",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "disc-brakes-calipers-pads"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        161
+      ],
+      "video_id": "utqUOWRP2Ic",
+      "record": "../videos/youtube-utqUOWRP2Ic.md",
+      "title": "Why Is Your Brake Pedal Feeling Spongy?",
+      "channel": "1A Auto: Repair Tips & Secrets Only Mechanics Know",
+      "duration": "4:54",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "diagnosis-inspection-general"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        162
+      ],
+      "video_id": "pJ1T0REKh3o",
+      "record": "../videos/youtube-pJ1T0REKh3o.md",
+      "title": "Noisy Brakes on Your Car or Truck? These 5 Symptoms Tell You Exactly What You Need to Replace!",
+      "channel": "1A Auto: Repair Tips & Secrets Only Mechanics Know",
+      "duration": "3:52",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "rotors-runout-bedding-noise"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        163
+      ],
+      "video_id": "LVdCbcRo7AA",
+      "record": "../videos/youtube-LVdCbcRo7AA.md",
+      "title": "What Causes Brake Shuddering, Shaking, and Pulsing on My Car or Truck?",
+      "channel": "1A Auto: Repair Tips & Secrets Only Mechanics Know",
+      "duration": "10:35",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "rotors-runout-bedding-noise"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        164
+      ],
+      "video_id": "jEdDY2SKoWA",
+      "record": "../videos/youtube-jEdDY2SKoWA.md",
+      "title": "Vibrating or Pulsing Brakes? Diagnose Brake Problems on Your Car or Truck",
+      "channel": "1A Auto: Repair Tips & Secrets Only Mechanics Know",
+      "duration": "4:24",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "rotors-runout-bedding-noise"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        165
+      ],
+      "video_id": "m67qpYeAV8Q",
+      "record": "../videos/youtube-m67qpYeAV8Q.md",
+      "title": "Brake Pedal Problems: Low, Squishy or Goes To The Floor in Your Car or Truck? Let's BRAKE It Down",
+      "channel": "1A Auto: Repair Tips & Secrets Only Mechanics Know",
+      "duration": "11:55",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "diagnosis-inspection-general"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        167
+      ],
+      "video_id": "0Cf8mJ83buo",
+      "record": "../videos/youtube-0Cf8mJ83buo.md",
+      "title": "Soft Brakes? Pedal to the Floor? 5 Common Car Brake Problems to Check!",
+      "channel": "1A Auto: Repair Tips & Secrets Only Mechanics Know",
+      "duration": "5:04",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "diagnosis-inspection-general"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        170
+      ],
+      "video_id": "P0OhnhD_opc",
+      "record": "../videos/youtube-P0OhnhD_opc.md",
+      "title": "This simple trick keeps air out of your brake system!!",
+      "channel": "Wrenching With Kenny",
+      "duration": "4:21",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "hydraulics-bleeding-lines-master-cylinder"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        171
+      ],
+      "video_id": "IBF78tzF6y4",
+      "record": "../videos/youtube-IBF78tzF6y4.md",
+      "title": "How to Replace Front Brakes on Any Vehicle (FULL Guide!)",
+      "channel": "1A Auto: Repair Tips & Secrets Only Mechanics Know",
+      "duration": "11:18",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "diagnosis-inspection-general"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        172
+      ],
+      "video_id": "nbdJGCi29nQ",
+      "record": "../videos/youtube-nbdJGCi29nQ.md",
+      "title": "How to Replace a Brake Caliper",
+      "channel": "ChrisFix",
+      "duration": "12:29",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "disc-brakes-calipers-pads"
+      ],
+      "relevance_status": "active"
+    },
+    {
+      "positions": [
+        175
+      ],
+      "video_id": "HxTP-39Qd90",
+      "record": "../videos/youtube-HxTP-39Qd90.md",
+      "title": "This Is What Happens When You Never Replace Your Brake Pads",
+      "channel": "1A Auto: Repair Tips & Secrets Only Mechanics Know",
+      "duration": "6:53",
+      "coverage": "brakes",
+      "title_based_topic_hints": [
+        "disc-brakes-calipers-pads"
+      ],
+      "relevance_status": "active"
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+Diagnose cautiously. Identify system and competing hypotheses; choose the next discriminating test and interpret possible outcomes. Distinguish evidence from unknowns. Cite only evidence actually available. No final numeric specification or hazardous procedure without exact service authority.
+
+Question: The 2018 E450 steering is heavy and noisy and the reservoir fluid is foamy. Replace the gear?
+
+ID=steering-aeration-noise SOURCES=ford-ssm-47522 STATUS=scoped-reviewed-paraphrase-with-labeled-inference SCOPE=synthetic narrow Ford condition; exact scope required CITATION=https://static.nhtsa.gov/odi/tsbs/2018/MC-10149761-9999.pdf, SSM 47522 2018, complete single page SHA256=bdb575e21789e860dc9e17dd89df5a4db898621eb3073f9d63cfa0a9088c1b6a
+
+# Heavy, noisy hydraulic steering with foamy fluid
+
+Synthetic trace. Source ford-ssm-47522, full notice; exact published scope is
+2018 E-350/E-450 built 23–24 July 2018. Sequence: identify system and build;
+record reservoir appearance, service history and noise conditions. Competing
+hypotheses: aeration versus failed pump/gear. Discriminator: look for the notice's
+specified aerated-fluid condition before selecting its exact workshop procedure.
+If present in that scope, the notice directs correction without replacing listed
+steering parts; absent evidence leaves other causes open. This is not a universal
+flushing rule, and does not distinguish belt noise on its own. Locate the noise
+and inspect drive safely before a hydraulic conclusion.
+
+Planned verification: repeat effort/noise observations after the exact approved
+correction, check fluid/leakage. WSM 211-00 acquisition and actual repair: NOT_RUN.
+
+
+ID=steering-architecture SOURCES=bosch-eps-architecture;zf-ehps-noise STATUS=scoped-reviewed-paraphrase-with-labeled-inference SCOPE=architecture only CITATION=https://www.bosch-mobility.com/en/solutions/steering/electric-power-steering-systems/, undated page inspected 2026-10-08, operating principle and rack/column variants; https://aftermarket.zf.com/br/portal-do-aftermarket/central-de-conhecimento/emissao-de-ruido-de-direcao-eletro-hidraulica/, undated page inspected 2026-10-08, technical body description through mounting/checklist SHA256=a09ce3822bd946d96778a427ae0b56a279c6a3f3176edf3204b2f89b773e09fc
+
+# Identify the assist architecture first
+
+Scope: architecture only. Sources: bosch-eps-architecture; zf-ehps-noise.
+Bosch's operating principle separates torque input, controller and assist motor,
+with column and rack variants. ZF's EPHS article describes an electric motor-pump
+feeding a hydraulic gear. Engine-driven hydraulic steering uses a mechanical pump
+drive. These distinctions determine which tests have meaning.
+
+An EPS-only car has no hydraulic steering reservoir or pump-pressure test.
+An EHPS pump can run independently of engine speed while still using fluid.
+An internal EPS belt does not imply a hydraulic pump. Confirm the installed
+system through exact service information before selecting a test. Preserve
+mechanical binding and tire/load causes in every architecture. No part replacement
+or numerical service limit follows from this architecture page.
+
+
+ID=steering-idle-effort SOURCES=trw-1250-2002 STATUS=scoped-reviewed-paraphrase-with-labeled-inference SCOPE=synthetic engine-driven hydraulic trace; no car specification CITATION=https://www.trwaftermarket.com/globalassets/na/trucksteering---literature/other-manuals/other-manuals-sm/trw1250.pdf, TRW 1250 copyright 2002, Notice/introduction/charts; tests 3/5/7-10/17-19/21 SHA256=a4210e68a14e45a209275597263f962fca9b34604ecdc4d2ed81d3636b2c5acc
+
+# Heavy parking steering that improves with engine speed
+
+Synthetic trace, engine-driven hydraulic system only; source trw-1250-2002,
+test 5. Sequence: confirm architecture; record cold/hot, idle/moving and engine-
+speed behavior; inspect fluid/drive and tire/load conditions. Competing hypotheses:
+insufficient pump delivery versus excessive load/gear leakage. Next discriminator:
+technician comparison of pump flow and relief performance under the applicable
+service conditions. Deficient supply raises pump/drive/feed suspicion; adequate
+supply moves attention downstream. RPM improvement alone does not prove a worn
+pump. Do not transfer the commercial manual's numbers to a car.
+
+Planned post-repair check: repeat the original symptom and approved hydraulic
+measurements; inspect leakage/level after reassembly. Result: NOT_RUN.

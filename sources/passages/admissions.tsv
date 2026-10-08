@@ -1,0 +1,13 @@
+passage_id	source_ids	scope
+steering-architecture	bosch-eps-architecture;zf-ehps-noise	architecture only
+steering-idle-effort	trw-1250-2002	synthetic engine-driven hydraulic trace; no car specification
+steering-aeration-noise	ford-ssm-47522	synthetic narrow Ford condition; exact scope required
+steering-asymmetry	trw-1250-2002	synthetic hydraulic gear/leakage versus mechanical trace
+steering-eps-intermittent	gm-18-na-161-v4	synthetic LD EPS supply versus control trace; match bulletin table
+steering-mechanical-binding	trw-1250-2002;a4-front-end-note	synthetic column versus wheel-end binding; exact isolation procedure needed
+steering-return-pull	trw-1250-2002;a4-measurement-note	synthetic tire/alignment versus friction trace; no accepted physical measurement
+steering-ehps-noise	zf-ehps-noise	synthetic EHPS supply/air/line/mount versus pump trace
+brake-travel	gm-pic5468c-2013	historical air-retention mechanism; synthetic diagnostic question
+brake-heat	honda-gl1800-11v567	motorcycle compensation mechanism; car test is labeled inference
+alignment-integrity	a4-measurement-note;a4-front-end-note	qualitative validity and component-localization boundaries only
+torque-conflict	dakota-conflict-issue	unresolved Dakota conflict; no numeric prescription

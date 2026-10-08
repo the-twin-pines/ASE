@@ -1,54 +1,39 @@
 # Automotive diagnosis corpus
 
-This repository exists to make an AI assistant materially better at diagnosing and explaining vehicle problems. It is **not** an ASE test-prep guide for people.
+The aim is better vehicle diagnosis and explanation. ASE categories are coverage
+buckets, not exam-prep content or proof of repair quality.
 
-ASE A1–A9 remain useful as broad coverage buckets because they give the corpus a familiar automotive taxonomy. Problem-, component-, and symptom-focused branches are equally important when they are better retrieval keys.
+Main combines [A4 measurement integrity](notes/), [steering](steering/), partial
+[brake reviews](brakes/sources/reviewed/), and [atomic sources](sources/).
+Only explicitly reviewed, digested [passages](sources/passages.tsv) enter retrieval.
+195 videos remain metadata-only. Acquiring 14 captions did not make them reviewed;
+raw captions are not republished.
 
-## ASE coverage buckets
+| Bucket | Current scope |
+| --- | --- |
+| A1 | [Atomic metadata/reference frame](engine-repair/); synthesis blocked |
+| A4 | Preserved reviewed measurement notes; seven synthetic steering traces |
+| A5 | [Case](brakes/cases/001-long-pedal-hot-wheel.md), partial Ram Man reviews, scoped companion mechanisms; synthesis blocked |
+| A2/A3/A6/A8/A9 | Empty/placeholder branches; no mature coverage claim |
+| A7 | [Separate HVAC branch](https://github.com/the-twin-pines/ASE/tree/a7-heating-air-conditioning); not reconciled here |
 
-- [A1 — Engine Repair](https://github.com/isomorphisms/ASE/tree/a1-engine-repair)
-- [A2 — Automatic Transmission/Transaxle](https://github.com/isomorphisms/ASE/tree/a2-automatic-transmission-transaxle)
-- [A3 — Manual Drivetrain & Axles](https://github.com/isomorphisms/ASE/tree/a3-manual-drivetrain-axles)
-- [A4 — Suspension & Steering](https://github.com/isomorphisms/ASE/tree/a4-suspension-steering)
-- [A5 — Brakes](https://github.com/isomorphisms/ASE/tree/a5-brakes)
-- [A6 — Electrical/Electronic Systems](https://github.com/isomorphisms/ASE/tree/a6-electrical-electronic-systems)
-- [A7 — Heating & Air Conditioning](https://github.com/isomorphisms/ASE/tree/a7-heating-air-conditioning)
-- [A8 — Engine Performance](https://github.com/isomorphisms/ASE/tree/a8-engine-performance)
-- [A9 — Light Vehicle Diesel Engines](https://github.com/isomorphisms/ASE/tree/a9-light-vehicle-diesel-engines)
+Source branches: [A1](https://github.com/the-twin-pines/ASE/tree/a1-engine-repair),
+[A4](https://github.com/the-twin-pines/ASE/tree/a4-suspension-steering),
+[A5](https://github.com/the-twin-pines/ASE/tree/a5-brakes),
+[EVAP](https://github.com/the-twin-pines/ASE/tree/large-evap-leak),
+[engine sensors](https://github.com/the-twin-pines/ASE/tree/engine-sensors).
 
-## Problem and component retrieval branches
+Retain source → inspected content → scoped diagnostic inference, observations in
+order, competing hypotheses, the next discriminating test and remaining unknowns.
+Titles are acquisition hints. Synthetic traces are plans, not confirmed repairs.
+Exact limits, fluids, torque and column procedures use [the spec gate](specifications/).
+The Dakota torque conflict remains unresolved.
 
-- [Large EVAP leak](https://github.com/isomorphisms/ASE/tree/large-evap-leak) — EVAP system operation, leak diagnosis, purge/vent valves, filler-neck faults
-- [Engine sensors](https://github.com/isomorphisms/ASE/tree/engine-sensors) — crankshaft position, MAF, TPS, MAP, ECU communication, and CAN diagnosis
+[Architecture](SOURCE_ARCHITECTURE.md), [reconciliation](reports/reconciliation.md),
+and [experiment](tests/retrieval-experiment.md) state the boundaries. Tests, archives
+and acquisition work are excluded. Model comparison is BLOCKED/NOT_RUN.
 
-## What belongs in the corpus
-
-The valuable unit is not a link. Prefer a chain like:
-
-`source → transcript/captions → source-grounded summary → diagnostic lessons → reusable failure pattern`
-
-For a diagnostic source, preserve especially:
-
-- complaint and repair history;
-- measurements and observations in the order they occurred;
-- what each observation establishes and what it does not establish;
-- the next discriminating test and why it was chosen;
-- confirmed fault versus suspicion;
-- repair and post-repair verification when available;
-- lessons that transfer to a different vehicle without pretending all systems are identical.
-
-Keep full transcripts or captions when obtainable and appropriate to store. Summaries and lessons are derived artifacts, not replacements for source review.
-
-Raw URL/title/playlist metadata may be kept for acquisition, but it is low-maturity material and must never be presented as though the source itself was reviewed.
-
-## Tests
-
-- [`tests/`](https://github.com/isomorphisms/ASE/tree/main/tests) — a lightweight place to preserve an occasional before/after check when one is worth keeping.
-
-`tests/` is not a training gym or benchmark project and must be excluded from retrieval indexes.
-
-## Working rule
-
-Optimize for the questions a mechanic, owner, or technician might actually ask an assistant: *What does this measurement rule out? What should I test next? Why did the new part not fix it? Is this electrical, hydraulic, mechanical, control-side, or load-side?*
-
-Generic prose that does not improve those answers is low value. Concrete source-backed diagnostic traces are high value.
+Verification: `ithon examples/autogenerated/source-authority/ase.pi --verify`, using
+the pinned checked Ithon runner described in the attempt record. CI checks the
+actual PR head. The unchanged source validator and three A4 Python scripts remain
+existing migration debt; no new maintained Python source is added.
