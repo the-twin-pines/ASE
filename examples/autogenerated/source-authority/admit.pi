@@ -1,0 +1,45 @@
+from pathlib import Path
+from builtins import list, dict
+import sys
+import ase
+
+# Explicit author attestation after source inspection. Not run during validation,
+# retrieval or CI; it must never automatically promote newly acquired sources.
+root ∈ Path ← Path(sys.argv.__getitem__(0)).resolve().parents.__getitem__(3)
+existing ∈ list[dict] ← ase.table(root, "sources/catalog.tsv")
+admissions ∈ list[dict] ← ase.table(root, "sources/reviewed/admissions.tsv")
+owned_ids ∈ list[str] ← []
+for admission in admissions:
+    owned_ids.append(ase.field(admission, "source_id"))
+sources ∈ list[dict] ← []
+for existing_source in existing:
+    owned ∈ bool ← ase.field(existing_source, "source_id") in owned_ids
+    if owned == False:
+        sources.append(existing_source)
+receipts ∈ list[dict] ← []
+note ∈ str ← "sources/reviewed/power-steering-review.md"
+for admission in admissions:
+    record ∈ dict ← dict(admission)
+    source_path ∈ str ← ase.field(record, "path")
+    record.update(dict(eligible="true", sha256=ase.digest(root, source_path)))
+    sources.append(record)
+    receipt ∈ dict ← dict(record)
+    receipt.pop("eligible")
+    receipt.pop("path")
+    receipt.update(dict(note=note, note_sha256=ase.digest(root, note), reviewed_at="2026-10-08", basis="individual source inspection; scoped paraphrase/inference; see per-ID review note"))
+    receipts.append(receipt)
+ase.save_table(root, "sources/catalog.tsv", ["source_id", "path", "status", "scope", "citation", "edition", "location", "eligible", "sha256", "authority"], sources)
+ase.save_table(root, "sources/reviews.tsv", ["source_id", "status", "scope", "citation", "edition", "location", "sha256", "note", "note_sha256", "reviewed_at", "basis"], receipts)
+passages ∈ list[dict] ← []
+passage_inputs ∈ list[dict] ← ase.table(root, "sources/passages/admissions.tsv")
+for admission in passage_inputs:
+    passage_id ∈ str ← ase.field(admission, "passage_id")
+    path ∈ str ← "sources/passages/" + passage_id + ".md"
+    citation_parts ∈ list[str] ← []
+    source_ids ∈ list[str] ← ase.field(admission, "source_ids").split(";")
+    for source_id in source_ids:
+        source ∈ dict ← ase.find(sources, "source_id", source_id)
+        citation_parts.append("{}, {}, {}".format(ase.field(source, "citation"), ase.field(source, "edition"), ase.field(source, "location")))
+    passages.append(dict(passage_id=passage_id, source_ids=ase.field(admission, "source_ids"), scope=ase.field(admission, "scope"), path=path, sha256=ase.digest(root, path), status="scoped-reviewed-paraphrase-with-labeled-inference", citation="; ".join(citation_parts)))
+ase.save_table(root, "sources/passages.tsv", ["passage_id", "source_ids", "scope", "path", "sha256", "status", "citation"], passages)
+print("Admitted explicitly inspected scopes; acquired videos remain metadata-only")

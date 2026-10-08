@@ -1,0 +1,55 @@
+Diagnose cautiously. Identify system and competing hypotheses; choose the next discriminating test and interpret possible outcomes. Distinguish evidence from unknowns. Cite only evidence actually available. No final numeric specification or hazardous procedure without exact service authority.
+
+Question: After brake hydraulic lines were replaced the pedal is long and pumps up. Is that enough to condemn the master cylinder?
+
+ID=brake-travel SOURCES=gm-pic5468c-2013 STATUS=scoped-reviewed-paraphrase-with-labeled-inference SCOPE=historical air-retention mechanism; synthetic diagnostic question CITATION=https://static.nhtsa.gov/odi/tsbs/2014/SB-10038752-1726.pdf, PIC5468C January 2013, full pp1-2 SHA256=4f51964836b727b3a8995533548de451554d41d50a97d022a575faf87a1bec88
+
+# Long pedal after hydraulic work
+
+Scope: historical GM PIC5468C January 2013, listed Impala/Monte Carlo only.
+The bulletin distinguishes trapped air in high routed lines after disconnecting
+hydraulics. A synthetic discriminator compares firmness, pump-up and steady-force
+hold with the repair history before selecting an exact bleed or pressure-holding
+procedure. Pump-up alone does not prove the master cylinder failed: clearance/
+knock-back and compressibility remain competing mechanisms. Do not treat a firm
+pedal as proof that all circuits are safe.
+
+The bulletin supplies an application-specific post-repair pedal and road-test
+sequence. No universal bleed order, line-loosening procedure or fluid approval
+is admitted here. Actual procedure selection and physical result: NOT_RUN.
+
+
+ID=brake-heat SOURCES=honda-gl1800-11v567 STATUS=scoped-reviewed-paraphrase-with-labeled-inference SCOPE=motorcycle compensation mechanism; car test is labeled inference CITATION=https://static.nhtsa.gov/odi/rcl/2011/RCORRD-11V567-8637.pdf, Honda 11-0531 2011-12-02, page1 mechanism/page2 procedure boundary SHA256=e63ad0bbf31a1febcc53e776e3451060c2bdc57cb60df131035c6c7403e19caa
+
+# Hot dragging brake: retained pressure or mechanical restraint?
+
+Source honda-gl1800-11v567, 2011-12-02 page 1. Its specific motorcycle secondary
+master-cylinder compensation fault illustrates retained pressure after release;
+it does not diagnose a car caliper. Synthetic next test: a qualified technician
+uses the exact vehicle pressure-release/localization procedure to distinguish
+retained hydraulic force from mechanical drag. Drag relieved with controlled
+pressure release shifts the ranking upstream; drag retained shifts it toward
+mechanical restraint. Neither outcome alone names the hose or master cylinder.
+
+No hot-wheel casual bleeder test, universal clearance, or transferable recall
+procedure. Preserve heat injury/fire risk and halt ordinary driving while severe
+drag is unresolved. Post-repair drag/temperature and brake-performance checks are
+planned under exact service instructions; result NOT_RUN.
+
+
+ID=steering-ehps-noise SOURCES=zf-ehps-noise STATUS=scoped-reviewed-paraphrase-with-labeled-inference SCOPE=synthetic EHPS supply/air/line/mount versus pump trace CITATION=https://aftermarket.zf.com/br/portal-do-aftermarket/central-de-conhecimento/emissao-de-ruido-de-direcao-eletro-hidraulica/, undated page inspected 2026-10-08, technical body description through mounting/checklist SHA256=5a77b7cdb25421c310abb04db289a3bd986d25de6aeb114e223845e579ac312d
+
+# EHPS whine after steering or suspension work
+
+Synthetic trace; source zf-ehps-noise, technical sections on supply, fluid, lines
+and mounting. Sequence: identify electric pump plus hydraulic circuit; preserve
+repair history; correlate noise with demand. Hypotheses: low supply, air in fluid,
+transmitted line/mount vibration, or internal pump damage. Discriminator: compare
+loaded electrical supply and fluid condition, then inspect contact/isolation of
+lines and mounts. A supply fault moves electrical correction up; foaming moves
+air entry/bleeding up; contact or stressed mounting with normal supply/fluid moves
+transmission up. Sound alone does not select a replacement pump.
+
+Use exact limits/fluid/bleed procedures. Inspect stationary without touching hot
+or moving parts. Planned verification repeats noise/demand conditions after an
+approved repair and checks leaks/mounting; result NOT_RUN.

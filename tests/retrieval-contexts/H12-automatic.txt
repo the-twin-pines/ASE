@@ -1,0 +1,53 @@
+Diagnose cautiously. Identify system and competing hypotheses; choose the next discriminating test and interpret possible outcomes. Distinguish evidence from unknowns. Cite only evidence actually available. No final numeric specification or hazardous procedure without exact service authority.
+
+Question: I turned the steering wheel one revolution and computed caster with the steering ratio. Can I adjust it now?
+
+ID=alignment-integrity SOURCES=a4-measurement-note;a4-front-end-note STATUS=scoped-reviewed-paraphrase-with-labeled-inference SCOPE=qualitative validity and component-localization boundaries only CITATION=https://github.com/the-twin-pines/ASE/blob/2ec8f4a9ae24a1cc68e4b67d14710b15ca22e71b/sources/reviewed/alignment-measurement-sources.md, A4 2ec8f4a9ae24a1cc68e4b67d14710b15ca22e71b, entire review note; qualitative setup/measurement boundaries; https://github.com/the-twin-pines/ASE/blob/2ec8f4a9ae24a1cc68e4b67d14710b15ca22e71b/sources/reviewed/1a-auto-front-end-diagnosis.md, A4 2ec8f4a9ae24a1cc68e4b67d14710b15ca22e71b, entire note; relative motion versus shake position SHA256=ab60d397a58460f6357295e5b4833f6f3c6db32944967ec15d465b3244948463
+
+# Caster and camber require valid measurements
+
+Sources: a4-measurement-note and a4-front-end-note, pinned historical reviews.
+Preserve RAW readings separately from reference corrections and DERIVED results.
+Confirm tire equivalence/pressure, mechanical condition, exact ride-height datum,
+four wheel-pad elevations and the instrument's own actual road-wheel sweep.
+One bubble level or a steering-wheel turn/nominal ratio cannot establish those
+conditions. Constant gauge-zero cancellation does not prove physical floor slope
+cancels. Check arithmetic, transcription, geometry, vehicle plausibility and
+independent consistency. SUSPECT, INVALID and UNKNOWN stop adjustment advice.
+
+The existing Dakota observations and unmeasured cam-Jacobian remain in notes/.
+Passing arithmetic tests does not establish accepted truck alignment or a verified
+torque. Do not diagnose a ball joint solely from 12-and-6 tire movement.
+
+
+ID=steering-mechanical-binding SOURCES=trw-1250-2002;a4-front-end-note STATUS=scoped-reviewed-paraphrase-with-labeled-inference SCOPE=synthetic column versus wheel-end binding; exact isolation procedure needed CITATION=https://www.trwaftermarket.com/globalassets/na/trucksteering---literature/other-manuals/other-manuals-sm/trw1250.pdf, TRW 1250 copyright 2002, Notice/introduction/charts; tests 3/5/7-10/17-19/21; https://github.com/the-twin-pines/ASE/blob/2ec8f4a9ae24a1cc68e4b67d14710b15ca22e71b/sources/reviewed/1a-auto-front-end-diagnosis.md, A4 2ec8f4a9ae24a1cc68e4b67d14710b15ca22e71b, entire note; relative motion versus shake position SHA256=de42bad4ec10112a7bc5a013395cd95eb7d6416ce0ffa8aba53181aadd3b878b
+
+# Hard steering from mechanical binding
+
+Synthetic trace; sources trw-1250-2002 tests 8/17–19 and a4-front-end-note.
+Sequence: record cyclic position and inspect actual interfaces. Hypotheses:
+column/shaft binding versus wheel-end/linkage restriction. Discriminator:
+technician isolation under exact column/airbag/centering instructions. Binding
+retained on one isolated side changes their ranking. Tire-shake hand position
+does not name a ball joint: observe relative motion at the actual joint/hub
+boundary with the required suspension loading. A loose joint and binding are
+different findings.
+
+Planned verification: safe full travel, correct centering and original complaint
+after approved reassembly. Disassembly/repair/post-repair result: NOT_RUN.
+
+
+ID=steering-asymmetry SOURCES=trw-1250-2002 STATUS=scoped-reviewed-paraphrase-with-labeled-inference SCOPE=synthetic hydraulic gear/leakage versus mechanical trace CITATION=https://www.trwaftermarket.com/globalassets/na/trucksteering---literature/other-manuals/other-manuals-sm/trw1250.pdf, TRW 1250 copyright 2002, Notice/introduction/charts; tests 3/5/7-10/17-19/21 SHA256=61f10874dc9be56f12c3737a58ec19588c65cdd01ba30eb5100454272e64ee70
+
+# One direction is harder than the other
+
+Synthetic hydraulic trace; source trw-1250-2002, hard-steering chart and test 7.
+Sequence: record direction and position, then separate supply, gear and mechanical
+load. Hypotheses: direction-dependent gear leakage versus linkage binding.
+Discriminator: qualified exact-procedure leakage comparison in both directions,
+paired with mechanical localization. Unequal leakage raises gear suspicion;
+localized binding shifts attention to mechanics. Neither the symptom nor one
+pressure reading proves the gear failed. No owner hose-disconnection test.
+
+Planned verification: repeat both directions after approved repair, retaining
+centering, safe travel and leak checks. No repair or physical result: NOT_RUN.

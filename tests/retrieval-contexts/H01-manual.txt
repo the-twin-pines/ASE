@@ -1,0 +1,19 @@
+Diagnose cautiously. Identify system and competing hypotheses; choose the next discriminating test and interpret possible outcomes. Distinguish evidence from unknowns. Cite only evidence actually available. No final numeric specification or hazardous procedure without exact service authority.
+
+Question: My truck barely turns into a parking spot unless I give it gas. Is that a pump?
+
+ID=steering-idle-effort SOURCES=trw-1250-2002 STATUS=scoped-reviewed-paraphrase-with-labeled-inference SCOPE=synthetic engine-driven hydraulic trace; no car specification CITATION=https://www.trwaftermarket.com/globalassets/na/trucksteering---literature/other-manuals/other-manuals-sm/trw1250.pdf, TRW 1250 copyright 2002, Notice/introduction/charts; tests 3/5/7-10/17-19/21 SHA256=a4210e68a14e45a209275597263f962fca9b34604ecdc4d2ed81d3636b2c5acc
+
+# Heavy parking steering that improves with engine speed
+
+Synthetic trace, engine-driven hydraulic system only; source trw-1250-2002,
+test 5. Sequence: confirm architecture; record cold/hot, idle/moving and engine-
+speed behavior; inspect fluid/drive and tire/load conditions. Competing hypotheses:
+insufficient pump delivery versus excessive load/gear leakage. Next discriminator:
+technician comparison of pump flow and relief performance under the applicable
+service conditions. Deficient supply raises pump/drive/feed suspicion; adequate
+supply moves attention downstream. RPM improvement alone does not prove a worn
+pump. Do not transfer the commercial manual's numbers to a car.
+
+Planned post-repair check: repeat the original symptom and approved hydraulic
+measurements; inspect leakage/level after reassembly. Result: NOT_RUN.

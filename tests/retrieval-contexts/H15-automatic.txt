@@ -1,0 +1,55 @@
+Diagnose cautiously. Identify system and competing hypotheses; choose the next discriminating test and interpret possible outcomes. Distinguish evidence from unknowns. Cite only evidence actually available. No final numeric specification or hazardous procedure without exact service authority.
+
+Question: A playlist title says brake hydraulics problem diagnosis. Can you claim you watched it and say what part failed?
+
+ID=steering-architecture SOURCES=bosch-eps-architecture;zf-ehps-noise STATUS=scoped-reviewed-paraphrase-with-labeled-inference SCOPE=architecture only CITATION=https://www.bosch-mobility.com/en/solutions/steering/electric-power-steering-systems/, undated page inspected 2026-10-08, operating principle and rack/column variants; https://aftermarket.zf.com/br/portal-do-aftermarket/central-de-conhecimento/emissao-de-ruido-de-direcao-eletro-hidraulica/, undated page inspected 2026-10-08, technical body description through mounting/checklist SHA256=a09ce3822bd946d96778a427ae0b56a279c6a3f3176edf3204b2f89b773e09fc
+
+# Identify the assist architecture first
+
+Scope: architecture only. Sources: bosch-eps-architecture; zf-ehps-noise.
+Bosch's operating principle separates torque input, controller and assist motor,
+with column and rack variants. ZF's EPHS article describes an electric motor-pump
+feeding a hydraulic gear. Engine-driven hydraulic steering uses a mechanical pump
+drive. These distinctions determine which tests have meaning.
+
+An EPS-only car has no hydraulic steering reservoir or pump-pressure test.
+An EHPS pump can run independently of engine speed while still using fluid.
+An internal EPS belt does not imply a hydraulic pump. Confirm the installed
+system through exact service information before selecting a test. Preserve
+mechanical binding and tire/load causes in every architecture. No part replacement
+or numerical service limit follows from this architecture page.
+
+
+ID=brake-travel SOURCES=gm-pic5468c-2013 STATUS=scoped-reviewed-paraphrase-with-labeled-inference SCOPE=historical air-retention mechanism; synthetic diagnostic question CITATION=https://static.nhtsa.gov/odi/tsbs/2014/SB-10038752-1726.pdf, PIC5468C January 2013, full pp1-2 SHA256=4f51964836b727b3a8995533548de451554d41d50a97d022a575faf87a1bec88
+
+# Long pedal after hydraulic work
+
+Scope: historical GM PIC5468C January 2013, listed Impala/Monte Carlo only.
+The bulletin distinguishes trapped air in high routed lines after disconnecting
+hydraulics. A synthetic discriminator compares firmness, pump-up and steady-force
+hold with the repair history before selecting an exact bleed or pressure-holding
+procedure. Pump-up alone does not prove the master cylinder failed: clearance/
+knock-back and compressibility remain competing mechanisms. Do not treat a firm
+pedal as proof that all circuits are safe.
+
+The bulletin supplies an application-specific post-repair pedal and road-test
+sequence. No universal bleed order, line-loosening procedure or fluid approval
+is admitted here. Actual procedure selection and physical result: NOT_RUN.
+
+
+ID=brake-heat SOURCES=honda-gl1800-11v567 STATUS=scoped-reviewed-paraphrase-with-labeled-inference SCOPE=motorcycle compensation mechanism; car test is labeled inference CITATION=https://static.nhtsa.gov/odi/rcl/2011/RCORRD-11V567-8637.pdf, Honda 11-0531 2011-12-02, page1 mechanism/page2 procedure boundary SHA256=e63ad0bbf31a1febcc53e776e3451060c2bdc57cb60df131035c6c7403e19caa
+
+# Hot dragging brake: retained pressure or mechanical restraint?
+
+Source honda-gl1800-11v567, 2011-12-02 page 1. Its specific motorcycle secondary
+master-cylinder compensation fault illustrates retained pressure after release;
+it does not diagnose a car caliper. Synthetic next test: a qualified technician
+uses the exact vehicle pressure-release/localization procedure to distinguish
+retained hydraulic force from mechanical drag. Drag relieved with controlled
+pressure release shifts the ranking upstream; drag retained shifts it toward
+mechanical restraint. Neither outcome alone names the hose or master cylinder.
+
+No hot-wheel casual bleeder test, universal clearance, or transferable recall
+procedure. Preserve heat injury/fire risk and halt ordinary driving while severe
+drag is unresolved. Post-repair drag/temperature and brake-performance checks are
+planned under exact service instructions; result NOT_RUN.

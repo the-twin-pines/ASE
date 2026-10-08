@@ -1,0 +1,118 @@
+from pathlib import Path
+from builtins import list, dict, len, sorted, open
+from typing import Any
+import subprocess
+import shutil
+import csv
+import json
+import hashlib
+import re
+import sys
+
+root ∈ Path ← Path(sys.argv.__getitem__(0)).resolve().parents.__getitem__(3)
+anchors ∈ dict ← dict(main="67f62c798437e0b44ea4eac0690d170a7af29bf4", a4="2ec8f4a9ae24a1cc68e4b67d14710b15ca22e71b", a5="dda240c100728ae4c5e3cf12455313c0f84263e2", atomic="2e075ce7c3c1fd008b880f9130bc33304ef6d4a4", acquisition="e051201d29f6f0993d1541173d57aed305449ac3")
+
+def git(arguments ∈ list[str]) → bytes:
+    command ∈ list[str] ← ["git", "-C", str(root)]
+    command.extend(arguments)
+    result ∈ Any ← subprocess.run(command, capture_output=True, check=True)
+    return result.stdout
+
+def write_table(path ∈ str, fields ∈ list[str], rows ∈ list[dict]) → None:
+    target ∈ Path ← root.joinpath(path)
+    target.parent.mkdir(parents=True, exist_ok=True)
+    handle ∈ Any ← open(target, "w", encoding="utf-8", newline="")
+    writer ∈ Any ← csv.DictWriter(handle, fieldnames=fields, delimiter="\t", lineterminator="\n")
+    writer.writeheader()
+    writer.writerows(rows)
+    handle.close()
+
+def copy_path(ref ∈ str, path ∈ str, destination ∈ str) → None:
+    target ∈ Path ← root.joinpath(destination)
+    target.parent.mkdir(parents=True, exist_ok=True)
+    content ∈ bytes ← git(["show", ref + ":" + path])
+    target.write_bytes(content)
+
+def reconstruct() → None:
+    before ∈ list[dict] ← []
+    inventory ∈ list[dict] ← []
+    keys ∈ list[str] ← list(anchors.keys())
+    for key in keys:
+        ref ∈ str ← anchors.get(key)
+        text ∈ str ← git(["ls-tree", "-r", "--name-only", ref]).decode()
+        paths ∈ list[str] ← text.splitlines()
+        comparison ∈ str ← "{}...{}".format(anchors.get("main"), ref)
+        ahead ∈ str ← git(["rev-list", "--left-right", "--count", comparison]).decode().strip()
+        inventory.append(dict(input=key, ref=ref, behind_ahead=ahead.replace("\t", "/"), files=len(paths)))
+        for path in paths:
+            before.append(dict(input=key, ref=ref, path=path))
+    write_table("reports/before-files.tsv", ["input", "ref", "path"], before)
+    write_table("reports/branch-inventory.tsv", ["input", "ref", "behind_ahead", "files"], inventory)
+    for owner in ["brakes", "engine-repair"]:
+        source ∈ Path ← root.joinpath(owner, "sources")
+        if source.exists():
+            destination ∈ Path ← root.joinpath("_legacy", "main-title-grouping", owner)
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            shutil.move(str(source), str(destination))
+    atomic ∈ str ← anchors.get("atomic")
+    atomic_paths ∈ list[str] ← git(["ls-tree", "-r", "--name-only", atomic]).decode().splitlines()
+    for path in atomic_paths:
+        if path != "README.md":
+            if path != "tests/README.md":
+                copy_path(atomic, path, path)
+    a4 ∈ str ← anchors.get("a4")
+    a4_paths ∈ list[str] ← git(["ls-tree", "-r", "--name-only", a4]).decode().splitlines()
+    for path in a4_paths:
+        if path != "README.md":
+            a4_destination ∈ str ← path
+            if path == "AGENTS.md":
+                a4_destination ← "notes/AGENTS.md"
+            copy_path(a4, path, a4_destination)
+    a5 ∈ str ← anchors.get("a5")
+    a5_paths ∈ list[str] ← git(["ls-tree", "-r", "--name-only", a5]).decode().splitlines()
+    for path in a5_paths:
+        copy_path(a5, path, "_legacy/a5-branch/" + path)
+        if path.startswith("sources/reviewed/"):
+            copy_path(a5, path, "brakes/" + path)
+    acquisition ∈ str ← anchors.get("acquisition")
+    manifest ∈ list[dict] ← json.loads(git(["show", acquisition + ":_work/a1-video-source-acquisition/manifest.json"]))
+    acquisitions ∈ list[dict] ← []
+    for item in manifest:
+        status ∈ str ← "unavailable"
+        if item.get("captions_ok"):
+            status ← "captions-acquired"
+        source_id ∈ str ← "youtube-{}".format(item.get("video_id"))
+        acquisitions.append(dict(source_id=source_id, state=status, ref=acquisition, reviewed="false"))
+    write_table("sources/acquisitions.tsv", ["source_id", "state", "ref", "reviewed"], acquisitions)
+    catalog ∈ list[dict] ← []
+    videos ∈ list[Path] ← sorted(root.joinpath("sources/videos").glob("youtube-*.md"))
+    for video in videos:
+        text ∈ str ← video.read_text()
+        match ∈ Any ← re.search(r"## Source metadata\s*```json\s*(\{.*?\})\s*```", text, re.S)
+        metadata ∈ dict ← json.loads(match.group(1))
+        catalog.append(dict(source_id=video.stem, path=str(video.relative_to(root)), status=metadata.get("review_status"), scope="playlist metadata only", citation=metadata.get("url"), edition="atomic snapshot " + atomic, location="source metadata", eligible="false", sha256=hashlib.sha256(video.read_bytes()).hexdigest()))
+    write_table("sources/catalog.tsv", ["source_id", "path", "status", "scope", "citation", "edition", "location", "eligible", "sha256", "authority"], catalog)
+
+def snapshot() → None:
+    result ∈ list[dict] ← []
+    paths ∈ list[Path] ← sorted(root.rglob("*"))
+    for path in paths:
+        relative ∈ str ← str(path.relative_to(root))
+        git_private ∈ bool ← relative.startswith(".git/")
+        if path.is_file():
+            if git_private == False:
+                cache ∈ bool ← "__pycache__" in relative
+                if cache == False:
+                    result.append(dict(path=relative))
+    write_table("reports/after-files.tsv", ["path"], result)
+
+arguments ∈ list[str] ← sys.argv
+argument_count ∈ int ← len(arguments)
+if argument_count == 2:
+    action ∈ str ← arguments.__getitem__(1)
+    if action == "--snapshot":
+        snapshot()
+    else:
+        sys.exit("use --snapshot or no arguments")
+else:
+    reconstruct()

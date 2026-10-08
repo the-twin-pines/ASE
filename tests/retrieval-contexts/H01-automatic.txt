@@ -1,0 +1,54 @@
+Diagnose cautiously. Identify system and competing hypotheses; choose the next discriminating test and interpret possible outcomes. Distinguish evidence from unknowns. Cite only evidence actually available. No final numeric specification or hazardous procedure without exact service authority.
+
+Question: My truck barely turns into a parking spot unless I give it gas. Is that a pump?
+
+ID=steering-idle-effort SOURCES=trw-1250-2002 STATUS=scoped-reviewed-paraphrase-with-labeled-inference SCOPE=synthetic engine-driven hydraulic trace; no car specification CITATION=https://www.trwaftermarket.com/globalassets/na/trucksteering---literature/other-manuals/other-manuals-sm/trw1250.pdf, TRW 1250 copyright 2002, Notice/introduction/charts; tests 3/5/7-10/17-19/21 SHA256=a4210e68a14e45a209275597263f962fca9b34604ecdc4d2ed81d3636b2c5acc
+
+# Heavy parking steering that improves with engine speed
+
+Synthetic trace, engine-driven hydraulic system only; source trw-1250-2002,
+test 5. Sequence: confirm architecture; record cold/hot, idle/moving and engine-
+speed behavior; inspect fluid/drive and tire/load conditions. Competing hypotheses:
+insufficient pump delivery versus excessive load/gear leakage. Next discriminator:
+technician comparison of pump flow and relief performance under the applicable
+service conditions. Deficient supply raises pump/drive/feed suspicion; adequate
+supply moves attention downstream. RPM improvement alone does not prove a worn
+pump. Do not transfer the commercial manual's numbers to a car.
+
+Planned post-repair check: repeat the original symptom and approved hydraulic
+measurements; inspect leakage/level after reassembly. Result: NOT_RUN.
+
+
+ID=alignment-integrity SOURCES=a4-measurement-note;a4-front-end-note STATUS=scoped-reviewed-paraphrase-with-labeled-inference SCOPE=qualitative validity and component-localization boundaries only CITATION=https://github.com/the-twin-pines/ASE/blob/2ec8f4a9ae24a1cc68e4b67d14710b15ca22e71b/sources/reviewed/alignment-measurement-sources.md, A4 2ec8f4a9ae24a1cc68e4b67d14710b15ca22e71b, entire review note; qualitative setup/measurement boundaries; https://github.com/the-twin-pines/ASE/blob/2ec8f4a9ae24a1cc68e4b67d14710b15ca22e71b/sources/reviewed/1a-auto-front-end-diagnosis.md, A4 2ec8f4a9ae24a1cc68e4b67d14710b15ca22e71b, entire note; relative motion versus shake position SHA256=ab60d397a58460f6357295e5b4833f6f3c6db32944967ec15d465b3244948463
+
+# Caster and camber require valid measurements
+
+Sources: a4-measurement-note and a4-front-end-note, pinned historical reviews.
+Preserve RAW readings separately from reference corrections and DERIVED results.
+Confirm tire equivalence/pressure, mechanical condition, exact ride-height datum,
+four wheel-pad elevations and the instrument's own actual road-wheel sweep.
+One bubble level or a steering-wheel turn/nominal ratio cannot establish those
+conditions. Constant gauge-zero cancellation does not prove physical floor slope
+cancels. Check arithmetic, transcription, geometry, vehicle plausibility and
+independent consistency. SUSPECT, INVALID and UNKNOWN stop adjustment advice.
+
+The existing Dakota observations and unmeasured cam-Jacobian remain in notes/.
+Passing arithmetic tests does not establish accepted truck alignment or a verified
+torque. Do not diagnose a ball joint solely from 12-and-6 tire movement.
+
+
+ID=brake-travel SOURCES=gm-pic5468c-2013 STATUS=scoped-reviewed-paraphrase-with-labeled-inference SCOPE=historical air-retention mechanism; synthetic diagnostic question CITATION=https://static.nhtsa.gov/odi/tsbs/2014/SB-10038752-1726.pdf, PIC5468C January 2013, full pp1-2 SHA256=4f51964836b727b3a8995533548de451554d41d50a97d022a575faf87a1bec88
+
+# Long pedal after hydraulic work
+
+Scope: historical GM PIC5468C January 2013, listed Impala/Monte Carlo only.
+The bulletin distinguishes trapped air in high routed lines after disconnecting
+hydraulics. A synthetic discriminator compares firmness, pump-up and steady-force
+hold with the repair history before selecting an exact bleed or pressure-holding
+procedure. Pump-up alone does not prove the master cylinder failed: clearance/
+knock-back and compressibility remain competing mechanisms. Do not treat a firm
+pedal as proof that all circuits are safe.
+
+The bulletin supplies an application-specific post-repair pedal and road-test
+sequence. No universal bleed order, line-loosening procedure or fluid approval
+is admitted here. Actual procedure selection and physical result: NOT_RUN.

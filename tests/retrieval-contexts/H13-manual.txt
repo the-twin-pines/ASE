@@ -1,0 +1,18 @@
+Diagnose cautiously. Identify system and competing hypotheses; choose the next discriminating test and interpret possible outcomes. Distinguish evidence from unknowns. Cite only evidence actually available. No final numeric specification or hazardous procedure without exact service authority.
+
+Question: For my 2005 Dakota cam bolt I found 110 150 and 180 ft-lb. Give me the best number now.
+
+ID=torque-conflict SOURCES=dakota-conflict-issue STATUS=scoped-reviewed-paraphrase-with-labeled-inference SCOPE=unresolved Dakota conflict; no numeric prescription CITATION=https://github.com/the-twin-pines/ASE/issues/6, original issue inspected 2026-10-08, full incident and acceptance requirements SHA256=92d0237379fc714832be64a2654b73ae40c37c32ce27c2bcc80463d1b9682543
+
+# Dakota cam-bolt torque remains unresolved
+
+Source dakota-conflict-issue, original issue 6. The recorded 110/150/180 ft-lb
+candidates are incident evidence, not recommendations. Stop numerical composition
+until exact vehicle/VIN/drive/configuration, front/rear pivot fastener, service
+operation, hardware condition and tightening/load state match current identified
+OEM or licensed service information with edition, page/section and review receipt.
+Alignment adjustment and arm installation can be different procedures. Readable
+primary service evidence must explain why each conflicting candidate does or does
+not apply; voting among mirrors or unit conversion cannot settle the conflict.
+
+This work implements that stop. It does not determine the correct Dakota torque.

@@ -1,0 +1,19 @@
+Diagnose cautiously. Identify system and competing hypotheses; choose the next discriminating test and interpret possible outcomes. Distinguish evidence from unknowns. Cite only evidence actually available. No final numeric specification or hazardous procedure without exact service authority.
+
+Question: The steering does not return to center and the car pulls. Must the assist be broken?
+
+ID=steering-return-pull SOURCES=trw-1250-2002;a4-measurement-note STATUS=scoped-reviewed-paraphrase-with-labeled-inference SCOPE=synthetic tire/alignment versus friction trace; no accepted physical measurement CITATION=https://www.trwaftermarket.com/globalassets/na/trucksteering---literature/other-manuals/other-manuals-sm/trw1250.pdf, TRW 1250 copyright 2002, Notice/introduction/charts; tests 3/5/7-10/17-19/21; https://github.com/the-twin-pines/ASE/blob/2ec8f4a9ae24a1cc68e4b67d14710b15ca22e71b/sources/reviewed/alignment-measurement-sources.md, A4 2ec8f4a9ae24a1cc68e4b67d14710b15ca22e71b, entire review note; qualitative setup/measurement boundaries SHA256=5811b473333546c27904eaea3e55a1f356b6659574ff81bcaa2af1242ee1ca96
+
+# Poor return to center or directional pull
+
+Synthetic trace; sources trw-1250-2002 non-recovery/directional-pull charts and
+a4-measurement-note. Sequence: separate braking/acceleration/steady-load behavior,
+inspect tires, then validate alignment setup. Hypotheses: tire/alignment/load bias
+versus friction/assist imbalance. Discriminator: an exact-procedure tire comparison
+or localized friction test after measurement validity. A changed pull with an
+approved tire comparison moves tire influence up; retained localized resistance
+moves binding up. Neither poor return nor a caster display alone proves an assist
+fault. No eccentric adjustment from suspect measurements.
+
+Planned verification repeats original conditions and remeasures validated geometry
+after an approved repair. No accepted physical alignment or repair: NOT_RUN.

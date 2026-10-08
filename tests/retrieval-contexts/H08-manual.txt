@@ -1,0 +1,20 @@
+Diagnose cautiously. Identify system and competing hypotheses; choose the next discriminating test and interpret possible outcomes. Distinguish evidence from unknowns. Cite only evidence actually available. No final numeric specification or hazardous procedure without exact service authority.
+
+Question: My car has EPS only. Which power steering fluid and pump should I buy?
+
+ID=steering-architecture SOURCES=bosch-eps-architecture;zf-ehps-noise STATUS=scoped-reviewed-paraphrase-with-labeled-inference SCOPE=architecture only CITATION=https://www.bosch-mobility.com/en/solutions/steering/electric-power-steering-systems/, undated page inspected 2026-10-08, operating principle and rack/column variants; https://aftermarket.zf.com/br/portal-do-aftermarket/central-de-conhecimento/emissao-de-ruido-de-direcao-eletro-hidraulica/, undated page inspected 2026-10-08, technical body description through mounting/checklist SHA256=a09ce3822bd946d96778a427ae0b56a279c6a3f3176edf3204b2f89b773e09fc
+
+# Identify the assist architecture first
+
+Scope: architecture only. Sources: bosch-eps-architecture; zf-ehps-noise.
+Bosch's operating principle separates torque input, controller and assist motor,
+with column and rack variants. ZF's EPHS article describes an electric motor-pump
+feeding a hydraulic gear. Engine-driven hydraulic steering uses a mechanical pump
+drive. These distinctions determine which tests have meaning.
+
+An EPS-only car has no hydraulic steering reservoir or pump-pressure test.
+An EHPS pump can run independently of engine speed while still using fluid.
+An internal EPS belt does not imply a hydraulic pump. Confirm the installed
+system through exact service information before selecting a test. Preserve
+mechanical binding and tire/load causes in every architecture. No part replacement
+or numerical service limit follows from this architecture page.

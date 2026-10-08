@@ -1,0 +1,377 @@
+from pathlib import Path
+from typing import Any
+from builtins import list, dict, len, sorted, open, set, all, any, slice, globals
+from decimal import Decimal
+import csv
+import hashlib
+import re
+import math
+import operator
+import subprocess
+import os
+import sys
+
+context_fields ∈ list[str] ← ["vehicle", "year", "drive", "configuration", "component", "point", "operation", "load", "kind"]
+reviewed_states ∈ list[str] ← ["page-reviewed", "scoped-extract-reviewed", "transcript-reviewed", "video-reviewed"]
+excluded_parts ∈ list[str] ← ["tests", "_legacy", "_work", "examples", "reports", ".git", "_ithon"]
+
+def field(row ∈ dict, name ∈ str) → str:
+    return str(row.get(name, ""))
+
+def count(items ∈ Any) → int:
+    return len(items)
+
+def table(root ∈ Path, path ∈ str) → list[dict]:
+    handle ∈ Any ← open(root.joinpath(path), encoding="utf-8", newline="")
+    result ∈ list[dict] ← list(csv.DictReader(handle, delimiter="\t"))
+    handle.close()
+    return result
+
+def save_table(root ∈ Path, path ∈ str, fields ∈ list[str], rows ∈ list[dict]) → None:
+    target ∈ Path ← root.joinpath(path)
+    target.parent.mkdir(parents=True, exist_ok=True)
+    handle ∈ Any ← open(target, "w", encoding="utf-8", newline="")
+    writer ∈ Any ← csv.DictWriter(handle, fieldnames=fields, delimiter="\t", lineterminator="\n")
+    writer.writeheader()
+    writer.writerows(rows)
+    handle.close()
+
+def digest(root ∈ Path, path ∈ str) → str:
+    return hashlib.sha256(root.joinpath(path).read_bytes()).hexdigest()
+
+def record_digest(record ∈ dict) → str:
+    names ∈ list[str] ← sorted(record.keys())
+    parts ∈ list[str] ← []
+    for name in names:
+        parts.append(name + "=" + field(record, name))
+    material ∈ str ← "\t".join(parts)
+    return hashlib.sha256(material.encode()).hexdigest()
+
+def missing(value ∈ str) → bool:
+    normalized ∈ str ← value.strip().lower()
+    return normalized in ["", "unknown", "unverified", "?", "none"]
+
+def safe(root ∈ Path, relative ∈ str) → bool:
+    path ∈ Path ← root.joinpath(relative)
+    prefix ∈ str ← "{}/".format(root.resolve())
+    resolved ∈ str ← str(path.resolve())
+    inside ∈ bool ← resolved.startswith(prefix)
+    if inside == False:
+        return False
+    portions ∈ list[str] ← list(Path(relative).parts)
+    resolved_parts ∈ list[str] ← list(path.resolve().relative_to(root.resolve()).parts)
+    portions.extend(resolved_parts)
+    for portion in portions:
+        if portion in excluded_parts:
+            return False
+    return path.is_file()
+
+def find(rows ∈ list[dict], key ∈ str, value ∈ str) → dict:
+    for row in rows:
+        if field(row, key) == value:
+            return row
+    return dict()
+
+def validate(root ∈ Path) → list[str]:
+    errors ∈ list[str] ← []
+    # Playlist topology remains owned by the unchanged atomic validator.
+    atomic ∈ Any ← subprocess.run(["python3", str(root.joinpath("check_sources.py"))], capture_output=True, text=True)
+    atomic_code ∈ int ← atomic.returncode
+    if atomic_code != 0:
+        errors.append("atomic source topology failed: {} {}".format(atomic.stdout, atomic.stderr))
+    catalog ∈ list[dict] ← table(root, "sources/catalog.tsv")
+    receipts ∈ list[dict] ← table(root, "sources/reviews.tsv")
+    passages ∈ list[dict] ← table(root, "sources/passages.tsv")
+    ids ∈ list[str] ← []
+    for source in catalog:
+        source_id ∈ str ← field(source, "source_id")
+        if source_id in ids:
+            errors.append("duplicate canonical source ID " + source_id)
+        ids.append(source_id)
+        path ∈ str ← field(source, "path")
+        if safe(root, path) == False:
+            errors.append("excluded or missing source path " + path)
+        else:
+            if digest(root, path) != field(source, "sha256"):
+                errors.append("source digest mismatch " + source_id)
+        status ∈ str ← field(source, "status")
+        eligible ∈ str ← field(source, "eligible")
+        if eligible == "true":
+            if status in reviewed_states:
+                receipt ∈ dict ← find(receipts, "source_id", source_id)
+                for label in ["source_id", "status", "edition", "location", "scope", "citation", "sha256"]:
+                    if field(receipt, label) != field(source, label):
+                        errors.append("review receipt mismatch " + source_id + " " + label)
+                for required in ["reviewed_at", "basis", "note", "note_sha256"]:
+                    if missing(field(receipt, required)):
+                        errors.append("review receipt missing " + required)
+                note ∈ str ← field(receipt, "note")
+                if safe(root, note):
+                    if digest(root, note) != field(receipt, "note_sha256"):
+                        errors.append("review note digest mismatch " + source_id)
+                else:
+                    errors.append("excluded or missing review note " + source_id)
+            else:
+                errors.append("unreviewed/partial source promoted " + source_id)
+        else:
+            if eligible != "false":
+                errors.append("unknown eligibility flag " + source_id)
+        if source_id.startswith("youtube-"):
+            if status != "metadata-only":
+                errors.append("video review promotion has no inspected pass " + source_id)
+            if eligible != "false":
+                errors.append("video metadata is not retrievable " + source_id)
+    acquisitions ∈ list[dict] ← table(root, "sources/acquisitions.tsv")
+    acquisition_ids ∈ list[str] ← []
+    for acquisition in acquisitions:
+        source_id ← field(acquisition, "source_id")
+        if source_id in acquisition_ids:
+            errors.append("duplicate acquisition identity")
+        acquisition_ids.append(source_id)
+        present ∈ bool ← source_id in ids
+        if present == False:
+            errors.append("acquisition lacks canonical source")
+        if field(acquisition, "reviewed") != "false":
+            errors.append("acquisition is not review")
+        state ∈ str ← field(acquisition, "state")
+        valid_state ∈ bool ← state in ["captions-acquired", "unavailable"]
+        if valid_state == False:
+            errors.append("invalid acquisition state")
+    passage_ids ∈ list[str] ← []
+    for passage in passages:
+        passage_id ∈ str ← field(passage, "passage_id")
+        if passage_id in passage_ids:
+            errors.append("duplicate passage ID")
+        passage_ids.append(passage_id)
+        path ← field(passage, "path")
+        if safe(root, path):
+            if digest(root, path) != field(passage, "sha256"):
+                errors.append("passage digest mismatch " + passage_id)
+        else:
+            errors.append("excluded or missing passage path " + passage_id)
+        source_ids ∈ list[str] ← field(passage, "source_ids").split(";")
+        for source_id in source_ids:
+            source ∈ dict ← find(catalog, "source_id", source_id)
+            if field(source, "eligible") != "true":
+                errors.append("passage uses ineligible source " + source_id)
+        for required in ["scope", "citation", "status"]:
+            if missing(field(passage, required)):
+                errors.append("passage missing " + required)
+        if field(passage, "status") != "scoped-reviewed-paraphrase-with-labeled-inference":
+            errors.append("unsupported passage review state")
+    return errors
+
+def specification(request ∈ dict, record ∈ dict, receipts ∈ list[dict], catalog ∈ list[dict], root ∈ Path, fictional_test ∈ bool) → str:
+    state ∈ str ← field(record, "state")
+    conflicts ∈ str ← field(record, "conflicts")
+    if missing(conflicts) == False:
+        if conflicts != "none":
+            return "CONFLICTING"
+    if state == "CONFLICTING":
+        return "CONFLICTING"
+    if state == "NOT-APPLICABLE":
+        return "NOT-APPLICABLE"
+    if state != "VERIFIED-FOR-EXACT-PROCEDURE":
+        return "UNKNOWN: unverified state"
+    for name in context_fields:
+        wanted ∈ str ← field(request, name)
+        actual ∈ str ← field(record, name)
+        if missing(wanted):
+            return "UNKNOWN: missing request " + name
+        if missing(actual):
+            return "UNKNOWN: missing record " + name
+        if wanted != actual:
+            return "UNKNOWN: procedure mismatch " + name
+    if conflicts != "none":
+        return "UNKNOWN: missing conflict review"
+    for name in ["value", "unit", "authority", "edition", "location", "source_id", "citation", "review_basis", "reviewed_at"]:
+        if missing(field(record, name)):
+            return "UNKNOWN: missing provenance " + name
+    authority ∈ str ← field(record, "authority")
+    if authority == "fictional-test-only":
+        if fictional_test == False:
+            return "UNKNOWN: fictional authority rejected"
+    else:
+        supported ∈ bool ← authority in ["OEM", "licensed-current-service"]
+        if supported == False:
+            return "UNKNOWN: unsupported authority"
+        receipt ∈ dict ← find(receipts, "record_sha256", record_digest(record))
+        if field(receipt, "current_for_procedure") != "true":
+            return "UNKNOWN: no current exact-procedure review receipt"
+        for name in ["source_id", "edition", "location", "citation", "review_basis", "reviewed_at"]:
+            if field(receipt, name) != field(record, name):
+                return "UNKNOWN: review provenance mismatch " + name
+        source ∈ dict ← find(catalog, "source_id", field(record, "source_id"))
+        if field(source, "eligible") != "true":
+            return "UNKNOWN: source ineligible"
+        if field(source, "authority") != authority:
+            return "UNKNOWN: source lacks service authority"
+        for source_field in ["edition", "location", "citation"]:
+            if field(source, source_field) != field(record, source_field):
+                return "UNKNOWN: canonical source provenance mismatch"
+        note ∈ str ← field(receipt, "note")
+        if safe(root, note) == False:
+            return "UNKNOWN: review note unavailable"
+        if digest(root, note) != field(receipt, "note_sha256"):
+            return "UNKNOWN: review note digest"
+    if field(record, "unit") == "text":
+        return "VERIFIED-FOR-EXACT-PROCEDURE"
+    raw ∈ str ← field(record, "value")
+    converted ∈ str ← field(record, "converted_value")
+    if re.fullmatch(r"[0-9]+(\.[0-9]+)?", raw):
+        if re.fullmatch(r"[0-9]+(\.[0-9]+)?", converted):
+            value ∈ Decimal ← Decimal(raw)
+            expected ∈ Decimal ← value
+            unit ∈ str ← field(record, "unit")
+            other_unit ∈ str ← field(record, "converted_unit")
+            if unit == "N.m":
+                if other_unit != "ft-lb":
+                    return "UNKNOWN: unsupported conversion"
+                expected ∈ Decimal ← value.__truediv__(Decimal("1.3558179483314004"))
+            else:
+                if unit != "ft-lb":
+                    return "UNKNOWN: unsupported conversion"
+                if other_unit != "N.m":
+                    return "UNKNOWN: unsupported conversion"
+                expected ∈ Decimal ← value.__mul__(Decimal("1.3558179483314004"))
+            difference ∈ Decimal ← expected.__sub__(Decimal(converted)).__abs__()
+            bad_conversion ∈ bool ← operator.gt(difference, Decimal("0.01"))
+            if bad_conversion:
+                return "UNKNOWN: conversion mismatch"
+            return "VERIFIED-FOR-EXACT-PROCEDURE"
+    return "UNKNOWN: invalid numeric value"
+
+def compose(request ∈ dict, record ∈ dict, receipts ∈ list[dict], catalog ∈ list[dict], root ∈ Path) → str:
+    decision ∈ str ← specification(request, record, receipts, catalog, root, False)
+    if decision != "VERIFIED-FOR-EXACT-PROCEDURE":
+        return "STOP: " + decision
+    return "{}: {} {}. Source: {}, {}, {}.".format(field(record, "point"), field(record, "value"), field(record, "unit"), field(record, "citation"), field(record, "edition"), field(record, "location"))
+
+def answer_allowed(answer ∈ str, request ∈ dict, record ∈ dict, receipts ∈ list[dict], catalog ∈ list[dict], root ∈ Path) → bool:
+    expected ∈ str ← compose(request, record, receipts, catalog, root)
+    # Controlled composition only. This is not a general natural-language filter.
+    return answer == expected
+
+def tokens(text ∈ str) → list[str]:
+    words ∈ list[str] ← re.findall(r"[a-z0-9]+", text.lower())
+    result ∈ list[str] ← []
+    for word in words:
+        stop ∈ bool ← word in ["a", "the", "and", "or", "to", "of", "in", "is", "it", "my", "what", "with", "for", "on", "do", "i"]
+        if stop == False:
+            result.append(word)
+    return result
+
+def term_frequency(words ∈ list[str], term ∈ str) → int:
+    return words.count(term)
+
+def retrieve(root ∈ Path, question ∈ str) → list[dict]:
+    problems ∈ list[str] ← validate(root)
+    if count(problems) > 0:
+        sys.exit("source validation failed: {}".format(" | ".join(problems)))
+    passages ∈ list[dict] ← table(root, "sources/passages.tsv")
+    queries ∈ list[str] ← sorted(set(tokens(question)))
+    documents ∈ list[list[str]] ← []
+    total_length ∈ int ← 0
+    for passage in passages:
+        words ∈ list[str] ← tokens(root.joinpath(field(passage, "path")).read_text())
+        documents.append(words)
+        total_length ← total_length + count(words)
+    number ∈ int ← count(passages)
+    if number == 0:
+        return []
+    average ∈ float ← total_length / number
+    results ∈ list[dict] ← []
+    for index in range(number):
+        words ∈ list[str] ← documents.__getitem__(index)
+        score ∈ float ← 0.0
+        for term in queries:
+            frequency ∈ int ← term_frequency(words, term)
+            document_frequency ∈ int ← 0
+            for document in documents:
+                if term in document:
+                    document_frequency ← document_frequency + 1
+            if frequency > 0:
+                rarity ∈ float ← math.log(1 + (number - document_frequency + 0.5) / (document_frequency + 0.5))
+                length ∈ int ← count(words)
+                score ← score + rarity * frequency * 2.2 / (frequency + 1.2 * (0.25 + 0.75 * length / average))
+        if score > 0:
+            result ∈ dict ← dict(passages.__getitem__(index))
+            result.update(dict(score=score, sort_key=[-score, field(result, "passage_id")]))
+            results.append(result)
+    # Two stable sorts avoid a model, heuristic threshold, or fixture-specific tuning.
+    by_id ∈ list[dict] ← []
+    names ∈ list[str] ← []
+    for result in results:
+        names.append(field(result, "passage_id"))
+    names ∈ list[str] ← sorted(names)
+    for name in names:
+        by_id.append(find(results, "passage_id", name))
+    ordered ∈ list[dict] ← []
+    for result in by_id:
+        placed ∈ bool ← False
+        rebuilt ∈ list[dict] ← []
+        value ∈ float ← result.get("score")
+        for previous in ordered:
+            old_score ∈ float ← previous.get("score")
+            if placed == False:
+                if value > old_score:
+                    rebuilt.append(result)
+                    placed ← True
+            rebuilt.append(previous)
+        if placed == False:
+            rebuilt.append(result)
+        ordered ← rebuilt
+    return ordered.__getitem__(slice(0, 3))
+
+def verify(root ∈ Path) → None:
+    import ithon_frontend
+    programs ∈ list[Path] ← list(root.joinpath("examples/autogenerated/source-authority").glob("*.pi"))
+    for program in programs:
+        ithon_frontend.check_file(str(program))
+        print("CHECKED_ITHON={} SHA256={}".format(program.name, digest(root, str(program.relative_to(root)))))
+    head ∈ str ← subprocess.check_output(["git", "-C", str(root), "rev-parse", "HEAD"], text=True).strip()
+    dirty ∈ str ← subprocess.check_output(["git", "-C", str(root), "status", "--porcelain"], text=True).strip()
+    state ∈ str ← "CLEAN"
+    if dirty != "":
+        state ← "DIRTY"
+    print("SOURCE_HEAD=" + head + " WORKTREE=" + state)
+    problems ∈ list[str] ← validate(root)
+    if count(problems) > 0:
+        sys.exit("FAIL: {}".format(" | ".join(problems)))
+    print("PASS: approved passage/receipt/exclusion checks")
+    checks ∈ list[str] ← ["check_sources.py", "scripts/check_alignment_math.py", "scripts/check_alignment_plausibility.py", "scripts/check_cam_jacobian_curvature.py"]
+    for check in checks:
+        result ∈ Any ← subprocess.run(["python3", str(root.joinpath(check))], cwd=root)
+        code ∈ int ← result.returncode
+        if code != 0:
+            sys.exit("FAIL: " + check)
+    import acceptance
+    acceptance.run(root)
+    print("PASS: host assertions only; model and physical acceptance NOT_RUN")
+
+def cli() → None:
+    root ∈ Path ← Path(sys.argv.__getitem__(0)).resolve().parents.__getitem__(3)
+    arguments ∈ list[str] ← sys.argv
+    size ∈ int ← len(arguments)
+    if size < 2:
+        sys.exit("use --verify, --check, or --retrieve QUESTION")
+    action ∈ str ← arguments.__getitem__(1)
+    if action == "--verify":
+        verify(root)
+    elif action == "--check":
+        problems ∈ list[str] ← validate(root)
+        if count(problems) > 0:
+            sys.exit("FAIL: {}".format(" | ".join(problems)))
+        print("PASS: source admission")
+    elif action == "--retrieve":
+        question ∈ str ← " ".join(arguments.__getitem__(slice(2, None)))
+        hits ∈ list[dict] ← retrieve(root, question)
+        for hit in hits:
+            print("{}\t{}\t{}\t{}\t{}\t{}".format(field(hit, "passage_id"), field(hit, "source_ids"), field(hit, "status"), field(hit, "scope"), field(hit, "citation"), field(hit, "sha256")))
+            print(root.joinpath(field(hit, "path")).read_text())
+    else:
+        sys.exit("unknown action")
+
+module_name ∈ str ← globals().get("__name__")
+if module_name == "__main__":
+    cli()

@@ -1,0 +1,53 @@
+Diagnose cautiously. Identify system and competing hypotheses; choose the next discriminating test and interpret possible outcomes. Distinguish evidence from unknowns. Cite only evidence actually available. No final numeric specification or hazardous procedure without exact service authority.
+
+Question: The steering does not return to center and the car pulls. Must the assist be broken?
+
+ID=steering-return-pull SOURCES=trw-1250-2002;a4-measurement-note STATUS=scoped-reviewed-paraphrase-with-labeled-inference SCOPE=synthetic tire/alignment versus friction trace; no accepted physical measurement CITATION=https://www.trwaftermarket.com/globalassets/na/trucksteering---literature/other-manuals/other-manuals-sm/trw1250.pdf, TRW 1250 copyright 2002, Notice/introduction/charts; tests 3/5/7-10/17-19/21; https://github.com/the-twin-pines/ASE/blob/2ec8f4a9ae24a1cc68e4b67d14710b15ca22e71b/sources/reviewed/alignment-measurement-sources.md, A4 2ec8f4a9ae24a1cc68e4b67d14710b15ca22e71b, entire review note; qualitative setup/measurement boundaries SHA256=5811b473333546c27904eaea3e55a1f356b6659574ff81bcaa2af1242ee1ca96
+
+# Poor return to center or directional pull
+
+Synthetic trace; sources trw-1250-2002 non-recovery/directional-pull charts and
+a4-measurement-note. Sequence: separate braking/acceleration/steady-load behavior,
+inspect tires, then validate alignment setup. Hypotheses: tire/alignment/load bias
+versus friction/assist imbalance. Discriminator: an exact-procedure tire comparison
+or localized friction test after measurement validity. A changed pull with an
+approved tire comparison moves tire influence up; retained localized resistance
+moves binding up. Neither poor return nor a caster display alone proves an assist
+fault. No eccentric adjustment from suspect measurements.
+
+Planned verification repeats original conditions and remeasures validated geometry
+after an approved repair. No accepted physical alignment or repair: NOT_RUN.
+
+
+ID=torque-conflict SOURCES=dakota-conflict-issue STATUS=scoped-reviewed-paraphrase-with-labeled-inference SCOPE=unresolved Dakota conflict; no numeric prescription CITATION=https://github.com/the-twin-pines/ASE/issues/6, original issue inspected 2026-10-08, full incident and acceptance requirements SHA256=92d0237379fc714832be64a2654b73ae40c37c32ce27c2bcc80463d1b9682543
+
+# Dakota cam-bolt torque remains unresolved
+
+Source dakota-conflict-issue, original issue 6. The recorded 110/150/180 ft-lb
+candidates are incident evidence, not recommendations. Stop numerical composition
+until exact vehicle/VIN/drive/configuration, front/rear pivot fastener, service
+operation, hardware condition and tightening/load state match current identified
+OEM or licensed service information with edition, page/section and review receipt.
+Alignment adjustment and arm installation can be different procedures. Readable
+primary service evidence must explain why each conflicting candidate does or does
+not apply; voting among mirrors or unit conversion cannot settle the conflict.
+
+This work implements that stop. It does not determine the correct Dakota torque.
+
+
+ID=steering-architecture SOURCES=bosch-eps-architecture;zf-ehps-noise STATUS=scoped-reviewed-paraphrase-with-labeled-inference SCOPE=architecture only CITATION=https://www.bosch-mobility.com/en/solutions/steering/electric-power-steering-systems/, undated page inspected 2026-10-08, operating principle and rack/column variants; https://aftermarket.zf.com/br/portal-do-aftermarket/central-de-conhecimento/emissao-de-ruido-de-direcao-eletro-hidraulica/, undated page inspected 2026-10-08, technical body description through mounting/checklist SHA256=a09ce3822bd946d96778a427ae0b56a279c6a3f3176edf3204b2f89b773e09fc
+
+# Identify the assist architecture first
+
+Scope: architecture only. Sources: bosch-eps-architecture; zf-ehps-noise.
+Bosch's operating principle separates torque input, controller and assist motor,
+with column and rack variants. ZF's EPHS article describes an electric motor-pump
+feeding a hydraulic gear. Engine-driven hydraulic steering uses a mechanical pump
+drive. These distinctions determine which tests have meaning.
+
+An EPS-only car has no hydraulic steering reservoir or pump-pressure test.
+An EHPS pump can run independently of engine speed while still using fluid.
+An internal EPS belt does not imply a hydraulic pump. Confirm the installed
+system through exact service information before selecting a test. Preserve
+mechanical binding and tire/load causes in every architecture. No part replacement
+or numerical service limit follows from this architecture page.

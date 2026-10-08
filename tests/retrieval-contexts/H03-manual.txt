@@ -1,0 +1,18 @@
+Diagnose cautiously. Identify system and competing hypotheses; choose the next discriminating test and interpret possible outcomes. Distinguish evidence from unknowns. Cite only evidence actually available. No final numeric specification or hazardous procedure without exact service authority.
+
+Question: The hydraulic steering is much harder to the right than the left. What separates gear leakage from binding?
+
+ID=steering-asymmetry SOURCES=trw-1250-2002 STATUS=scoped-reviewed-paraphrase-with-labeled-inference SCOPE=synthetic hydraulic gear/leakage versus mechanical trace CITATION=https://www.trwaftermarket.com/globalassets/na/trucksteering---literature/other-manuals/other-manuals-sm/trw1250.pdf, TRW 1250 copyright 2002, Notice/introduction/charts; tests 3/5/7-10/17-19/21 SHA256=61f10874dc9be56f12c3737a58ec19588c65cdd01ba30eb5100454272e64ee70
+
+# One direction is harder than the other
+
+Synthetic hydraulic trace; source trw-1250-2002, hard-steering chart and test 7.
+Sequence: record direction and position, then separate supply, gear and mechanical
+load. Hypotheses: direction-dependent gear leakage versus linkage binding.
+Discriminator: qualified exact-procedure leakage comparison in both directions,
+paired with mechanical localization. Unequal leakage raises gear suspicion;
+localized binding shifts attention to mechanics. Neither the symptom nor one
+pressure reading proves the gear failed. No owner hose-disconnection test.
+
+Planned verification: repeat both directions after approved repair, retaining
+centering, safe travel and leak checks. No repair or physical result: NOT_RUN.

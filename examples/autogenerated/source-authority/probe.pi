@@ -1,0 +1,105 @@
+from pathlib import Path
+from typing import Any
+from builtins import list, dict, len, sorted
+import subprocess
+import time
+import os
+import ase
+import sys
+
+root ∈ Path ← Path(sys.argv.__getitem__(0)).resolve().parents.__getitem__(3)
+head ∈ str ← subprocess.check_output(["git", "-C", str(root), "rev-parse", "HEAD"], text=True).strip()
+dirty ∈ str ← subprocess.check_output(["git", "-C", str(root), "status", "--porcelain"], text=True).strip()
+state ∈ str ← "CLEAN"
+if dirty != "":
+    state ← "DIRTY"
+started ∈ float ← time.perf_counter()
+questions ∈ list[dict] ← ase.table(root, "tests/diagnostic-holdouts.tsv")
+passages ∈ list[dict] ← ase.table(root, "sources/passages.tsv")
+hits ∈ list[dict] ← []
+slots ∈ list[dict] ← []
+hit_count ∈ int ← 0
+corpus_count ∈ int ← 0
+abstained ∈ int ← 0
+out_count ∈ int ← 0
+prompt ∈ str ← "Diagnose cautiously. Identify system and competing hypotheses; choose the next discriminating test and interpret possible outcomes. Distinguish evidence from unknowns. Cite only evidence actually available. No final numeric specification or hazardous procedure without exact service authority."
+failures ∈ list[str] ← []
+for question in questions:
+    question_id ∈ str ← ase.field(question, "question_id")
+    text ∈ str ← ase.field(question, "question")
+    wanted ∈ list[str] ← ase.field(question, "expected_passage_ids").split(";")
+    automatic ∈ list[dict] ← ase.retrieve(root, text)
+    retrieved_ids ∈ list[str] ← []
+    overlap ∈ bool ← False
+    for passage in automatic:
+        passage_id ∈ str ← ase.field(passage, "passage_id")
+        retrieved_ids.append(passage_id)
+        if passage_id in wanted:
+            overlap ← True
+    expected ∈ str ← ase.field(question, "expected_passage_ids")
+    if expected == "NONE":
+        out_count ← out_count + 1
+        if ase.count(automatic):
+            failures.append("{} out-of-corpus: unrelated hits {}".format(question_id, ",".join(retrieved_ids)))
+        else:
+            abstained ← abstained + 1
+    else:
+        corpus_count ← corpus_count + 1
+        if overlap:
+            hit_count ← hit_count + 1
+        else:
+            failures.append(question_id + " missed " + expected)
+    hits.append(dict(question_id=question_id, expected=expected, retrieved=";".join(retrieved_ids), overlap=str(overlap)))
+    for condition in ["baseline", "manual", "automatic"]:
+        selected ∈ list[dict] ← []
+        if condition == "manual":
+            for passage in passages:
+                if ase.field(passage, "passage_id") in wanted:
+                    selected.append(passage)
+        if condition == "automatic":
+            selected ← automatic
+        blocks ∈ list[str] ← [prompt, "Question: " + text]
+        for passage in selected:
+            blocks.append("ID={} SOURCES={} STATUS={} SCOPE={} CITATION={} SHA256={}".format(ase.field(passage, "passage_id"), ase.field(passage, "source_ids"), ase.field(passage, "status"), ase.field(passage, "scope"), ase.field(passage, "citation"), ase.field(passage, "sha256")))
+            blocks.append(root.joinpath(ase.field(passage, "path")).read_text())
+        context ∈ str ← "{}\n".format("\n\n".join(blocks).rstrip())
+        path ∈ str ← "tests/retrieval-contexts/{}-{}.txt".format(question_id, condition)
+        root.joinpath(path).parent.mkdir(parents=True, exist_ok=True)
+        root.joinpath(path).write_text(context)
+        slots.append(dict(question_id=question_id, condition=condition, context_path=path, context_sha256=ase.digest(root, path), model="NOT_RUN", raw_answer="NOT_RUN", independent_rating="NOT_RUN"))
+ase.save_table(root, "reports/retrieval-hits.tsv", ["question_id", "expected", "retrieved", "overlap"], hits)
+ase.save_table(root, "tests/model-comparison-slots.tsv", ["question_id", "condition", "context_path", "context_sha256", "model", "raw_answer", "independent_rating"], slots)
+corpus_bytes ∈ int ← 0
+for passage in passages:
+    length ∈ int ← len(root.joinpath(ase.field(passage, "path")).read_bytes())
+    corpus_bytes ← corpus_bytes + length
+finished ∈ float ← time.perf_counter()
+elapsed ∈ float ← (finished - started) * 1000
+endpoint ∈ str ← "no"
+if os.environ.get("ASE_MODEL_ENDPOINT"):
+    endpoint ← "present but not executed"
+report ∈ str ← """# Deterministic retrieval probe
+
+Source head: `{}`; initial worktree: {}. Questions SHA256: `{}`.
+BM25-style k1=1.2, b=0.75, top3, fixed stopwords, ID ties; no synonym expansion,
+model reranking or question-tuned threshold. Approved corpus: {} passages, {} UTF-8
+bytes. Total probe time including validation/context writing: {:.3f} ms on this
+disposable host, not a phone timing or stable performance guarantee.
+
+Same-author expected-ID overlap: {}/{} in-corpus top3; out-of-corpus abstention
+{}/{}. These are measured retrieval overlaps, not independently adjudicated
+answer-quality or safety scores. Questions are not independent/blinded holdouts.
+
+Concrete limits:
+{}
+
+45 fixed three-condition contexts are prepared; all raw answers and ratings are
+NOT_RUN. Endpoint configured: {}. No fixed callable model comparison or independent
+review was performed. No wins/regressions or diagnostic-accuracy gain is claimed.
+
+Decision: NO-GO for expansion pending paired model evidence. Model-benefit decision
+is BLOCKED, not proof that retrieval cannot help. The original lost-head results
+are not reused for this reconstruction. See tests/retrieval-experiment.md.
+""".format(head, state, ase.digest(root, "tests/diagnostic-holdouts.tsv"), ase.count(passages), corpus_bytes, elapsed, hit_count, corpus_count, abstained, out_count, "\n".join(failures), endpoint)
+root.joinpath("reports/retrieval-probe.md").write_text(report)
+print(report)
