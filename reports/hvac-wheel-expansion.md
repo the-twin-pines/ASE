@@ -41,3 +41,8 @@ That record is an excluded smoke-check artifact, not evidence available to the
 retriever and not an independent accuracy benchmark.
 
 Model comparison and physical vehicle acceptance: NOT_RUN.
+
+This report describes the initial HVAC/wheel stage. The follow-up
+[A1 caption pass](a1-caption-review.md) subsequently advances individual canonical
+review states and expands the combined index; those changes do not imply a new
+review of the historical A7 videos.

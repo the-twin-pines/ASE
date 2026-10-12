@@ -18,9 +18,9 @@
     "adjacent-cross-area"
   ],
   "relevance_status": "boundary-review",
-  "review_status": "metadata-only",
-  "review_basis": null,
-  "reviewed_at": null,
+  "review_status": "transcript-reviewed",
+  "review_basis": "stored caption text individually reviewed; pinned e051201d29f6f0993d1541173d57aed305449ac3; visual/timed coverage unverified",
+  "reviewed_at": "2026-10-12",
   "playlist_memberships": [
     {
       "playlist_id": "PLsL28no_u_qTMnCGZzthq88dzpxOuThHm",
@@ -41,22 +41,23 @@
 
 ## Review state
 
-The `review_status` field in the source metadata is authoritative. This import created the record as `metadata-only`.
+Full acquired caption text reviewed; original-video timed coverage and visuals remain unverified.
 
-The playlist placement is preserved, but this video's relevance to the named coverage bucket must be decided from the video itself, not from its title.
+See [the individual pass receipt](../transcript-reviews.tsv) and
+[review boundaries](../reviewed/a1-caption-pass.md). Original playlist metadata is preserved.
 
 ## Individual-pass summary
 
-_Not yet written. This record currently contains playlist metadata only. Do not infer the video's content from its title._
+The short attributes weak acceleration or rough idle to deposits at the back of a throttle body and refers viewers to a longer video.
 
 ## Diagnostic trace
 
-_Not available until the video or a complete transcript is reviewed._
+Symptom → deposit observation; no complete diagnostic ladder or repair confirmation.
 
 ## Transferable lessons
 
-_Not available until review._
+Inspect both sides rather than relying on the visible face.
 
 ## Verification notes
 
-_Record vehicle-specific claims, disputed claims, omissions, and service-information checks here during review._
+Deposits do not establish causation. No forced electronic-throttle movement, cleaning or relearn procedure is authorized; the longer video was not reviewed.

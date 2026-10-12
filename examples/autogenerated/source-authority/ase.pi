@@ -3,6 +3,7 @@ from typing import Any
 from builtins import list, dict, len, sorted, open, set, all, any, slice, globals
 from decimal import Decimal
 import csv
+import json
 import hashlib
 import re
 import math
@@ -72,6 +73,86 @@ def find(rows ∈ list[dict], key ∈ str, value ∈ str) → dict:
             return row
     return dict()
 
+def validate_transcript(root ∈ Path, source ∈ dict, pass_record ∈ dict, acquisitions ∈ list[dict]) → list[str]:
+    errors ∈ list[str] ← []
+    source_id ∈ str ← field(source, "source_id")
+    if field(pass_record, "source_id") != source_id:
+        errors.append("video transcript receipt missing " + source_id)
+        return errors
+    state ∈ str ← field(source, "status")
+    expected_pass ∈ str ← "full-acquired-text-reviewed"
+    if state == "partial":
+        expected_pass ← "partial-acquired-text-reviewed"
+    if field(pass_record, "pass_state") != expected_pass:
+        errors.append("video transcript pass state mismatch " + source_id)
+    acquisition ∈ dict ← find(acquisitions, "source_id", source_id)
+    if field(acquisition, "state") != "captions-acquired":
+        errors.append("video transcript lacks caption acquisition " + source_id)
+    ref ∈ str ← field(pass_record, "acquisition_ref")
+    if ref != field(acquisition, "ref"):
+        errors.append("video transcript acquisition revision mismatch " + source_id)
+    ref_matches ∈ list[str] ← re.findall("[0-9a-f]{40}", ref)
+    ref_length ∈ int ← len(ref)
+    ref_match_count ∈ int ← len(ref_matches)
+    if ref_length != 40:
+        errors.append("video transcript invalid acquisition revision " + source_id)
+        return errors
+    if ref_match_count != 1:
+        errors.append("video transcript invalid acquisition revision " + source_id)
+        return errors
+    video_id ∈ str ← source_id.removeprefix("youtube-")
+    path ∈ str ← "_work/a1-video-source-acquisition/" + video_id + ".json"
+    if field(pass_record, "acquisition_path") != path:
+        errors.append("video transcript acquisition path mismatch " + source_id)
+        return errors
+    # Raw captions are read only to verify the pinned provenance; never indexed.
+    artifact ∈ Any ← subprocess.run(["git", "-C", str(root), "show", ref + ":" + path], capture_output=True)
+    code ∈ int ← artifact.returncode
+    if code != 0:
+        errors.append("video transcript acquisition object unavailable " + source_id)
+        return errors
+    material ∈ bytes ← artifact.stdout
+    sha ∈ str ← hashlib.sha256(material).hexdigest()
+    if sha != field(pass_record, "artifact_sha256"):
+        errors.append("video transcript artifact digest mismatch " + source_id)
+    data ∈ dict ← json.loads(material)
+    if field(data, "video_id") != video_id:
+        errors.append("video transcript acquisition identity mismatch " + source_id)
+    captions ∈ dict ← data.get("captions", dict())
+    caption ∈ str ← field(captions, "text")
+    caption_bytes ∈ bytes ← (caption + "\n").encode("utf-8")
+    caption_sha ∈ str ← hashlib.sha256(caption_bytes).hexdigest()
+    if caption_sha != field(pass_record, "caption_sha256"):
+        errors.append("video transcript caption digest mismatch " + source_id)
+    if missing(caption):
+        errors.append("video transcript empty caption " + source_id)
+    caption_length ∈ str ← str(len(caption))
+    if caption_length != field(pass_record, "caption_characters"):
+        errors.append("video transcript caption length mismatch " + source_id)
+    if field(captions, "language") != field(pass_record, "language"):
+        errors.append("video transcript language mismatch " + source_id)
+    generated ∈ str ← field(captions, "is_generated").lower()
+    if generated != field(pass_record, "generated"):
+        errors.append("video transcript generation metadata mismatch " + source_id)
+    for label in ["reviewed_at", "basis", "note", "note_sha256", "video_coverage"]:
+        if missing(field(pass_record, label)):
+            errors.append("video transcript missing " + label + " " + source_id)
+    if field(pass_record, "video_coverage") != "not-timed-verified":
+        errors.append("video transcript unsupported timed coverage claim " + source_id)
+    note ∈ str ← field(pass_record, "note")
+    if safe(root, note):
+        if digest(root, note) != field(pass_record, "note_sha256"):
+            errors.append("video transcript review note digest mismatch " + source_id)
+    else:
+        errors.append("video transcript excluded review note " + source_id)
+    if field(pass_record, "video_coverage") != "timed-complete":
+        synthesis ∈ Path ← root.joinpath("engine-repair/synthesis/README.md")
+        synthesis_text ∈ str ← synthesis.read_text()
+        synthesis_blocked ∈ bool ← "status: blocked" in synthesis_text
+        if synthesis_blocked == False:
+            errors.append("unknown timed caption coverage requires blocked synthesis")
+    return errors
+
 def validate(root ∈ Path) → list[str]:
     errors ∈ list[str] ← []
     # Playlist topology remains owned by the unchanged atomic validator.
@@ -82,6 +163,19 @@ def validate(root ∈ Path) → list[str]:
     catalog ∈ list[dict] ← table(root, "sources/catalog.tsv")
     receipts ∈ list[dict] ← table(root, "sources/reviews.tsv")
     passages ∈ list[dict] ← table(root, "sources/passages.tsv")
+    acquisitions ∈ list[dict] ← table(root, "sources/acquisitions.tsv")
+    transcript_passes ∈ list[dict] ← table(root, "sources/transcript-reviews.tsv")
+    transcript_ids ∈ list[str] ← []
+    for transcript_pass in transcript_passes:
+        pass_id ∈ str ← field(transcript_pass, "source_id")
+        if pass_id in transcript_ids:
+            errors.append("duplicate video transcript receipt " + pass_id)
+        transcript_ids.append(pass_id)
+        pass_source ∈ dict ← find(catalog, "source_id", pass_id)
+        pass_status ∈ str ← field(pass_source, "status")
+        pass_state_known ∈ bool ← pass_status in ["transcript-reviewed", "partial"]
+        if pass_state_known == False:
+            errors.append("video transcript receipt lacks matching reviewed canonical record " + pass_id)
     ids ∈ list[str] ← []
     for source in catalog:
         source_id ∈ str ← field(source, "source_id")
@@ -117,11 +211,24 @@ def validate(root ∈ Path) → list[str]:
             if eligible != "false":
                 errors.append("unknown eligibility flag " + source_id)
         if source_id.startswith("youtube-"):
-            if status != "metadata-only":
+            canonical_text ∈ str ← root.joinpath(path).read_text()
+            metadata_matches ∈ list[str] ← re.findall(r"## Source metadata\s*```json\s*(\{.*?\})\s*```", canonical_text, re.S)
+            metadata_count ∈ int ← len(metadata_matches)
+            if metadata_count != 1:
+                errors.append("video canonical metadata missing " + source_id)
+            else:
+                canonical ∈ dict ← json.loads(metadata_matches.__getitem__(0))
+                if field(canonical, "review_status") != status:
+                    errors.append("video catalog/canonical review state mismatch " + source_id)
+            has_caption_review ∈ bool ← status in ["transcript-reviewed", "partial"]
+            if has_caption_review:
+                pass_record ∈ dict ← find(transcript_passes, "source_id", source_id)
+                errors.extend(validate_transcript(root, source, pass_record, acquisitions))
+            elif status != "metadata-only":
                 errors.append("video review promotion has no inspected pass " + source_id)
-            if eligible != "false":
-                errors.append("video metadata is not retrievable " + source_id)
-    acquisitions ∈ list[dict] ← table(root, "sources/acquisitions.tsv")
+            if status != "transcript-reviewed":
+                if eligible != "false":
+                    errors.append("video metadata/partial source is not retrievable " + source_id)
     acquisition_ids ∈ list[str] ← []
     for acquisition in acquisitions:
         source_id ← field(acquisition, "source_id")
