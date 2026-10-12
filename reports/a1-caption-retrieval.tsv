@@ -1,0 +1,14 @@
+question_id	question	expected_passage	top_three	status
+H23	Reuse piston rod cracks heat pin ring groove inspection	engine-part-condition	engine-part-condition;rebuild-part-identity;ring-groove-oil-control	PASS
+H24	Piston will not enter bore ring compressor escapes resistance	piston-entry-resistance	piston-entry-resistance;engine-part-condition;ring-gap-context	PASS
+H25	Carburetor clean outside idle passages restriction	carburetor-idle-passages	carburetor-idle-passages;engine-part-condition;pcv-flow-path	PASS
+H26	Engine upside down cylinder piston rod bearing identity	rebuild-part-identity	rebuild-part-identity;engine-part-condition;piston-entry-resistance	PASS
+H27	Fresh crosshatch proves bore roundness taper geometry	cylinder-finish-geometry	cylinder-finish-geometry;steering-return-pull;piston-entry-resistance	PASS
+H28	Oil consumption pinched ring groove expander overlap	ring-groove-oil-control	ring-groove-oil-control;engine-part-condition;ring-gap-context	PASS
+H29	Piston ring gap specific bore application glowing exhaust break-in	ring-gap-context	ring-gap-context;piston-entry-resistance;cylinder-finish-geometry	PASS
+H30	Throttle deposits weak acceleration rough idle	throttle-deposit-scope	throttle-deposit-scope;hvac-idle-cooling;carburetor-idle-passages	PASS
+H31	Oil loss seizure after cooler fitting repair	repair-induced-oil-loss	repair-induced-oil-loss;hvac-idle-cooling;ring-groove-oil-control	PASS
+H32	Spark present misfire greater ignition demand cap rotor leads	misfire-ignition-demand	misfire-ignition-demand;steering-ehps-noise;engine-part-condition	PASS
+H33	Drivable running car excludes fuel pump misfire	misfire-drivability-shortcut	misfire-drivability-shortcut;steering-idle-effort;steering-architecture	PASS
+H34	PCV crankcase ventilation inlet outlet flow	pcv-flow-path	pcv-flow-path;carburetor-idle-passages;steering-idle-effort	PASS
+H35	Head gasket reuse retorque exact application product	gasket-application-boundary	gasket-application-boundary;engine-part-condition;ring-groove-oil-control	PASS

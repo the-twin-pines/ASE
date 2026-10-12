@@ -3,19 +3,21 @@
 The aim is better vehicle diagnosis and explanation. ASE categories are coverage
 buckets, not exam-prep content or proof of repair quality.
 
-Main combines [A4 measurement integrity](notes/), [steering](steering/), partial
+Main combines [A4 measurement integrity](notes/), [steering](steering/),
+[wheel disturbance](steering/wheel-disturbance.md), [HVAC diagnosis](hvac/), partial
 [brake reviews](brakes/sources/reviewed/), and [atomic sources](sources/).
 Only explicitly reviewed, digested [passages](sources/passages.tsv) enter retrieval.
-195 videos remain metadata-only. Acquiring 14 captions did not make them reviewed;
-raw captions are not republished.
+Of 195 canonical videos, 181 remain metadata-only, 13 have an individual stored-
+transcript review and one has a partial review. Acquisition alone is not review;
+raw captions are not republished. Timed original-video coverage remains unverified.
 
 | Bucket | Current scope |
 | --- | --- |
-| A1 | [Atomic metadata/reference frame](engine-repair/); synthesis blocked |
-| A4 | Preserved reviewed measurement notes; seven synthetic steering traces |
+| A1 | [Individual caption reviews and diagnostic passages](engine-repair/); synthesis blocked |
+| A4 | Preserved measurement notes; seven steering traces; vibration/pull discriminators |
 | A5 | [Case](brakes/cases/001-long-pedal-hot-wheel.md), partial Ram Man reviews, scoped companion mechanisms; synthesis blocked |
 | A2/A3/A6/A8/A9 | Empty/placeholder branches; no mature coverage claim |
-| A7 | [Separate HVAC branch](https://github.com/the-twin-pines/ASE/tree/a7-heating-air-conditioning); not reconciled here |
+| A7 | [Historical HVAC cases](hvac/history/); five admitted HVAC passages; scoped DENSO guidance |
 
 Source branches: [A1](https://github.com/the-twin-pines/ASE/tree/a1-engine-repair),
 [A4](https://github.com/the-twin-pines/ASE/tree/a4-suspension-steering),
@@ -28,6 +30,12 @@ order, competing hypotheses, the next discriminating test and remaining unknowns
 Titles are acquisition hints. Synthetic traces are plans, not confirmed repairs.
 Exact limits, fluids, torque and column procedures use [the spec gate](specifications/).
 The Dakota torque conflict remains unresolved.
+
+The [HVAC/wheel expansion](reports/hvac-wheel-expansion.md) adds four source scopes
+and seven passages. The [A1 caption pass](reports/a1-caption-review.md) adds thirteen
+passages, twelve eligible video scopes and two maker-text scopes. This branch has
+twenty-eight admitted scopes and thirty-two passages. Historical A7 notes are
+preserved; fresh video playback and visual review are not claimed.
 
 [Architecture](SOURCE_ARCHITECTURE.md), [reconciliation](reports/reconciliation.md),
 and [experiment](tests/retrieval-experiment.md) state the boundaries. Tests, archives

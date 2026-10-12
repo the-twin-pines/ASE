@@ -9,6 +9,7 @@ import ase
 
 catalog_fields ∈ list[str] ← ["source_id", "path", "status", "scope", "citation", "edition", "location", "eligible", "sha256", "authority"]
 passage_fields ∈ list[str] ← ["passage_id", "source_ids", "scope", "path", "sha256", "status", "citation"]
+transcript_fields ∈ list[str] ← ["source_id", "acquisition_ref", "acquisition_path", "artifact_sha256", "caption_sha256", "caption_characters", "language", "generated", "pass_state", "video_coverage", "note", "note_sha256", "reviewed_at", "basis"]
 
 def require(condition ∈ bool, message ∈ str) → None:
     if condition == False:
@@ -18,7 +19,8 @@ def require(condition ∈ bool, message ∈ str) → None:
 def copy_fixture(root ∈ Path) → Path:
     temporary ∈ Path ← Path(tempfile.mkdtemp(prefix="ase-negative-"))
     destination ∈ Path ← temporary.joinpath("ASE")
-    shutil.copytree(root, destination, ignore=shutil.ignore_patterns(".git", "_ithon", "__pycache__"))
+    # Pinned acquisition objects are necessary for a valid caption-review fixture.
+    shutil.copytree(root, destination, ignore=shutil.ignore_patterns("_ithon", "__pycache__"))
     return destination
 
 def rejected(root ∈ Path, expected ∈ str) → None:
@@ -32,6 +34,44 @@ def run(root ∈ Path) → None:
     original ∈ list[str] ← ase.validate(root)
     original_count ∈ int ← ase.count(original)
     require(original_count == 0, "unmutated source admission")
+    bad ∈ Path ← copy_fixture(root)
+    passes ∈ list[dict] ← ase.table(bad, "sources/transcript-reviews.tsv")
+    kept ∈ list[dict] ← []
+    for pass_record in passes:
+        pass_id ∈ str ← ase.field(pass_record, "source_id")
+        if pass_id != "youtube-Q0N-f7J36HE":
+            kept.append(pass_record)
+    ase.save_table(bad, "sources/transcript-reviews.tsv", transcript_fields, kept)
+    rejected(bad, "video transcript receipt missing")
+    bad ∈ Path ← copy_fixture(root)
+    passes ∈ list[dict] ← ase.table(bad, "sources/transcript-reviews.tsv")
+    pass_record ∈ dict ← ase.find(passes, "source_id", "youtube-Q0N-f7J36HE")
+    pass_record.update(dict(artifact_sha256="0" * 64))
+    ase.save_table(bad, "sources/transcript-reviews.tsv", transcript_fields, passes)
+    rejected(bad, "video transcript artifact digest mismatch")
+    bad ∈ Path ← copy_fixture(root)
+    passes ∈ list[dict] ← ase.table(bad, "sources/transcript-reviews.tsv")
+    pass_record ∈ dict ← ase.find(passes, "source_id", "youtube-Q0N-f7J36HE")
+    pass_record.update(dict(caption_sha256="0" * 64))
+    ase.save_table(bad, "sources/transcript-reviews.tsv", transcript_fields, passes)
+    rejected(bad, "video transcript caption digest mismatch")
+    bad ∈ Path ← copy_fixture(root)
+    video_path ∈ Path ← bad.joinpath("sources/videos/youtube-Q0N-f7J36HE.md")
+    canonical_text ∈ str ← video_path.read_text()
+    video_path.write_text(canonical_text.replace('"review_status": "transcript-reviewed"', '"review_status": "metadata-only"'))
+    rejected(bad, "video catalog/canonical review state mismatch")
+    bad ∈ Path ← copy_fixture(root)
+    passes ∈ list[dict] ← ase.table(bad, "sources/transcript-reviews.tsv")
+    pass_record ∈ dict ← ase.find(passes, "source_id", "youtube-CWuOrHAEr-k")
+    pass_record.update(dict(pass_state="full-acquired-text-reviewed"))
+    ase.save_table(bad, "sources/transcript-reviews.tsv", transcript_fields, passes)
+    rejected(bad, "video transcript pass state mismatch")
+    bad ∈ Path ← copy_fixture(root)
+    passes ∈ list[dict] ← ase.table(bad, "sources/transcript-reviews.tsv")
+    pass_record ∈ dict ← ase.find(passes, "source_id", "youtube-Q0N-f7J36HE")
+    pass_record.update(dict(video_coverage="timed-complete"))
+    ase.save_table(bad, "sources/transcript-reviews.tsv", transcript_fields, passes)
+    rejected(bad, "video transcript unsupported timed coverage claim")
     bad ∈ Path ← copy_fixture(root)
     rows ∈ list[dict] ← ase.table(bad, "sources/catalog.tsv")
     row ∈ dict ← rows.__getitem__(0)

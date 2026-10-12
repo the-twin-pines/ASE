@@ -14,7 +14,10 @@ not copy the shared `ai-ci` rulebook here.
 Read SOURCE_ARCHITECTURE.md before changing source eligibility. Acquisition is
 not review. Only explicitly approved, digested passages may enter retrieval;
 tests/, _legacy/, _work/, examples/ and reports/ are excluded, including resolved
-symlink targets. Keep original video statuses and caption redistribution limits.
+symlink targets. Preserve acquired metadata and caption redistribution limits.
+Advance a video's review status only after its individual pass, canonical note
+and matching transcript-reviews.tsv provenance receipt are complete. A partial
+track remains ineligible; reviewed stored text does not prove timed video coverage.
 
 For A4, apply notes/AGENTS.md and the measurement/plausibility gates. The Python
 scripts copied from the pinned A4 branch are existing migration debt; do not expand

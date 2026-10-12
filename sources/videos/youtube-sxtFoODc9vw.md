@@ -18,9 +18,9 @@
     "pistons-rings-rods-cylinders"
   ],
   "relevance_status": "active",
-  "review_status": "metadata-only",
-  "review_basis": null,
-  "reviewed_at": null,
+  "review_status": "transcript-reviewed",
+  "review_basis": "stored caption text individually reviewed; pinned e051201d29f6f0993d1541173d57aed305449ac3; visual/timed coverage unverified",
+  "reviewed_at": "2026-10-12",
   "playlist_memberships": [
     {
       "playlist_id": "PLsL28no_u_qTMnCGZzthq88dzpxOuThHm",
@@ -41,20 +41,23 @@
 
 ## Review state
 
-The `review_status` field in the source metadata is authoritative. This import created the record as `metadata-only`.
+Full acquired caption text reviewed; original-video timed coverage and visuals remain unverified.
+
+See [the individual pass receipt](../transcript-reviews.tsv) and
+[review boundaries](../reviewed/a1-caption-pass.md). Original playlist metadata is preserved.
 
 ## Individual-pass summary
 
-_Not yet written. This record currently contains playlist metadata only. Do not infer the video's content from its title._
+The narrator checks dirty, pinched or enlarged ring grooves, preserves ring-package identity, and considers oil-expander overlap when a piston will not enter. He emphasizes reassessing assembly resistance.
 
 ## Diagnostic trace
 
-_Not available until the video or a complete transcript is reviewed._
+Groove condition → ring identity/orientation → entry → rotation.
 
 ## Transferable lessons
 
-_Not available until review._
+Replace an assumption of bad rings with inspected competing causes.
 
 ## Verification notes
 
-_Record vehicle-specific claims, disputed claims, omissions, and service-information checks here during review._
+Universal prevalence, clocking, no-mark orientation and lubricant shortcuts are not adopted. Follow the exact ring/piston instructions.

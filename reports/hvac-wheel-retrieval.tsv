@@ -1,0 +1,8 @@
+question_id	question	expected_passage	top_three	status
+H16	New A/C compressor stuck clutch power feed no pressure rise	hvac-new-compressor	hvac-new-compressor;hvac-clutch-boundary;hvac-variable-displacement	PASS
+H17	A/C relay clutch clicks does compressor pump	hvac-clutch-boundary	hvac-clutch-boundary;hvac-new-compressor;hvac-variable-displacement	PASS
+H18	Static A/C pressure proves correct refrigerant charge mass	hvac-charge-evidence	hvac-charge-evidence;hvac-idle-cooling;hvac-variable-displacement	PASS
+H19	Variable displacement compressor pressure temperature live data command	hvac-variable-displacement	hvac-variable-displacement;hvac-clutch-boundary;hvac-idle-cooling	PASS
+H20	A/C warm in traffic cooler at road speed condenser airflow	hvac-idle-cooling	hvac-idle-cooling;hvac-charge-evidence;wheel-vibration	PASS
+H21	Highway vibration wheel balanced centering rim runout	wheel-vibration	wheel-vibration;steering-mechanical-binding;alignment-integrity	PASS
+H22	Tire pull after alignment lateral force tire position	tire-pull	tire-pull;steering-return-pull;wheel-vibration	PASS
