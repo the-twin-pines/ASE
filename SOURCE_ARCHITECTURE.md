@@ -11,7 +11,10 @@ captions/bootstrap chunks are copied. Title material stays in _legacy/.
 
 Only individually inspected page/scoped-extract/transcript/video states with
 eligible=true, matching receipts and digests can support approved passages. This
-pass admits ten document/incident/historical-note scopes and twelve passages.
+2026-10-08 pass admitted ten document/incident/historical-note scopes and twelve
+passages. The 2026-10-12 HVAC/wheel pass adds four scopes and seven passages:
+fourteen admitted scopes and nineteen passages in total. A7 branch notes are
+preserved in hvac/history; their original review states remain historical.
 No video is upgraded. Future video admission requires actual review and a deliberate
 validator change. Partial/metadata-only sources remain ineligible. A reviewed
 companion document does not upgrade a video.
@@ -33,3 +36,10 @@ Specification approval is separate: exact procedure/context, current OEM/license
 authority and receipt, no conflict and independent unit check. Real approvals are
 empty. Qualitative source approval supplies no service numbers. Controlled answer
 composition is not a general free-prose safety filter. See specifications/README.md.
+
+The admissions.tsv inputs and admit.pi describe the pinned 2026-10-08 one-time
+attestation. They are not a current ingestion service: running that old writer
+would replace later receipts/passages. The 2026-10-12 pass explicitly appends to
+catalog.tsv, reviews.tsv and passages.tsv after inspection, preserving older
+receipts. Validation and retrieval remain read-only. New component-maker extracts
+are qualitative guidance; no OEM/current-service authority is assigned to them.

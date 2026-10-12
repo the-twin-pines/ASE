@@ -1,5 +1,9 @@
 # Steering diagnostic coverage
 
+For highway shake and sustained directional pull, use the separate
+[wheel-disturbance comparison](wheel-disturbance.md). Balance, loaded tire force,
+rim runout, measurement centering and lateral tire force are different evidence.
+
 | Architecture | Assist path | Relevant split |
 | --- | --- | --- |
 | Engine-driven hydraulic | Engine drive → pump → fluid/hoses → gear | Drive, reservoir/aeration, flow/relief, restriction, gear leakage, mechanical load |
