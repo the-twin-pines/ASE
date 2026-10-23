@@ -49,6 +49,44 @@ Do not turn “fuse has power” into “fuse is good,” or “battery reads 12
 meters and loaded voltage-drop tests separate. Reference:
 [Fluke, Diagnosing Voltage Drops](https://www.fluke.com/en/learn/blog/automotive/electrical-automotive-troubleshooting).
 
+## Shared-feed versus branch-fuse discriminator
+
+Before opening panels or proposing a failed motor/controller, ask which
+**other loads on the same system** still work and inspect the exact model-year
+fuse distribution. A common feed/relay and each load's protected branch are
+different fault domains.
+
+- **Several loads fail together:** inspect shared power, protection, control
+  enable and relay states, while preserving other possible faults.
+- **Exactly one load fails:** first check any **dedicated fuse for that load**,
+  then branch wiring/ground, controller outputs and the load itself. Functioning
+  siblings do **not** establish that its individual fuse is intact.
+- **No visible damage or hot connector terminals:** neither rules out a
+  branch fuse, intermittent/hidden connection fault, controller failure or a
+  loaded-feed problem.
+- Check the accessible protective device first, when safe, because it
+  discriminates faults without dismantling a working assembly. Do not turn
+  this test order into a claim that fuses always fail more often than motors.
+
+The [2002 CR-V EX driver's window correction](../A6-electrical/2002-crv-driver-window.md)
+is a regression case: the other windows worked, but the driver had its own
+20 A under-dash #23 fuse. The assistant wasted time on master switch pins and
+motor polarity before identifying that branch protection.
+
+## Respect the user's actual instrument and prior observations
+
+A test light is not silently a DMM. A digital voltage-indicating probe
+may show numbers, but record that fact rather than assuming an instrument.
+Identify the actual reference/ground attachment, key state, probe point,
+load and exact observed result. Do not ask again for an already established
+ignition state or suggest reaching the battery negative post when a suitable
+nearby grounded body point is already being used.
+
+Do not state unverified connector cavity numbers, wire colors or
+motor up/down outputs as exact-model facts. A connector-view link without
+orientation and variant verification is not proof of a pin assignment.
+Classify those positions **UNKNOWN** until verified.
+
 ## Stop states
 
 - Safety-critical operation or limit without exact authorized service information
