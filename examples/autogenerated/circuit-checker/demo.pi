@@ -26,7 +26,8 @@ unknown_states ∈ list[str] ← ["unspecified"]
 def selected_edges(excluded ∈ list[str]) → list[tuple[str, str, str]]:
     result ∈ list[tuple[str, str, str]] ← []
     for edge in edges:
-        if circuit.contains(excluded, edge[0]) == False:
+        excluded_edge ∈ bool ← edge[0] in excluded
+        if excluded_edge == False:
             result.append(edge)
     return result
 

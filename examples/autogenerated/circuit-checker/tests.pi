@@ -13,7 +13,8 @@ def check(condition ∈ bool, name ∈ str) → None:
 
 def fuse_regression(survivors ∈ list[str]) → None:
     check("open:driver_fuse" in survivors, "Working sibling must not clear driver fuse")
-    check(circuit.contains(survivors, "open:common_fuse") == False, "Working sibling contradicts a completely open common feed in this model")
+    shared_open_retained ∈ bool ← "open:common_fuse" in survivors
+    check(shared_open_retained == False, "Working sibling contradicts a completely open common feed in this model")
     check("motor_unavailable:driver" in survivors and "mechanism_blocked:driver" in survivors, "No motion is not proof of an electrical open")
     check(len(survivors) == 7, "Expected seven initial candidates, not a diagnosis")
 
