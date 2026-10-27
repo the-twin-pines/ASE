@@ -1,0 +1,30 @@
+from pathlib import Path
+from typing import Any
+from builtins import str, ValueError
+import hashlib
+import json
+import os
+import subprocess
+import sys
+import circuit
+import tests
+
+
+def main() → None:
+    if Path(sys.argv[1]).read_text(encoding="utf-8").strip() != "verify":
+        raise ValueError("Expected the circuit-checker verify entry point")
+    head ∈ str ← subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip()
+    if head != os.environ["EXPECTED_HEAD"]:
+        raise ValueError("Checkout is not the requested exact head")
+    result ∈ dict ← tests.main()
+    result["head"] ← head
+    result["ithon_revision"] ← "396d8b7af1417a0a61245db940fdb22ef9fbac51"
+    hashes ∈ dict ← {}
+    for name in ["circuit.pi", "tests.pi", "ci.pi", "window-demo.json"]:
+        hashes[name] ← hashlib.sha256(Path(__file__).with_name(name).read_bytes()).hexdigest()
+    result["source_sha256"] ← hashes
+    print(json.dumps(result, sort_keys=True, indent=2))
+    print(json.dumps(circuit.report(tests.demo()), sort_keys=True, indent=2))
+
+
+main()
