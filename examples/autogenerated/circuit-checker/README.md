@@ -112,3 +112,64 @@ semantic interface separating topology, component laws, state, instrument,
 observation and actions; then a small rational DC solver and held-out comparisons
 of model answers with and without the checker. Those are not implemented here.
 Passing synthetic tests is not evidence of improved model advice or a repaired car.
+
+
+## 2002 CR-V EX source-bounded regression
+
+`crv2002.pi` is a *second* checked-Ithon case, not a relabeling of
+the synthetic two-window demonstration. Its `protection` inventory comes from
+the [2002 Honda owner's manual fuse chart](https://cdn.dealereprocess.org/cdn/servicemanuals/honda/2002-crv.pdf)
+and the [EX control-unit service excerpt](https://workshop-manuals.com/honda/cr-v_ex_4wd/l4-2.4l/relays_and_modules/relays_and_modules_windows_and_glass/power_window_control_module/component_information/testing_and_inspection/component_tests_and_general_diagnostics/).
+Under-dash #22, #23, #24 and #25 independently protect front-right, front-left,
+rear-left and rear-right power windows, each at 20 A; #6 (7.5 A) is
+identified for the window relay, and under-hood #13 (40 A) for window power.
+These are **protection designations**, not a verified physical wire sequence.
+
+The [case in PR #14](https://github.com/the-twin-pines/ASE/pull/14) records
+the owner's report: the driver's window stopped, other windows operated,
+ignition ON, a test light referenced to nearby bolt heads, and an apparent
+12.6 V at several green master-connector receptacles. The status of #23,
+motor loaded supply, exact connector terminals, recall, and repair are
+`NOT_RUN` or `UNKNOWN`. None of those readings is promoted to a
+checked rail or numerical voltage/current result by the program.
+
+The executable **operability projection** puts an abstract common supply and
+four independently named protection edges in an ideal graph. It also has
+explicitly fictitious controller, harness and unspecified-sibling edges and an
+abstract return sink. Its motion values encode *worked / did not work*, **not**
+observed motor direction, polarity or OEM circuitry. Under the stated
+single-open/unavailable-load assumptions, five driver-side candidates survive:
+#23, controller proxy, harness proxy, unavailable motor, and bound mechanism.
+A complete common-feed open is contradicted *in that simplified projection*.
+Real controller behavior, auxiliary feeds, high-resistance connections, backfeed,
+intermittents and multiple faults remain outside this inference.
+
+A hypothetical *ideal* #23 output-rail reading partitions the five model
+candidates 1/4. However, a **test light is not an ideal rail oracle**: one pad
+lit/one dark suggests a fuse/contact problem; both lit says only that each
+point can operate that tester; neither lit calls for examining feed and hookup.
+The physical results are not supplied. The first **identifiable** on-car
+discriminator is #23's two exposed fuse points with a suitable tester,
+correct key conditions and a verified reference. Do not equate the model's
+`floating` prediction directly to a real test-light pattern.
+
+The purely *hypothetical* ideal information/cost Pareto front also contains a
+controller-output probe. That probe, and the motor-feed proxy test, remain
+**blocked** as physical actions until exact installed connector identities,
+view, and safe service instructions have been verified. All access costs are
+illustrative, not an assertion about what trim is presently removed.
+
+Initially, no door access is common to every surviving modeled repair, because
+#23 is still a candidate. Even after a hypothetical good fuse, controller
+access remains a distinct candidate. A door-cavity requirement emerges only
+*conditionally* if further ideal observations also establish controller
+output, with motor, mechanism and door-harness proxies remaining. This is a
+model consequence **not** a request to disassemble the Honda or a proof that
+real door entry is inevitable.
+
+Regressions specifically reject (1) clearing #23 because another window works,
+(2) treating unperformed fuse tests as measurements, (3) declaring the door
+cavity necessary at the current evidence state, (4) converting test-light
+indications into DMM or ideal rail observations, and (5) claiming unverified
+connector pins. The verified input and the modeling assumptions remain
+separate. No repair, vehicle actuation, or model-answer-improvement claim follows.
