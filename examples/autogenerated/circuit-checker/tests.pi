@@ -161,8 +161,11 @@ def main() → dict[str, object]:
         "open:under_dash_23_20A"
     ]
     check(crv_initial[0] == crv_expected, "2002 CR-V projection retains dedicated #23 and unresolved alternatives")
-    check("open:common_feed_proxy" not in crv_initial[0], "Operating sibling disfavours complete common-feed open in this ideal model")
-    check("open:under_dash_23_20A" in crv_initial[0], "A working sibling never clears #23")
+    crv_survivors ∈ list[str] ← crv_initial[0]
+    common_survives ∈ bool ← "open:common_feed_proxy" in crv_survivors
+    driver_fuse_survives ∈ bool ← "open:under_dash_23_20A" in crv_survivors
+    check(common_survives == False, "Operating sibling disfavours complete common-feed open in this ideal model")
+    check(driver_fuse_survives, "A working sibling never clears #23")
     check(crv2002.protection["front_left_driver"] == "under_dash_23_20A", "Verified chart assigns #23 to driver's front-left window")
     check(crv2002.protection["front_right"] == "under_dash_22_20A", "Separate front-right #22 fuse")
     check(crv2002.protection["rear_left"] == "under_dash_24_20A" and crv2002.protection["rear_right"] == "under_dash_25_20A", "Separate rear-window fuses")
@@ -170,8 +173,9 @@ def main() → dict[str, object]:
     check(crv2002.not_run["under_dash_23_both_test_points"] == "NOT_RUN", "A modeled test is not a measurement")
     check(crv2002.not_run["exact_connector_cavities_and_orientation"] == "UNKNOWN", "No invented connector cavities")
     check(crv2002.projected_operation[0][1] == "motion", "No reported connector voltage was turned into an ideal rail")
-    check(circuit.common_repair_access(crv_initial[0], crv2002.repair_access, []) == [], "Door access not inevitable with #23 unresolved")
-    crv_scores ∈ list[tuple[str, int, int]] ← crv2002.compare_ideal_tests(crv_initial[0], [])
+    no_access ∈ list[str] ← []
+    check(circuit.common_repair_access(crv_survivors, crv2002.repair_access, no_access) == no_access, "Door access not inevitable with #23 unresolved")
+    crv_scores ∈ list[tuple[str, int, int]] ← crv2002.compare_ideal_tests(crv_survivors, no_access)
     check(crv_scores == [
         ("fuse23_ideal_output", 2, 4),
         ("controller_ideal_output", 4, 6),
@@ -193,7 +197,7 @@ def main() → dict[str, object]:
         "open:driver_command_proxy", "open:driver_harness_proxy"
     ], "Hypothetical energized fuse output does not diagnose the motor")
     check(crv_open[0] == ["open:under_dash_23_20A"], "Hypothetical floating ideal output partitions single-open model")
-    check(circuit.common_repair_access(crv_pos[0], crv2002.repair_access, []) == ["door_trim"], "Fused-good model still includes a controller-access branch")
+    check(circuit.common_repair_access(crv_pos[0], crv2002.repair_access, no_access) == ["door_trim"], "Fused-good model still includes a controller-access branch")
     controller_positive ∈ list[tuple[str, str, str, str]] ← [
         ("representative_command", "rail", "driver_command_proxy_out", "positive")
     ]
@@ -201,7 +205,8 @@ def main() → dict[str, object]:
     check(post_controller[0] == [
         "mechanism_blocked:driver", "motor_unavailable:driver", "open:driver_harness_proxy"
     ], "Only hypothetical source-verified controller feed eliminates upstream candidates")
-    check(circuit.common_repair_access(post_controller[0], crv2002.repair_access, ["door_trim"]) == ["door_cavity"], "Conditional cavity need after additional ideal evidence and removed trim")
+    trim_removed ∈ list[str] ← ["door_trim"]
+    check(circuit.common_repair_access(post_controller[0], crv2002.repair_access, trim_removed) == ["door_cavity"], "Conditional cavity need after additional ideal evidence and removed trim")
     contradictions_crv ∈ list[tuple[str, str, str, str]] ← list(fuse_positive)
     contradictions_crv.append(fuse_floating[0])
     impossible ∈ tuple[list[str], dict[str, list[str]]] ← crv2002.assess(contradictions_crv)
@@ -211,9 +216,12 @@ def main() → dict[str, object]:
     ]
     still_unknown ∈ tuple[list[str], dict[str, list[str]]] ← crv2002.assess(no_discriminator)
     check(still_unknown[0] == crv_initial[0], "An unperformed fuse test cannot narrow faults")
-    check("suspect_open_fuse" in crv2002.fuse_lamp_interpretation("one_lit_one_dark"), "One live / one dark needs further physical checking")
-    check("not_proof_of_motor_current" in crv2002.fuse_lamp_interpretation("both_lit"), "Two lit pads do not prove motor supply")
-    check("not_proof_of_open_fuse" in crv2002.fuse_lamp_interpretation("neither_lit"), "Two unlit pads are not a blown-fuse diagnosis")
+    one_lit ∈ str ← crv2002.fuse_lamp_interpretation("one_lit_one_dark")
+    both_lit ∈ str ← crv2002.fuse_lamp_interpretation("both_lit")
+    neither_lit ∈ str ← crv2002.fuse_lamp_interpretation("neither_lit")
+    check("suspect_open_fuse" in one_lit, "One live / one dark needs further physical checking")
+    check("not_proof_of_motor_current" in both_lit, "Two lit pads do not prove motor supply")
+    check("not_proof_of_open_fuse" in neither_lit, "Two unlit pads are not a blown-fuse diagnosis")
     invalid_lamp ∈ bool ← False
     try:
         crv2002.fuse_lamp_interpretation("unknown_lamp_pattern")
@@ -223,10 +231,11 @@ def main() → dict[str, object]:
     # Known-bad controls for two failures in the actual prior advice.
     wrongly_cleared ∈ list[str] ← list(crv_initial[0])
     wrongly_cleared.remove("open:under_dash_23_20A")
-    bad_sibling_inference_rejected ∈ bool ← "open:under_dash_23_20A" not in wrongly_cleared and "open:under_dash_23_20A" in crv_initial[0]
+    bad_retains_fuse ∈ bool ← "open:under_dash_23_20A" in wrongly_cleared
+    bad_sibling_inference_rejected ∈ bool ← bad_retains_fuse == False and driver_fuse_survives
     check(bad_sibling_inference_rejected, "Mutation: erroneously cleared independent fuse")
     falsely_forced_cavity ∈ list[str] ← ["door_cavity"]
-    actual_initial_access ∈ list[str] ← circuit.common_repair_access(crv_initial[0], crv2002.repair_access, [])
+    actual_initial_access ∈ list[str] ← circuit.common_repair_access(crv_survivors, crv2002.repair_access, no_access)
     check(falsely_forced_cavity != actual_initial_access, "Mutation: no unconditional door dismantling")
     repeat_crv ∈ tuple[list[str], dict[str, list[str]]] ← crv2002.assess(no_physical_results)
     check(repeat_crv == crv_initial, "Source-backed CR-V projection replays deterministically")
