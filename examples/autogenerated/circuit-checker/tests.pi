@@ -1,10 +1,9 @@
-"""Semantic checks and deliberately wrong controls; all vehicle data is synthetic."""
-from typing import Any
-from builtins import list, dict, set, len, sorted, range, ValueError, AssertionError
-from pathlib import Path
-from copy import deepcopy
+"""Synthetic semantic tests, independent closure oracle, and known-bad controls."""
+from typing import Callable
+from builtins import list, dict, len, range, ValueError, AssertionError
 import json
 import circuit
+import demo
 
 
 def check(condition ∈ bool, name ∈ str) → None:
@@ -12,45 +11,25 @@ def check(condition ∈ bool, name ∈ str) → None:
         raise AssertionError(name)
 
 
-def demo() → dict:
-    return json.loads(Path(__file__).with_name("window-demo.json").read_text(encoding="utf-8"))
+def fuse_regression(survivors ∈ list[str]) → None:
+    check("open:driver_fuse" in survivors, "Working sibling must not clear driver fuse")
+    check(circuit.contains(survivors, "open:common_fuse") == False, "Working sibling contradicts a completely open common feed in this model")
+    check("motor_unavailable:driver" in survivors and "mechanism_blocked:driver" in survivors, "No motion is not proof of an electrical open")
+    check(len(survivors) == 7, "Expected seven initial candidates, not a diagnosis")
 
 
-def survivor_ids(result ∈ dict) → list[str]:
-    output ∈ list[str] ← []
-    for survivor in result["survivors"]:
-        output.append(survivor["hypothesis"]["id"])
-    return sorted(output)
-
-
-def fuse_regression(result ∈ dict) → None:
-    identifiers ∈ list[str] ← survivor_ids(result)
-    check("open:driver_fuse" in identifiers, "Working sibling must not clear the driver fuse")
-    check("open:common_fuse" not in identifiers, "Working sibling contradicts a completely open common feed in this model")
-    check("motor_unavailable:driver" in identifiers and "mechanism_blocked:driver" in identifiers, "No motion is not proof of an electrical open")
-    check(len(identifiers) == 7, "Expected seven indistinguishable initial candidates, not a diagnosis")
-
-
-def expect_blocked(model ∈ dict, label ∈ str) → None:
-    blocked ∈ bool ← False
-    try:
-        circuit.report(model)
-    except (ValueError, KeyError, TypeError):
-        blocked ← True
-    check(blocked, label)
-
-
-def oracle_reach(edges ∈ list, start ∈ str, target ∈ str) → bool:
-    # Independent Boolean transitive closure, not the production BFS.
+def oracle_reach(edges ∈ list[tuple[str, str, str]], start ∈ str, target ∈ str) → bool:
+    # Independently implemented Boolean transitive closure, not the production BFS.
     nodes ∈ list[str] ← ["a", "b", "c", "d"]
-    relation ∈ dict ← {}
+    relation ∈ dict[str, dict[str, bool]] ← {}
     for x in nodes:
-        relation[x] ← {}
+        row ∈ dict[str, bool] ← {}
         for y in nodes:
-            relation[x][y] ← x == y
+            row[y] ← x == y
+        relation[x] ← row
     for edge in edges:
-        relation[edge["a"]][edge["b"]] ← True
-        relation[edge["b"]][edge["a"]] ← True
+        relation[edge[1]][edge[2]] ← True
+        relation[edge[2]][edge[1]] ← True
     for middle in nodes:
         for x in nodes:
             for y in nodes:
@@ -58,107 +37,119 @@ def oracle_reach(edges ∈ list, start ∈ str, target ∈ str) → bool:
     return relation[start][target]
 
 
-def graph_checks(tracer ∈ Any) → int:
-    edges ∈ list[dict] ← [{"id":"ab","a":"a","b":"b"},{"id":"ab_parallel","a":"a","b":"b"},{"id":"bc","a":"b","b":"c"},{"id":"cd","a":"c","b":"d"},{"id":"loop","a":"b","b":"b"}]
+def graph_checks(tracer ∈ Callable[[list[tuple[str, str, str]], str, str], dict[str, list[str]]]) → int:
+    edges ∈ list[tuple[str, str, str]] ← [("ab", "a", "b"), ("ab_parallel", "a", "b"), ("bc", "b", "c"), ("cd", "c", "d"), ("loop", "b", "b")]
     count ∈ int ← 0
     for mask in range(32):
-        active ∈ list[dict] ← []
+        active ∈ list[tuple[str, str, str]] ← []
         for index in range(5):
-            if mask & (1 << index):
+            if (mask & (1 << index)) != 0:
                 active.append(edges[index])
         for start in ["a", "b", "c", "d"]:
-            reached ∈ dict ← tracer(active, start)
+            reached ∈ dict[str, list[str]] ← tracer(active, start, "")
             for target in ["a", "b", "c", "d"]:
                 check((target in reached) == oracle_reach(active, start, target), "BFS disagrees with independent closure")
                 count ← count + 1
     return count
 
 
-def bad_trace(edges ∈ list, start ∈ str) → dict:
-    return {"a": [], "b": [], "c": [], "d": []}
+def bad_trace(edges ∈ list[tuple[str, str, str]], start ∈ str, open_edge ∈ str) → dict[str, list[str]]:
+    result ∈ dict[str, list[str]] ← {"a": [], "b": [], "c": [], "d": []}
+    return result
 
 
-def main() → dict:
-    model ∈ dict ← demo()
-    result ∈ dict ← circuit.report(model)
-    fuse_regression(result)
+def main() → dict[str, object]:
+    result ∈ tuple[list[str], dict[str, list[str]]] ← demo.assess(demo.observations)
+    fuse_regression(result[0])
     expected ∈ list[str] ← ["mechanism_blocked:driver", "motor_unavailable:driver", "open:driver_forward_positive", "open:driver_forward_return", "open:driver_fuse", "open:driver_wire_a", "open:driver_wire_b"]
-    check(survivor_ids(result) == expected, "Exact initial candidate set")
-    nominal ∈ dict ← circuit.hypotheses(model)[0]
-    forward ∈ dict ← {"state":"forward","quantity":"drive","target":"driver"}
-    reverse ∈ dict ← {"state":"reverse","quantity":"drive","target":"driver"}
-    check(circuit.predict(model, forward, nominal)["value"] == "forward", "Forward polarity")
-    check(circuit.predict(model, reverse, nominal)["value"] == "reverse", "Reverse polarity")
-    floating ∈ dict ← {"state":"forward","quantity":"rail","target":"sensor_unmapped"}
-    check(circuit.predict(model, floating, nominal)["value"] == "floating", "Floating is not ground")
-    unknown ∈ dict ← {"state":"unspecified","quantity":"drive","target":"driver"}
-    check(circuit.predict(model, unknown, nominal)["value"] == "unknown", "Unspecified state must not become open")
-    off ∈ dict ← {"state":"ignition_off","quantity":"rail","target":"common_bus"}
-    check(circuit.predict(model, off, nominal)["value"] == "positive", "Ignition off does not disconnect the battery from every node")
-    check(circuit.predict(model, forward, nominal)["terminal_witnesses"]["driver_a_motor"]["positive_path"] == ["common_fuse", "enable_contact", "driver_fuse", "driver_forward_positive", "driver_wire_a"], "Evidence includes the exact branch path")
-    motor_plan ∈ dict ← circuit.find([dict(plan, id=plan["test"]) for plan in result["test_comparisons"]], "motor_drive")
-    check(motor_plan["additional_effort"] == 6 and motor_plan["new_access"] == ["door_cavity_open"], "Already removed trim is not charged twice")
-    check(result["common_remaining_repair_access"] == [], "Fuse and switch candidates do not require the door cavity")
-    door_only ∈ dict ← deepcopy(model)
-    door_only["observations"].extend([
-        {"id":"switch_feed_confirmed","state":"forward","quantity":"rail","target":"driver_a_switch","value":"positive","evidence":"synthetic additional test"},
-        {"id":"switch_return_confirmed","state":"forward","quantity":"rail","target":"driver_b_switch","value":"negative","evidence":"synthetic additional test"}
-    ])
-    door_result ∈ dict ← circuit.report(door_only)
-    check(survivor_ids(door_result) == ["mechanism_blocked:driver", "motor_unavailable:driver", "open:driver_wire_a", "open:driver_wire_b"], "Motor, mechanism and door wires remain")
-    check(door_result["common_remaining_repair_access"] == ["door_cavity_open"], "Every remaining modeled repair requires the same additional access")
-    opened ∈ dict ← deepcopy(model)
-    opened["already_accessible"].append("door_cavity_open")
-    opened_result ∈ dict ← circuit.report(opened)
-    for plan in opened_result["test_comparisons"]:
-        if plan["test"] == "motor_drive":
-            check(plan["additional_effort"] == 1, "Access state changes marginal test cost")
-    contradictory ∈ dict ← deepcopy(model)
-    contradictory["observations"].append({"id":"driver_also_moves","state":"forward","quantity":"motion","target":"driver","value":"forward","evidence":"synthetic contradictory observation in the same fixed scenario"})
-    check(circuit.report(contradictory)["status"] == "no_model_fit", "Contradictions must not force a best-sounding fault")
-    incomplete ∈ dict ← deepcopy(model)
-    for observation in incomplete["observations"]:
-        observation["state"] ← "unspecified"
-    check(len(circuit.report(incomplete)["survivors"]) == len(circuit.hypotheses(model)), "Unknown predictions eliminate nothing")
-    changed_order ∈ dict ← deepcopy(model)
-    changed_order["edges"].reverse()
-    changed_order["nodes"].reverse()
-    check(survivor_ids(circuit.report(changed_order)) == survivor_ids(result), "Enumeration order does not change diagnosis")
-    malformed ∈ dict ← deepcopy(model)
-    malformed["edges"][0]["b"] ← "nonexistent"
-    expect_blocked(malformed, "Reject invented terminal")
-    malformed ← deepcopy(model)
-    malformed["states"]["forward"].append("driver_reverse_return")
-    expect_blocked(malformed, "Reject shorted ideal source rails")
-    malformed ← deepcopy(model)
-    malformed["scope"] ← "verified_honda"
-    expect_blocked(malformed, "Synthetic prototype cannot grant OEM approval")
-    malformed ← deepcopy(model)
-    malformed["observations"][0]["quantity"] ← "test_light"
-    expect_blocked(malformed, "No silent test-light to voltage conversion")
-    malformed ← deepcopy(model)
-    malformed["edges"][0]["kind"] ← "resistor"
-    expect_blocked(malformed, "Unsupported physics fails explicitly")
-    malformed ← deepcopy(model)
-    malformed["edges"].append(deepcopy(malformed["edges"][0]))
-    expect_blocked(malformed, "Duplicate wire identities rejected")
-    mutant ∈ dict ← deepcopy(result)
-    mutant["survivors"] ← [entry for entry in mutant["survivors"] if entry["hypothesis"]["id"] != "open:driver_fuse"]
-    rejected_mutant ∈ bool ← False
+    check(result[0] == expected, "Exact initial candidate set")
+    states ∈ dict[str, list[tuple[str, str, str]]] ← demo.states
+    unknown_states ∈ list[str] ← demo.unknown_states
+    supply ∈ tuple[str, str] ← demo.supply
+    loads ∈ dict[str, tuple[str, str]] ← demo.loads
+    nominal ∈ tuple[str, str] ← ("", "")
+    forward ∈ str ← circuit.predict(states, unknown_states, supply, loads, nominal, "forward", "drive", "driver")
+    reverse ∈ str ← circuit.predict(states, unknown_states, supply, loads, nominal, "reverse", "drive", "driver")
+    check(forward == "forward" and reverse == "reverse", "Reversing polarity")
+    floating ∈ str ← circuit.predict(states, unknown_states, supply, loads, nominal, "forward", "rail", "sensor_unmapped")
+    check(floating == "floating", "Floating is not ground")
+    unknown ∈ str ← circuit.predict(states, unknown_states, supply, loads, nominal, "unspecified", "drive", "driver")
+    check(unknown == "unknown", "Unspecified state must not become open")
+    off ∈ str ← circuit.predict(states, unknown_states, supply, loads, nominal, "ignition_off", "rail", "common_bus")
+    check(off == "positive", "Ignition off does not disconnect every node")
+    witness ∈ dict[str, list[str]] ← circuit.paths(states["forward"], supply[0], "")
+    check(witness["driver_a_motor"] == ["common_fuse", "enable_contact", "driver_fuse", "driver_forward_positive", "driver_wire_a"], "Exact branch path")
+    requirements ∈ list[str] ← ["trim_removed", "door_cavity_open", "trim_removed"]
+    done ∈ list[str] ← demo.already_accessible
+    costs ∈ dict[str, int] ← demo.access_costs
+    cost ∈ int ← circuit.marginal_cost(requirements, done, costs, 1)
+    check(cost == 6, "Removed trim and duplicate prerequisites are not charged twice")
+    all_open ∈ list[str] ← ["trim_removed", "door_cavity_open"]
+    open_cost ∈ int ← circuit.marginal_cost(requirements, all_open, costs, 1)
+    check(open_cost == 1, "Marginal access cost changes with actual access state")
+    access ∈ dict[str, list[str]] ← demo.repair_access
+    initial_access ∈ list[str] ← circuit.common_repair_access(result[0], access, done)
+    check(len(initial_access) == 0, "Not every initial candidate needs door access")
+    observations ∈ list[tuple[str, str, str, str]] ← list(demo.observations)
+    observations.append(("forward", "rail", "driver_a_switch", "positive"))
+    observations.append(("forward", "rail", "driver_b_switch", "negative"))
+    door_result ∈ tuple[list[str], dict[str, list[str]]] ← demo.assess(observations)
+    check(door_result[0] == ["mechanism_blocked:driver", "motor_unavailable:driver", "open:driver_wire_a", "open:driver_wire_b"], "Motor, mechanism and door wires remain")
+    common ∈ list[str] ← circuit.common_repair_access(door_result[0], access, done)
+    check(common == ["door_cavity_open"], "All remaining modeled repairs share access")
+    contradictions ∈ list[tuple[str, str, str, str]] ← list(demo.observations)
+    contradictions.append(("forward", "motion", "driver", "forward"))
+    contradictory ∈ tuple[list[str], dict[str, list[str]]] ← demo.assess(contradictions)
+    check(len(contradictory[0]) == 0, "Contradictions must not force a fault")
+    incomplete ∈ list[tuple[str, str, str, str]] ← [("unspecified", "motion", "driver", "stopped")]
+    incomplete_result ∈ tuple[list[str], dict[str, list[str]]] ← demo.assess(incomplete)
+    faults ∈ dict[str, tuple[str, str]] ← demo.faults
+    check(len(incomplete_result[0]) == len(faults), "Unknown predictions eliminate nothing")
+    test ∈ tuple[str, str, str] ← ("forward", "drive", "driver")
+    partition ∈ dict[str, list[str]] ← circuit.partition_test(states, unknown_states, supply, loads, faults, result[0], test)
+    pairs ∈ int ← circuit.separated_pairs(partition)
+    check(pairs == 10, "Drive separates five opens from two blocked-load candidates")
+    choices ∈ list[tuple[str, int, int]] ← [("cheap", 1, 3), ("dominated", 2, 3), ("deep", 5, 10), ("uninformative", 0, 0)]
+    preferred ∈ list[str] ← circuit.pareto_tests(choices)
+    check(preferred == ["cheap", "deep"], "Pareto comparison preserves effort/information tradeoff")
+    invalid_nodes ∈ list[str] ← ["a", "b"]
+    invalid_edges ∈ list[tuple[str, str, str]] ← [("wire", "a", "missing")]
+    endpoint_errors ∈ list[str] ← circuit.graph_errors(invalid_nodes, invalid_edges)
+    check(len(endpoint_errors) > 0, "Reject invented terminal")
+    duplicate_edges ∈ list[tuple[str, str, str]] ← [("wire", "a", "b"), ("wire", "a", "b")]
+    duplicate_errors ∈ list[str] ← circuit.graph_errors(invalid_nodes, duplicate_edges)
+    check(len(duplicate_errors) > 0, "Reject duplicate conductor identities")
+    shorted ∈ list[tuple[str, str, str]] ← [("short", "positive", "negative")]
+    short_rejected ∈ bool ← False
+    try:
+        circuit.rail_paths(shorted, supply, "")
+    except ValueError:
+        short_rejected ← True
+    check(short_rejected, "Reject contradictory ideal source rails")
+    instrument_rejected ∈ bool ← False
+    try:
+        circuit.predict(states, unknown_states, supply, loads, nominal, "forward", "test_light", "driver")
+    except ValueError:
+        instrument_rejected ← True
+    check(instrument_rejected, "No silent instrument conversion")
+    mutant ∈ list[str] ← list(result[0])
+    mutant.remove("open:driver_fuse")
+    bad_fuse_rejected ∈ bool ← False
     try:
         fuse_regression(mutant)
     except AssertionError:
-        rejected_mutant ← True
-    check(rejected_mutant, "The regression must reject the original sibling-fuse error")
+        bad_fuse_rejected ← True
+    check(bad_fuse_rejected, "Regression rejects original sibling-fuse error")
     graph_count ∈ int ← graph_checks(circuit.paths)
-    rejected_graph_mutant ∈ bool ← False
+    bad_graph_rejected ∈ bool ← False
     try:
         graph_checks(bad_trace)
     except AssertionError:
-        rejected_graph_mutant ← True
-    check(rejected_graph_mutant, "Independent oracle rejects an all-connected graph mutant")
-    check(circuit.report(model) == circuit.report(model), "Same input and implementation give identical output")
-    return {"status":"passed", "exhaustive_reachability_comparisons":graph_count, "known_bad_controls_rejected":2, "vehicle_acceptance":"NOT_RUN", "demo_survivors":survivor_ids(result)}
+        bad_graph_rejected ← True
+    check(bad_graph_rejected, "Oracle rejects all-connected graph mutant")
+    repeated ∈ tuple[list[str], dict[str, list[str]]] ← demo.assess(demo.observations)
+    check(repeated == result, "Deterministic replay")
+    return {"status": "passed", "exhaustive_reachability_comparisons": graph_count, "known_bad_controls_rejected": 2, "vehicle_acceptance": "NOT_RUN", "demo_survivors": result[0]}
 
 
 if __name__ == "__main__":

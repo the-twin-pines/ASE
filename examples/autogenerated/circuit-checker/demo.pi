@@ -1,0 +1,78 @@
+"""Synthetic model inspired by the conversation; NOT a Honda circuit or pinout."""
+from builtins import dict, list
+import json
+import circuit
+
+nodes ∈ list[str] ← ["positive", "negative", "common_bus", "enabled_bus", "driver_feed", "passenger_feed", "driver_a_switch", "driver_b_switch", "driver_a_motor", "driver_b_motor", "passenger_a", "passenger_b", "sensor_unmapped"]
+supply ∈ tuple[str, str] ← ("positive", "negative")
+edges ∈ list[tuple[str, str, str]] ← [
+    ("common_fuse", "positive", "common_bus"),
+    ("enable_contact", "common_bus", "enabled_bus"),
+    ("driver_fuse", "enabled_bus", "driver_feed"),
+    ("passenger_fuse", "enabled_bus", "passenger_feed"),
+    ("driver_forward_positive", "driver_feed", "driver_a_switch"),
+    ("driver_forward_return", "driver_b_switch", "negative"),
+    ("driver_reverse_positive", "driver_feed", "driver_b_switch"),
+    ("driver_reverse_return", "driver_a_switch", "negative"),
+    ("driver_wire_a", "driver_a_switch", "driver_a_motor"),
+    ("driver_wire_b", "driver_b_switch", "driver_b_motor"),
+    ("passenger_positive", "passenger_feed", "passenger_a"),
+    ("passenger_return", "passenger_b", "negative")
+]
+loads ∈ dict[str, tuple[str, str]] ← {"driver": ("driver_a_motor", "driver_b_motor"), "passenger": ("passenger_a", "passenger_b")}
+unknown_states ∈ list[str] ← ["unspecified"]
+
+
+def selected_edges(excluded ∈ list[str]) → list[tuple[str, str, str]]:
+    result ∈ list[tuple[str, str, str]] ← []
+    for edge in edges:
+        if circuit.contains(excluded, edge[0]) == False:
+            result.append(edge)
+    return result
+
+
+states ∈ dict[str, list[tuple[str, str, str]]] ← {
+    "forward": selected_edges(["driver_reverse_positive", "driver_reverse_return"]),
+    "reverse": selected_edges(["driver_forward_positive", "driver_forward_return"]),
+    "ignition_off": selected_edges(["enable_contact", "driver_forward_positive", "driver_forward_return", "driver_reverse_positive", "driver_reverse_return", "passenger_positive"])
+}
+faults ∈ dict[str, tuple[str, str]] ← circuit.make_hypotheses(edges, loads)
+observations ∈ list[tuple[str, str, str, str]] ← [("forward", "motion", "passenger", "forward"), ("forward", "motion", "driver", "stopped")]
+repair_access ∈ dict[str, list[str]] ← {}
+for identifier in faults:
+    repair_access[identifier] ← ["trim_removed", "door_cavity_open"]
+repair_access["nominal"] ← list()
+for identifier in ["open:common_fuse", "open:enable_contact", "open:driver_fuse", "open:passenger_fuse"]:
+    repair_access[identifier] ← ["fuse_panel"]
+for identifier in ["open:driver_forward_positive", "open:driver_forward_return", "open:driver_reverse_positive", "open:driver_reverse_return", "open:passenger_positive", "open:passenger_return"]:
+    repair_access[identifier] ← ["trim_removed"]
+already_accessible ∈ list[str] ← ["trim_removed"]
+access_costs ∈ dict[str, int] ← {"fuse_panel": 1, "trim_removed": 3, "door_cavity_open": 5}
+
+
+def assess(observed ∈ list[tuple[str, str, str, str]]) → tuple[list[str], dict[str, list[str]]]:
+    return circuit.diagnose(nodes, states, unknown_states, supply, loads, faults, observed)
+
+
+def main() → dict[str, object]:
+    result ∈ tuple[list[str], dict[str, list[str]]] ← assess(observations)
+    comparisons ∈ list[tuple[str, int, int]] ← []
+    partitions ∈ dict[str, dict[str, list[str]]] ← {}
+    tests ∈ dict[str, tuple[str, str, str]] ← {"fuse_output": ("forward", "rail", "driver_feed"), "switch_output": ("forward", "rail", "driver_a_switch"), "motor_drive": ("forward", "drive", "driver")}
+    access ∈ dict[str, list[str]] ← {"fuse_output": ["fuse_panel"], "switch_output": ["trim_removed"], "motor_drive": ["trim_removed", "door_cavity_open"]}
+    for name in tests:
+        partition ∈ dict[str, list[str]] ← circuit.partition_test(states, unknown_states, supply, loads, faults, result[0], tests[name])
+        partitions[name] ← partition
+        cost ∈ int ← circuit.marginal_cost(access[name], already_accessible, access_costs, 1)
+        count ∈ int ← circuit.separated_pairs(partition)
+        comparisons.append((name, cost, count))
+    known_switch ∈ list[tuple[str, str, str, str]] ← list(observations)
+    known_switch.append(("forward", "rail", "driver_a_switch", "positive"))
+    known_switch.append(("forward", "rail", "driver_b_switch", "negative"))
+    door_result ∈ tuple[list[str], dict[str, list[str]]] ← assess(known_switch)
+    witness ∈ dict[str, list[str]] ← circuit.paths(states["forward"], supply[0], "")
+    return {"scope": "synthetic_only_not_a_vehicle_diagnosis", "survivors": result[0], "refutations": result[1], "nominal_positive_paths": witness, "test_partitions": partitions, "test_comparisons": comparisons, "pareto_tests": circuit.pareto_tests(comparisons), "after_synthetic_switch_tests": door_result[0], "common_remaining_repair_access": circuit.common_repair_access(door_result[0], repair_access, already_accessible), "unimplemented": ["schematic extraction", "OEM source admission and pin mapping", "numerical voltage/current and instrument loading", "multiple faults", "backfeed through loads", "physical verification"]}
+
+
+if __name__ == "__main__":
+    print(json.dumps(main(), sort_keys=True, indent=2))

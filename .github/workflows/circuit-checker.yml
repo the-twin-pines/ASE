@@ -14,14 +14,14 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
           persist-credentials: false
-      - name: Checkout the existing ASE checked Ithon pin
+      - name: Checkout pinned Ithon with typed containers and structured control flow
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
           repository: dilapidated-shed/ithon
-          ref: 396d8b7af1417a0a61245db940fdb22ef9fbac51
+          ref: 74ab6d6044b07b76a910978437a34a6b5ac6acda
           path: _ithon
           persist-credentials: false
-      - name: Check circuit semantics, independent oracle and bad controls
+      - name: Check semantics, independent oracle and known-bad controls
         env:
           EXPECTED_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
           ITHON_CHECK_RECEIPT: ${{ runner.temp }}/ase-circuit-ithon-checks.jsonl

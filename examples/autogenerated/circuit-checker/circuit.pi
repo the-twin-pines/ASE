@@ -1,10 +1,10 @@
-"""Bounded, synthetic-only circuit diagnosis. No hardware control or service pinout."""
-from typing import Any
-from builtins import dict, list, set, len, sorted, type, str, int, bool, max, any, ValueError, KeyError, TypeError
-from pathlib import Path
-import hashlib
-import json
-import sys
+"""Deterministic ideal-connectivity kernel; no physical pinout or hardware control."""
+from builtins import list, dict, len, sorted, ValueError
+
+# Edge: (identity, terminal A, terminal B).
+# Fault: (open edge identity, unavailable/bound load identity).
+# Observation: (state, quantity, target identity, observed value).
+# These tuples are storage representations, not the permanent semantic interface.
 
 
 def require(condition ∈ bool, message ∈ str) → None:
@@ -12,269 +12,215 @@ def require(condition ∈ bool, message ∈ str) → None:
         raise ValueError(message)
 
 
-def fields(row ∈ Any, names ∈ str) → None:
-    require(type(row) == dict, "Expected a record")
-    require(set(row.keys()) == set(names.split()), "Unexpected or missing fields: " + names)
+def contains(items ∈ list[str], item ∈ str) → bool:
+    return item in items
 
 
-def names(values ∈ Any, allowed ∈ list) → None:
-    require(type(values) == list, "Expected a list of identifiers")
-    require(len(values) == len(set(values)), "Duplicate identifier")
-    for value in values:
-        require(type(value) == str and value in allowed, "Unknown identifier: " + str(value))
+def graph_errors(nodes ∈ list[str], edges ∈ list[tuple[str, str, str]]) → list[str]:
+    errors ∈ list[str] ← []
+    seen_nodes ∈ list[str] ← []
+    seen_edges ∈ list[str] ← []
+    if len(nodes) < 2 or len(nodes) > 64 or len(edges) > 128:
+        errors.append("graph bounds exceeded")
+    for node in nodes:
+        if node == "" or node in seen_nodes:
+            errors.append("empty or duplicate terminal")
+        seen_nodes.append(node)
+    for edge in edges:
+        if edge[0] == "" or edge[0] in seen_edges:
+            errors.append("empty or duplicate edge identity")
+        if contains(nodes, edge[1]) == False or contains(nodes, edge[2]) == False:
+            errors.append("unknown endpoint on " + edge[0])
+        seen_edges.append(edge[0])
+    return errors
 
 
-def row_ids(rows ∈ Any) → list[str]:
-    require(type(rows) == list, "Expected records")
-    result ∈ list[str] ← []
-    for row in rows:
-        require(type(row) == dict and type(row.get("id")) == str, "Record needs a string identifier")
-        identifier ∈ str ← row["id"]
-        require(identifier != "" and identifier not in result, "Empty or duplicate identifier")
-        result.append(identifier)
-    return result
-
-
-def find(rows ∈ list, identifier ∈ str) → dict:
-    for row in rows:
-        if row["id"] == identifier:
-            return row
-    raise ValueError("Unknown record: " + identifier)
-
-
-def validate_measurement(model ∈ dict, row ∈ dict) → None:
-    require(row["state"] in model["states"], "Unknown operating state")
-    quantity ∈ str ← row["quantity"]
-    require(quantity in ["rail", "drive", "motion"], "Unsupported quantity; test-light and numerical voltage readings must not be converted to ideal rails")
-    targets ∈ list ← model["nodes"]
-    if quantity != "rail":
-        targets ← row_ids(model["loads"])
-    require(row["target"] in targets, "Unknown measurement target")
-
-
-def validate(model ∈ Any) → None:
-    fields(model, "scope id nodes positive negative edges states loads observations tests access_costs already_accessible")
-    require(model["scope"] == "synthetic", "Only synthetic models are admitted in this prototype; OEM source admission is not implemented")
-    require(type(model["id"]) == str and model["id"] != "", "Model identifier required")
-    nodes ∈ Any ← model["nodes"]
-    require(type(nodes) == list and 2 <= len(nodes) <= 64, "Require 2..64 terminals")
-    names(nodes, nodes)
-    require(model["positive"] in nodes and model["negative"] in nodes and model["positive"] != model["negative"], "Distinct named source terminals required")
-    access ∈ Any ← model["access_costs"]
-    require(type(access) == dict, "Access costs must be a record")
-    for key in access:
-        require(type(key) == str and type(access[key]) == int and access[key] >= 0, "Access costs are nonnegative integer effort units, not probabilities")
-    names(model["already_accessible"], list(access))
-    edge_ids ∈ list[str] ← row_ids(model["edges"])
-    load_ids ∈ list[str] ← row_ids(model["loads"])
-    require(len(edge_ids) <= 128 and 1 <= len(load_ids) <= 16, "Model bounds exceeded")
-    for edge in model["edges"]:
-        fields(edge, "id a b kind evidence repair_access")
-        require(edge["a"] in nodes and edge["b"] in nodes, "Unknown edge endpoint")
-        require(edge["kind"] in ["wire", "fuse", "contact"], "Only ideal conductors, fuses and contacts are implemented")
-        require(type(edge["evidence"]) == str and edge["evidence"] != "", "Connection evidence required")
-        names(edge["repair_access"], list(access))
-    require(type(model["states"]) == dict and 1 <= len(model["states"]) <= 16, "Require 1..16 named states")
-    for state in model["states"]:
-        require(type(state) == str and state != "", "Named state required")
-        active ∈ Any ← model["states"][state]
-        if active is not None:
-            names(active, edge_ids)
-    for load in model["loads"]:
-        fields(load, "id a b evidence repair_access")
-        require(load["a"] in nodes and load["b"] in nodes and load["a"] != load["b"], "Distinct load terminals required")
-        require(type(load["evidence"]) == str and load["evidence"] != "", "Load evidence required")
-        names(load["repair_access"], list(access))
-    observation_ids ∈ list[str] ← row_ids(model["observations"])
-    test_ids ∈ list[str] ← row_ids(model["tests"])
-    require(len(observation_ids) <= 64 and len(test_ids) <= 64, "Observation or test bounds exceeded")
-    for observation in model["observations"]:
-        fields(observation, "id state quantity target value evidence")
-        validate_measurement(model, observation)
-        allowed ∈ list[str] ← ["positive", "negative", "floating", "unknown"]
-        if observation["quantity"] == "drive":
-            allowed ← ["forward", "reverse", "no_complete_drive", "unknown"]
-        if observation["quantity"] == "motion":
-            allowed ← ["forward", "reverse", "stopped", "unknown"]
-        require(observation["value"] in allowed, "Invalid observation value")
-        require(type(observation["evidence"]) == str and observation["evidence"] != "", "Observation evidence required")
-    for test in model["tests"]:
-        fields(test, "id state quantity target access effort")
-        validate_measurement(model, test)
-        names(test["access"], list(access))
-        require(type(test["effort"]) == int and test["effort"] >= 0, "Test effort must be a nonnegative integer")
-    # A contradictory nominal schematic is not a diagnosed real-world fault.
-    for state in model["states"]:
-        solve(model, state, "")
-
-
-def edge_key(edge ∈ dict) → str:
-    return edge["id"]
-
-
-def paths(edges ∈ list, start ∈ str) → dict:
-    """Finite breadth-first reachability; retain edge identities as witnesses."""
-    reached ∈ dict ← {start: []}
+def paths(edges ∈ list[tuple[str, str, str]], start ∈ str, open_edge ∈ str) → dict[str, list[str]]:
+    """Breadth-first reachability with exact edge witnesses; loops/parallel edges retained."""
+    empty_path ∈ list[str] ← []
+    reached ∈ dict[str, list[str]] ← {start: empty_path}
     queue ∈ list[str] ← [start]
-    index ∈ int ← 0
-    ordered ∈ list ← sorted(edges, key=edge_key)
-    while index < len(queue):
-        here ∈ str ← queue[index]
-        index ← index + 1
+    ordered ∈ list[tuple[str, str, str]] ← sorted(edges)
+    # Each terminal is appended once, so this growing-list traversal is finite.
+    for here in queue:
         for edge in ordered:
             other ∈ str ← ""
-            if edge["a"] == here:
-                other ← edge["b"]
-            elif edge["b"] == here:
-                other ← edge["a"]
-            if other != "" and other not in reached:
-                reached[other] ← reached[here] + [edge["id"]]
+            if edge[0] != open_edge:
+                if edge[1] == here:
+                    other ← edge[2]
+                elif edge[2] == here:
+                    other ← edge[1]
+            already_seen ∈ bool ← other in reached
+            if other != "" and already_seen == False:
+                witness ∈ list[str] ← list(reached[here])
+                witness.append(edge[0])
+                reached[other] ← witness
                 queue.append(other)
     return reached
 
 
-def solve(model ∈ dict, state ∈ str, open_edge ∈ str) → dict:
-    active ∈ Any ← model["states"][state]
-    if active is None:
-        return {"known": False, "positive": {}, "negative": {}}
-    edges ∈ list ← []
-    for edge in model["edges"]:
-        if edge["id"] in active and edge["id"] != open_edge:
-            edges.append(edge)
-    positive ∈ dict ← paths(edges, model["positive"])
-    negative ∈ dict ← paths(edges, model["negative"])
-    require(model["negative"] not in positive, "Contradictory ideal source rails in state " + state)
-    return {"known": True, "positive": positive, "negative": negative}
-
-
-def rail(solution ∈ dict, node ∈ str) → str:
-    if solution["known"] == False:
-        return "unknown"
-    if node in solution["positive"]:
+def rail(positive ∈ dict[str, list[str]], negative ∈ dict[str, list[str]], node ∈ str) → str:
+    if node in positive:
         return "positive"
-    if node in solution["negative"]:
+    if node in negative:
         return "negative"
     return "floating"
 
 
-def predict(model ∈ dict, request ∈ dict, hypothesis ∈ dict) → dict:
-    solution ∈ dict ← solve(model, request["state"], hypothesis["open_edge"])
-    target ∈ str ← request["target"]
-    quantity ∈ str ← request["quantity"]
-    terminals ∈ list[str] ← [target]
-    value ∈ str ← "unknown"
+def rail_paths(edges ∈ list[tuple[str, str, str]], supply ∈ tuple[str, str], open_edge ∈ str) → tuple[dict[str, list[str]], dict[str, list[str]]]:
+    positive ∈ dict[str, list[str]] ← paths(edges, supply[0], open_edge)
+    negative ∈ dict[str, list[str]] ← paths(edges, supply[1], open_edge)
+    shorted ∈ bool ← supply[1] in positive
+    require(shorted == False, "Contradictory ideal source rails")
+    return positive, negative
+
+
+def predict(states ∈ dict[str, list[tuple[str, str, str]]], unknown_states ∈ list[str], supply ∈ tuple[str, str], loads ∈ dict[str, tuple[str, str]], fault ∈ tuple[str, str], state ∈ str, quantity ∈ str, target ∈ str) → str:
+    require(quantity in ["rail", "drive", "motion"], "Unsupported quantity: numerical voltage and test-light readings are not ideal rails")
+    if state in unknown_states:
+        return "unknown"
+    require(state in states, "Unknown operating-state identity")
+    solution ∈ tuple[dict[str, list[str]], dict[str, list[str]]] ← rail_paths(states[state], supply, fault[0])
     if quantity == "rail":
-        value ← rail(solution, target)
-    else:
-        load ∈ dict ← find(model["loads"], target)
-        terminals ← [load["a"], load["b"]]
-        a ∈ str ← rail(solution, load["a"])
-        b ∈ str ← rail(solution, load["b"])
-        if a != "unknown" and b != "unknown":
-            value ← "no_complete_drive"
-            if a == "positive" and b == "negative":
-                value ← "forward"
-            if a == "negative" and b == "positive":
-                value ← "reverse"
-        if quantity == "motion" and value != "unknown":
-            if value == "no_complete_drive" or hypothesis["blocked_load"] == target:
-                value ← "stopped"
-    witness ∈ dict ← {}
-    for node in terminals:
-        witness[node] ← {"rail": rail(solution, node), "positive_path": solution["positive"].get(node), "negative_path": solution["negative"].get(node)}
-    return {"value": value, "terminal_witnesses": witness, "blocked_load": hypothesis["blocked_load"]}
+        return rail(solution[0], solution[1], target)
+    require(target in loads, "Unknown load")
+    endpoints ∈ tuple[str, str] ← loads[target]
+    a ∈ str ← rail(solution[0], solution[1], endpoints[0])
+    b ∈ str ← rail(solution[0], solution[1], endpoints[1])
+    value ∈ str ← "no_complete_drive"
+    if a == "positive" and b == "negative":
+        value ← "forward"
+    elif a == "negative" and b == "positive":
+        value ← "reverse"
+    if quantity == "motion":
+        if value == "no_complete_drive" or fault[1] == target:
+            value ← "stopped"
+    return value
 
 
-def hypotheses(model ∈ dict) → list[dict]:
-    result ∈ list[dict] ← [{"id": "nominal", "open_edge": "", "blocked_load": "", "repair_access": []}]
-    for edge in sorted(model["edges"], key=edge_key):
-        result.append({"id": "open:" + edge["id"], "open_edge": edge["id"], "blocked_load": "", "repair_access": edge["repair_access"]})
-    for load in sorted(model["loads"], key=edge_key):
-        for fault_kind in ["motor_unavailable", "mechanism_blocked"]:
-            result.append({"id": fault_kind + ":" + load["id"], "open_edge": "", "blocked_load": load["id"], "repair_access": load["repair_access"]})
+def make_hypotheses(edges ∈ list[tuple[str, str, str]], loads ∈ dict[str, tuple[str, str]]) → dict[str, tuple[str, str]]:
+    result ∈ dict[str, tuple[str, str]] ← {"nominal": ("", "")}
+    for edge in edges:
+        result["open:" + edge[0]] ← (edge[0], "")
+    for load in loads:
+        result["motor_unavailable:" + load] ← ("", load)
+        result["mechanism_blocked:" + load] ← ("", load)
     return result
 
 
-def assess(model ∈ dict) → dict:
-    validate(model)
-    survivors ∈ list[dict] ← []
-    rejected ∈ list[dict] ← []
-    for hypothesis in hypotheses(model):
-        contradictions ∈ list[dict] ← []
-        predictions ∈ list[dict] ← []
-        for observation in model["observations"]:
-            prediction ∈ dict ← predict(model, observation, hypothesis)
-            predictions.append({"observation": observation["id"], "prediction": prediction})
-            if observation["value"] != "unknown" and prediction["value"] != "unknown" and observation["value"] != prediction["value"]:
-                contradictions.append({"observation": observation["id"], "observed": observation["value"], "prediction": prediction})
-        if len(contradictions) == 0:
-            survivors.append({"hypothesis": hypothesis, "predictions": predictions})
+def diagnose(nodes ∈ list[str], states ∈ dict[str, list[tuple[str, str, str]]], unknown_states ∈ list[str], supply ∈ tuple[str, str], loads ∈ dict[str, tuple[str, str]], faults ∈ dict[str, tuple[str, str]], observations ∈ list[tuple[str, str, str, str]]) → tuple[list[str], dict[str, list[str]]]:
+    require(supply[0] in nodes and supply[1] in nodes and supply[0] != supply[1], "Distinct named source terminals required")
+    require(len(states) <= 16 and len(loads) <= 16 and len(faults) <= 161 and len(observations) <= 64, "Model bounds exceeded")
+    all_edges ∈ dict[str, tuple[str, str, str]] ← {}
+    for state in states:
+        require(contains(unknown_states, state) == False, "State cannot be both known and unknown")
+        errors ∈ list[str] ← graph_errors(nodes, states[state])
+        require(len(errors) == 0, "Invalid circuit graph")
+        rail_paths(states[state], supply, "")
+        for edge in states[state]:
+            if edge[0] in all_edges:
+                require(all_edges[edge[0]] == edge, "Edge identity changed between states")
+            all_edges[edge[0]] ← edge
+    for load in loads:
+        pair ∈ tuple[str, str] ← loads[load]
+        require(pair[0] in nodes and pair[1] in nodes and pair[0] != pair[1], "Invalid load endpoints")
+    for fault_id in faults:
+        fault ∈ tuple[str, str] ← faults[fault_id]
+        require(fault[0] == "" or fault[0] in all_edges, "Unknown fault edge")
+        require(fault[1] == "" or fault[1] in loads, "Unknown blocked load")
+        require(fault[0] == "" or fault[1] == "", "Multiple simultaneous faults are outside this slice")
+    for observation in observations:
+        require(observation[0] in states or observation[0] in unknown_states, "Unknown observation state")
+        require(observation[1] in ["rail", "drive", "motion"], "Unsupported observation quantity")
+        if observation[1] == "rail":
+            require(observation[2] in nodes, "Unknown observation terminal")
+            require(observation[3] in ["positive", "negative", "floating", "unknown"], "Invalid rail value")
         else:
-            rejected.append({"hypothesis": hypothesis["id"], "contradictions": contradictions})
-    shared_access ∈ Any ← set(model["access_costs"])
-    if len(survivors) == 0:
-        shared_access ← set()
-    for survivor in survivors:
-        shared_access ← shared_access.intersection(survivor["hypothesis"]["repair_access"])
-    state ∈ str ← "underdetermined_in_bounded_model"
-    if len(survivors) == 0:
-        state ← "no_model_fit"
-    elif len(survivors) == 1:
-        state ← "single_candidate_in_bounded_model"
-    return {"status": state, "scope": "synthetic_model_only", "fault_scope": "nominal, one open conductor/contact/fuse, or one unavailable/bound load; not exhaustive physical diagnosis", "survivors": survivors, "rejected": rejected, "common_remaining_repair_access": sorted(shared_access.difference(model["already_accessible"]))}
+            require(observation[2] in loads, "Unknown observation load")
+            allowed ∈ list[str] ← ["forward", "reverse", "no_complete_drive", "unknown"]
+            if observation[1] == "motion":
+                allowed ← ["forward", "reverse", "stopped", "unknown"]
+            require(observation[3] in allowed, "Invalid load observation")
+    survivors ∈ list[str] ← []
+    rejected ∈ dict[str, list[str]] ← {}
+    identifiers ∈ list[str] ← sorted(faults.keys())
+    for identifier in identifiers:
+        contradictions ∈ list[str] ← []
+        for observation in observations:
+            expected ∈ str ← predict(states, unknown_states, supply, loads, faults[identifier], observation[0], observation[1], observation[2])
+            if expected != "unknown" and observation[3] != "unknown" and expected != observation[3]:
+                contradictions.append(observation[0] + "/" + observation[1] + "/" + observation[2] + ": observed " + observation[3] + ", predicted " + expected)
+        if len(contradictions) == 0:
+            survivors.append(identifier)
+        else:
+            rejected[identifier] ← contradictions
+    return survivors, rejected
 
 
-def plan_tests(model ∈ dict, assessment ∈ dict) → list[dict]:
-    plans ∈ list[dict] ← []
-    for test in sorted(model["tests"], key=edge_key):
-        partitions ∈ dict ← {}
-        for survivor in assessment["survivors"]:
-            hypothesis ∈ dict ← survivor["hypothesis"]
-            value ∈ str ← predict(model, test, hypothesis)["value"]
-            partitions.setdefault(value, []).append(hypothesis["id"])
-        count ∈ int ← len(assessment["survivors"])
-        separated ∈ int ← count * (count - 1) // 2
-        for value in partitions:
-            size ∈ int ← len(partitions[value])
-            separated ← separated - size * (size - 1) // 2
-        if "unknown" in partitions:
-            separated ← 0
-        missing ∈ list ← sorted(set(test["access"]).difference(model["already_accessible"]))
-        cost ∈ int ← test["effort"]
-        for step in missing:
-            cost ← cost + model["access_costs"][step]
-        plans.append({"test": test["id"], "additional_effort": cost, "new_access": missing, "distinguished_candidate_pairs": separated, "partitions": partitions, "pareto_candidate": False})
-    # No invented priors, entropy weights, or claim of a globally optimal policy.
-    for plan in plans:
+def partition_test(states ∈ dict[str, list[tuple[str, str, str]]], unknown_states ∈ list[str], supply ∈ tuple[str, str], loads ∈ dict[str, tuple[str, str]], faults ∈ dict[str, tuple[str, str]], survivors ∈ list[str], test ∈ tuple[str, str, str]) → dict[str, list[str]]:
+    partitions ∈ dict[str, list[str]] ← {}
+    for identifier in survivors:
+        value ∈ str ← predict(states, unknown_states, supply, loads, faults[identifier], test[0], test[1], test[2])
+        exists ∈ bool ← value in partitions
+        if exists == False:
+            empty_bucket ∈ list[str] ← []
+            partitions[value] ← empty_bucket
+        partitions[value].append(identifier)
+    return partitions
+
+
+def separated_pairs(partitions ∈ dict[str, list[str]]) → int:
+    if "unknown" in partitions:
+        return 0
+    total ∈ int ← 0
+    same ∈ int ← 0
+    for outcome in partitions:
+        size ∈ int ← len(partitions[outcome])
+        total ← total + size
+        same ← same + size * (size - 1) // 2
+    return total * (total - 1) // 2 - same
+
+
+def marginal_cost(required ∈ list[str], already_accessible ∈ list[str], costs ∈ dict[str, int], effort ∈ int) → int:
+    require(effort >= 0, "Negative test effort")
+    result ∈ int ← effort
+    counted ∈ list[str] ← []
+    for step in required:
+        require(step in costs and costs[step] >= 0, "Unknown or negative access cost")
+        if contains(already_accessible, step) == False and contains(counted, step) == False:
+            result ← result + costs[step]
+            counted.append(step)
+    return result
+
+
+def common_repair_access(survivors ∈ list[str], repair_access ∈ dict[str, list[str]], already_accessible ∈ list[str]) → list[str]:
+    common ∈ list[str] ← []
+    if len(survivors) == 0:
+        return common
+    for identifier in survivors:
+        require(identifier in repair_access, "Missing repair-access information")
+    first ∈ str ← survivors[0]
+    for step in repair_access[first]:
+        shared ∈ bool ← True
+        for identifier in survivors:
+            if contains(repair_access[identifier], step) == False:
+                shared ← False
+        if shared and contains(already_accessible, step) == False and contains(common, step) == False:
+            common.append(step)
+    return sorted(common)
+
+
+def pareto_tests(comparisons ∈ list[tuple[str, int, int]]) → list[str]:
+    """Each row is (test identity, extra effort, distinguished candidate pairs)."""
+    selected ∈ list[str] ← []
+    for candidate in comparisons:
+        require(candidate[1] >= 0 and candidate[2] >= 0, "Invalid test comparison")
         dominated ∈ bool ← False
-        for other in plans:
-            no_worse ∈ bool ← other["additional_effort"] <= plan["additional_effort"] and other["distinguished_candidate_pairs"] >= plan["distinguished_candidate_pairs"]
-            strictly_better ∈ bool ← other["additional_effort"] < plan["additional_effort"] or other["distinguished_candidate_pairs"] > plan["distinguished_candidate_pairs"]
+        for other in comparisons:
+            no_worse ∈ bool ← other[1] <= candidate[1] and other[2] >= candidate[2]
+            strictly_better ∈ bool ← other[1] < candidate[1] or other[2] > candidate[2]
             if no_worse and strictly_better:
                 dominated ← True
-        plan["pareto_candidate"] ← plan["distinguished_candidate_pairs"] > 0 and dominated == False
-    return plans
-
-
-def report(model ∈ dict) → dict:
-    assessment ∈ dict ← assess(model)
-    assessment["test_comparisons"] ← plan_tests(model, assessment)
-    canonical ∈ str ← json.dumps(model, sort_keys=True, separators=(",", ":"))
-    assessment["model_sha256"] ← hashlib.sha256(canonical.encode()).hexdigest()
-    assessment["implementation_sha256"] ← hashlib.sha256(Path(__file__).read_bytes()).hexdigest()
-    assessment["not_implemented"] ← ["schematic image parsing", "OEM pin mapping and source admission", "resistance/current/voltage-drop solving", "test-light or Power Probe instrument models", "multiple faults", "backfeed through loads", "intermittency", "physical repair verification"]
-    return assessment
-
-
-def main() → None:
-    require(len(sys.argv) == 2, "Usage: ithon circuit.pi model.json")
-    model ∈ Any ← json.loads(Path(sys.argv[1]).read_text(encoding="utf-8"))
-    print(json.dumps(report(model), sort_keys=True, indent=2))
-
-
-if __name__ == "__main__":
-    try:
-        main()
-    except (ValueError, KeyError, TypeError) as error:
-        print(json.dumps({"status": "blocked", "reason": str(error)}, sort_keys=True))
-        sys.exit(2)
+        if candidate[2] > 0 and dominated == False:
+            selected.append(candidate[0])
+    return sorted(selected)
