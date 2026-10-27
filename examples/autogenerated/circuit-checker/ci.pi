@@ -1,0 +1,34 @@
+from pathlib import Path
+from builtins import ValueError
+import hashlib
+import json
+import os
+import subprocess
+import sys
+import demo
+import crv2002
+import tests
+
+
+def main() → None:
+    arguments ∈ list[str] ← sys.argv
+    directive ∈ str ← Path(arguments[1]).read_text(encoding="utf-8").strip()
+    if directive != "verify":
+        raise ValueError("Expected circuit-checker verify")
+    head ∈ str ← subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip()
+    environment ∈ dict[str, str] ← os.environ
+    if head != environment["EXPECTED_HEAD"]:
+        raise ValueError("Checkout is not the requested exact head")
+    result ∈ dict[str, object] ← tests.main()
+    result["head"] ← head
+    result["ithon_revision"] ← "74ab6d6044b07b76a910978437a34a6b5ac6acda"
+    hashes ∈ dict[str, str] ← {}
+    for name in ["circuit.pi", "demo.pi", "crv2002.pi", "tests.pi", "ci.pi"]:
+        hashes[name] ← hashlib.sha256(Path(__file__).with_name(name).read_bytes()).hexdigest()
+    result["source_sha256"] ← hashes
+    print(json.dumps(result, sort_keys=True, indent=2))
+    print(json.dumps(demo.main(), sort_keys=True, indent=2))
+    print(json.dumps(crv2002.main(), sort_keys=True, indent=2))
+
+
+main()

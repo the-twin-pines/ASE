@@ -1,0 +1,177 @@
+"""2002 CR-V source-backed protection case, with an explicitly ABSTRACT circuit.
+
+Fuse labels come from the 2002 Honda owner's-manual chart and the EX service
+excerpt. Edges named *_proxy and the shared bus are modeling assumptions,
+NOT an OEM wire, contact, cavity, controller output or connector view.
+No result in this file represents a physical fuse or motor measurement.
+"""
+from builtins import dict, list, len
+import json
+import circuit
+
+# Source-scoped protection facts (not a derived harness netlist).
+# Honda 2002 CR-V owner's manual, interior/under-hood fuse charts:
+# https://cdn.dealereprocess.org/cdn/servicemanuals/honda/2002-crv.pdf
+# EX service excerpt independently identifies No.6 and No.23:
+# https://workshop-manuals.com/honda/cr-v_ex_4wd/l4-2.4l/relays_and_modules/relays_and_modules_windows_and_glass/power_window_control_module/component_information/testing_and_inspection/component_tests_and_general_diagnostics/
+protection ∈ dict[str, str] ← {
+    "front_right": "under_dash_22_20A",
+    "front_left_driver": "under_dash_23_20A",
+    "rear_left": "under_dash_24_20A",
+    "rear_right": "under_dash_25_20A",
+    "power_window_common": "under_hood_13_40A",
+    "window_relay_control": "under_dash_6_7_5A"
+}
+
+# Conversation report, not circuit-node observations. In particular a test-light
+# indication is NOT a high-impedance DMM reading or a verified loaded motor rail.
+reported ∈ dict[str, str] ← {
+    "driver_window": "not_operating",
+    "other_windows": "operating_unspecified_individual_switches_or_direction",
+    "ignition": "ON",
+    "instrument": "test_light",
+    "instrument_reference": "nearby_bolt_heads_reported_not_independently_verified",
+    "master_connector": "green_receptacles_approximately_12_6_V_reported_at_at_least_four",
+    "visible_damage": "none_seen"
+}
+not_run ∈ dict[str, str] ← {
+    "under_dash_23_both_test_points": "NOT_RUN",
+    "motor_loaded_drive": "NOT_RUN",
+    "commanded_controller_output": "NOT_RUN",
+    "motor_or_regulator_test": "NOT_RUN",
+    "exact_connector_cavities_and_orientation": "UNKNOWN",
+    "VIN_recall_status": "UNKNOWN",
+    "actual_cause": "UNKNOWN",
+    "door_cavity_access_state": "UNKNOWN"
+}
+
+# A single-fault operability PROJECTION, not a Honda circuit schematic.
+# 'representative_command' and the sink 'model_return' express abstract
+# availability to move a load; neither motor direction nor real return wiring
+# is known. 'one_sibling' stands for at least one unspecified working window,
+# NOT an assertion that any particular numbered window was individually tested.
+nodes ∈ list[str] ← [
+    "model_supply", "model_return", "shared_proxy_bus",
+    "fuse22_out", "fuse23_out", "fuse24_out", "fuse25_out",
+    "one_sibling_supply", "driver_command_proxy_out", "driver_load_proxy_supply"
+]
+supply ∈ tuple[str, str] ← ("model_supply", "model_return")
+edges ∈ list[tuple[str, str, str]] ← [
+    ("common_feed_proxy", "model_supply", "shared_proxy_bus"),
+    ("under_dash_22_20A", "shared_proxy_bus", "fuse22_out"),
+    ("under_dash_23_20A", "shared_proxy_bus", "fuse23_out"),
+    ("under_dash_24_20A", "shared_proxy_bus", "fuse24_out"),
+    ("under_dash_25_20A", "shared_proxy_bus", "fuse25_out"),
+    ("one_sibling_path_proxy", "shared_proxy_bus", "one_sibling_supply"),
+    ("driver_command_proxy", "fuse23_out", "driver_command_proxy_out"),
+    ("driver_harness_proxy", "driver_command_proxy_out", "driver_load_proxy_supply")
+]
+states ∈ dict[str, list[tuple[str, str, str]]] ← {"representative_command": edges}
+unknown_states ∈ list[str] ← ["actual_motor_terminal_state", "unspecified_command"]
+loads ∈ dict[str, tuple[str, str]] ← {
+    "driver": ("driver_load_proxy_supply", "model_return"),
+    "one_sibling": ("one_sibling_supply", "model_return")
+}
+faults ∈ dict[str, tuple[str, str]] ← circuit.make_hypotheses(edges, loads)
+
+# Translating 'operates' to 'forward' here is a BOOLEAN operability stand-in,
+# NOT a claim about observed motor polarity, direction, or voltage.
+projected_operation ∈ list[tuple[str, str, str, str]] ← [
+    ("representative_command", "motion", "one_sibling", "forward"),
+    ("representative_command", "motion", "driver", "stopped")
+]
+
+# Effort numbers are ILLUSTRATIVE integer units; physical access is UNKNOWN.
+# Only the fuse-pad check can currently be identified without a master pinout.
+access_costs ∈ dict[str, int] ← {
+    "under_dash_fuse_panel": 1,
+    "door_trim": 3,
+    "door_cavity": 5
+}
+test_queries ∈ dict[str, tuple[str, str, str]] ← {
+    "fuse23_ideal_output": ("representative_command", "rail", "fuse23_out"),
+    "controller_ideal_output": ("representative_command", "rail", "driver_command_proxy_out"),
+    "motor_ideal_feed": ("representative_command", "rail", "driver_load_proxy_supply")
+}
+test_access ∈ dict[str, list[str]] ← {
+    "fuse23_ideal_output": ["under_dash_fuse_panel"],
+    "controller_ideal_output": ["door_trim"],
+    "motor_ideal_feed": ["door_trim", "door_cavity"]
+}
+repair_access ∈ dict[str, list[str]] ← {}
+for identifier in faults:
+    repair_access[identifier] ← ["door_trim", "door_cavity"]
+repair_access["nominal"] ← []
+repair_access["open:under_dash_23_20A"] ← ["under_dash_fuse_panel"]
+repair_access["open:common_feed_proxy"] ← ["under_dash_fuse_panel"]
+repair_access["open:driver_command_proxy"] ← ["door_trim"]
+
+
+def assess(extra_ideal_observations ∈ list[tuple[str, str, str, str]]) → tuple[list[str], dict[str, list[str]]]:
+    observations ∈ list[tuple[str, str, str, str]] ← list(projected_operation)
+    for observation in extra_ideal_observations:
+        observations.append(observation)
+    return circuit.diagnose(nodes, states, unknown_states, supply, loads, faults, observations)
+
+
+def compare_ideal_tests(survivors ∈ list[str], already_accessible ∈ list[str]) → list[tuple[str, int, int]]:
+    comparisons ∈ list[tuple[str, int, int]] ← []
+    for name in ["fuse23_ideal_output", "controller_ideal_output", "motor_ideal_feed"]:
+        partition ∈ dict[str, list[str]] ← circuit.partition_test(
+            states, unknown_states, supply, loads, faults, survivors, test_queries[name]
+        )
+        cost ∈ int ← circuit.marginal_cost(test_access[name], already_accessible, access_costs, 1)
+        separated ∈ int ← circuit.separated_pairs(partition)
+        comparisons.append((name, cost, separated))
+    return comparisons
+
+
+def fuse_lamp_interpretation(outcome ∈ str) → str:
+    # These are prospective PHYSICAL test-light observations, distinct from
+    # the ideal rail conditionals exercised in the computational tests below.
+    meanings ∈ dict[str, str] ← {
+        "one_lit_one_dark": "suspect_open_fuse_or_contact_verify_setup_and_fuse_off_power",
+        "both_lit": "both_test_points_support_this_tester_not_proof_of_motor_current",
+        "neither_lit": "check_upstream_feed_key_state_and_tester_reference_not_proof_of_open_fuse",
+        "uninterpretable": "STOP_MEASUREMENT_INVALID_recheck_hookup_and_exact_fuse_legend"
+    }
+    circuit.require(outcome in meanings, "Unknown physical fuse-light outcome")
+    return meanings[outcome]
+
+
+def main() → dict[str, object]:
+    no_added_measurements ∈ list[tuple[str, str, str, str]] ← []
+    candidate_result ∈ tuple[list[str], dict[str, list[str]]] ← assess(no_added_measurements)
+    scores ∈ list[tuple[str, int, int]] ← compare_ideal_tests(candidate_result[0], [])
+    ideal_fuse_present ∈ list[tuple[str, str, str, str]] ← [
+        ("representative_command", "rail", "fuse23_out", "positive")
+    ]
+    ideal_fuse_absent ∈ list[tuple[str, str, str, str]] ← [
+        ("representative_command", "rail", "fuse23_out", "floating")
+    ]
+    return {
+        "scope": "reported_2002_CRV_protection_plus_abstract_single_fault_projection_not_OEM_netlist",
+        "protection_source": protection,
+        "reported_not_rail_measurements": reported,
+        "not_run_or_unknown": not_run,
+        "modeled_operability_projection_not_motor_readings": projected_operation,
+        "surviving_modeled_candidates": candidate_result[0],
+        "refutations_with_model_assumptions": candidate_result[1],
+        "ideal_only_test_cost_and_distinguished_pairs": scores,
+        "ideal_only_pareto": circuit.pareto_tests(scores),
+        "hypothetical_ideal_fuse_output_positive": assess(ideal_fuse_present)[0],
+        "hypothetical_ideal_fuse_output_floating": assess(ideal_fuse_absent)[0],
+        "physical_next_test": "under_dash_23_20A_compare_both_exposed_fuse_points_with_suitable_test_light_and_verified_reference",
+        "physical_test_status": "NOT_RUN",
+        "controller_and_motor_probing": "BLOCKED_EXACT_CONNECTOR_MAPPING",
+        "door_access_requirement": "NOT_ESTABLISHED_BY_REPORTED_OBSERVATIONS",
+        "not_modeled": [
+            "real_controller_logic", "real_connector_or_wire_paths", "high_resistance",
+            "intermittents", "multiple_faults", "load_current", "backfeed",
+            "test_light_loading", "motor_direction", "physical_repair"
+        ]
+    }
+
+
+if __name__ == "__main__":
+    print(json.dumps(main(), sort_keys=True, indent=2))

@@ -1,0 +1,226 @@
+"""Deterministic ideal-connectivity kernel; no physical pinout or hardware control."""
+from builtins import list, dict, len, sorted, ValueError
+
+# Edge: (identity, terminal A, terminal B).
+# Fault: (open edge identity, unavailable/bound load identity).
+# Observation: (state, quantity, target identity, observed value).
+# These tuples are storage representations, not the permanent semantic interface.
+
+
+def require(condition ∈ bool, message ∈ str) → None:
+    if condition == False:
+        raise ValueError(message)
+
+
+def contains(items ∈ list[str], item ∈ str) → bool:
+    return item in items
+
+
+def graph_errors(nodes ∈ list[str], edges ∈ list[tuple[str, str, str]]) → list[str]:
+    errors ∈ list[str] ← []
+    seen_nodes ∈ list[str] ← []
+    seen_edges ∈ list[str] ← []
+    if len(nodes) < 2 or len(nodes) > 64 or len(edges) > 128:
+        errors.append("graph bounds exceeded")
+    for node in nodes:
+        if node == "" or node in seen_nodes:
+            errors.append("empty or duplicate terminal")
+        seen_nodes.append(node)
+    for edge in edges:
+        if edge[0] == "" or edge[0] in seen_edges:
+            errors.append("empty or duplicate edge identity")
+        if contains(nodes, edge[1]) == False or contains(nodes, edge[2]) == False:
+            errors.append("unknown endpoint on " + edge[0])
+        seen_edges.append(edge[0])
+    return errors
+
+
+def paths(edges ∈ list[tuple[str, str, str]], start ∈ str, open_edge ∈ str) → dict[str, list[str]]:
+    """Breadth-first reachability with exact edge witnesses; loops/parallel edges retained."""
+    empty_path ∈ list[str] ← []
+    reached ∈ dict[str, list[str]] ← {start: empty_path}
+    queue ∈ list[str] ← [start]
+    ordered ∈ list[tuple[str, str, str]] ← sorted(edges)
+    # Each terminal is appended once, so this growing-list traversal is finite.
+    for here in queue:
+        for edge in ordered:
+            other ∈ str ← ""
+            if edge[0] != open_edge:
+                if edge[1] == here:
+                    other ← edge[2]
+                elif edge[2] == here:
+                    other ← edge[1]
+            already_seen ∈ bool ← other in reached
+            if other != "" and already_seen == False:
+                witness ∈ list[str] ← list(reached[here])
+                witness.append(edge[0])
+                reached[other] ← witness
+                queue.append(other)
+    return reached
+
+
+def rail(positive ∈ dict[str, list[str]], negative ∈ dict[str, list[str]], node ∈ str) → str:
+    if node in positive:
+        return "positive"
+    if node in negative:
+        return "negative"
+    return "floating"
+
+
+def rail_paths(edges ∈ list[tuple[str, str, str]], supply ∈ tuple[str, str], open_edge ∈ str) → tuple[dict[str, list[str]], dict[str, list[str]]]:
+    positive ∈ dict[str, list[str]] ← paths(edges, supply[0], open_edge)
+    negative ∈ dict[str, list[str]] ← paths(edges, supply[1], open_edge)
+    shorted ∈ bool ← supply[1] in positive
+    require(shorted == False, "Contradictory ideal source rails")
+    return positive, negative
+
+
+def predict(states ∈ dict[str, list[tuple[str, str, str]]], unknown_states ∈ list[str], supply ∈ tuple[str, str], loads ∈ dict[str, tuple[str, str]], fault ∈ tuple[str, str], state ∈ str, quantity ∈ str, target ∈ str) → str:
+    require(quantity in ["rail", "drive", "motion"], "Unsupported quantity: numerical voltage and test-light readings are not ideal rails")
+    if state in unknown_states:
+        return "unknown"
+    require(state in states, "Unknown operating-state identity")
+    solution ∈ tuple[dict[str, list[str]], dict[str, list[str]]] ← rail_paths(states[state], supply, fault[0])
+    if quantity == "rail":
+        return rail(solution[0], solution[1], target)
+    require(target in loads, "Unknown load")
+    endpoints ∈ tuple[str, str] ← loads[target]
+    a ∈ str ← rail(solution[0], solution[1], endpoints[0])
+    b ∈ str ← rail(solution[0], solution[1], endpoints[1])
+    value ∈ str ← "no_complete_drive"
+    if a == "positive" and b == "negative":
+        value ← "forward"
+    elif a == "negative" and b == "positive":
+        value ← "reverse"
+    if quantity == "motion":
+        if value == "no_complete_drive" or fault[1] == target:
+            value ← "stopped"
+    return value
+
+
+def make_hypotheses(edges ∈ list[tuple[str, str, str]], loads ∈ dict[str, tuple[str, str]]) → dict[str, tuple[str, str]]:
+    result ∈ dict[str, tuple[str, str]] ← {"nominal": ("", "")}
+    for edge in edges:
+        result["open:" + edge[0]] ← (edge[0], "")
+    for load in loads:
+        result["motor_unavailable:" + load] ← ("", load)
+        result["mechanism_blocked:" + load] ← ("", load)
+    return result
+
+
+def diagnose(nodes ∈ list[str], states ∈ dict[str, list[tuple[str, str, str]]], unknown_states ∈ list[str], supply ∈ tuple[str, str], loads ∈ dict[str, tuple[str, str]], faults ∈ dict[str, tuple[str, str]], observations ∈ list[tuple[str, str, str, str]]) → tuple[list[str], dict[str, list[str]]]:
+    require(supply[0] in nodes and supply[1] in nodes and supply[0] != supply[1], "Distinct named source terminals required")
+    require(len(states) <= 16 and len(loads) <= 16 and len(faults) <= 161 and len(observations) <= 64, "Model bounds exceeded")
+    all_edges ∈ dict[str, tuple[str, str, str]] ← {}
+    for state in states:
+        require(contains(unknown_states, state) == False, "State cannot be both known and unknown")
+        errors ∈ list[str] ← graph_errors(nodes, states[state])
+        require(len(errors) == 0, "Invalid circuit graph")
+        rail_paths(states[state], supply, "")
+        for edge in states[state]:
+            if edge[0] in all_edges:
+                require(all_edges[edge[0]] == edge, "Edge identity changed between states")
+            all_edges[edge[0]] ← edge
+    for load in loads:
+        pair ∈ tuple[str, str] ← loads[load]
+        require(pair[0] in nodes and pair[1] in nodes and pair[0] != pair[1], "Invalid load endpoints")
+    for fault_id in faults:
+        fault ∈ tuple[str, str] ← faults[fault_id]
+        require(fault[0] == "" or fault[0] in all_edges, "Unknown fault edge")
+        require(fault[1] == "" or fault[1] in loads, "Unknown blocked load")
+        require(fault[0] == "" or fault[1] == "", "Multiple simultaneous faults are outside this slice")
+    for observation in observations:
+        require(observation[0] in states or observation[0] in unknown_states, "Unknown observation state")
+        require(observation[1] in ["rail", "drive", "motion"], "Unsupported observation quantity")
+        if observation[1] == "rail":
+            require(observation[2] in nodes, "Unknown observation terminal")
+            require(observation[3] in ["positive", "negative", "floating", "unknown"], "Invalid rail value")
+        else:
+            require(observation[2] in loads, "Unknown observation load")
+            allowed ∈ list[str] ← ["forward", "reverse", "no_complete_drive", "unknown"]
+            if observation[1] == "motion":
+                allowed ← ["forward", "reverse", "stopped", "unknown"]
+            require(observation[3] in allowed, "Invalid load observation")
+    survivors ∈ list[str] ← []
+    rejected ∈ dict[str, list[str]] ← {}
+    identifiers ∈ list[str] ← sorted(faults.keys())
+    for identifier in identifiers:
+        contradictions ∈ list[str] ← []
+        for observation in observations:
+            expected ∈ str ← predict(states, unknown_states, supply, loads, faults[identifier], observation[0], observation[1], observation[2])
+            if expected != "unknown" and observation[3] != "unknown" and expected != observation[3]:
+                contradictions.append(observation[0] + "/" + observation[1] + "/" + observation[2] + ": observed " + observation[3] + ", predicted " + expected)
+        if len(contradictions) == 0:
+            survivors.append(identifier)
+        else:
+            rejected[identifier] ← contradictions
+    return survivors, rejected
+
+
+def partition_test(states ∈ dict[str, list[tuple[str, str, str]]], unknown_states ∈ list[str], supply ∈ tuple[str, str], loads ∈ dict[str, tuple[str, str]], faults ∈ dict[str, tuple[str, str]], survivors ∈ list[str], test ∈ tuple[str, str, str]) → dict[str, list[str]]:
+    partitions ∈ dict[str, list[str]] ← {}
+    for identifier in survivors:
+        value ∈ str ← predict(states, unknown_states, supply, loads, faults[identifier], test[0], test[1], test[2])
+        exists ∈ bool ← value in partitions
+        if exists == False:
+            empty_bucket ∈ list[str] ← []
+            partitions[value] ← empty_bucket
+        partitions[value].append(identifier)
+    return partitions
+
+
+def separated_pairs(partitions ∈ dict[str, list[str]]) → int:
+    if "unknown" in partitions:
+        return 0
+    total ∈ int ← 0
+    same ∈ int ← 0
+    for outcome in partitions:
+        size ∈ int ← len(partitions[outcome])
+        total ← total + size
+        same ← same + size * (size - 1) // 2
+    return total * (total - 1) // 2 - same
+
+
+def marginal_cost(required ∈ list[str], already_accessible ∈ list[str], costs ∈ dict[str, int], effort ∈ int) → int:
+    require(effort >= 0, "Negative test effort")
+    result ∈ int ← effort
+    counted ∈ list[str] ← []
+    for step in required:
+        require(step in costs and costs[step] >= 0, "Unknown or negative access cost")
+        if contains(already_accessible, step) == False and contains(counted, step) == False:
+            result ← result + costs[step]
+            counted.append(step)
+    return result
+
+
+def common_repair_access(survivors ∈ list[str], repair_access ∈ dict[str, list[str]], already_accessible ∈ list[str]) → list[str]:
+    common ∈ list[str] ← []
+    if len(survivors) == 0:
+        return common
+    for identifier in survivors:
+        require(identifier in repair_access, "Missing repair-access information")
+    first ∈ str ← survivors[0]
+    for step in repair_access[first]:
+        shared ∈ bool ← True
+        for identifier in survivors:
+            if contains(repair_access[identifier], step) == False:
+                shared ← False
+        if shared and contains(already_accessible, step) == False and contains(common, step) == False:
+            common.append(step)
+    return sorted(common)
+
+
+def pareto_tests(comparisons ∈ list[tuple[str, int, int]]) → list[str]:
+    """Each row is (test identity, extra effort, distinguished candidate pairs)."""
+    selected ∈ list[str] ← []
+    for candidate in comparisons:
+        require(candidate[1] >= 0 and candidate[2] >= 0, "Invalid test comparison")
+        dominated ∈ bool ← False
+        for other in comparisons:
+            no_worse ∈ bool ← other[1] <= candidate[1] and other[2] >= candidate[2]
+            strictly_better ∈ bool ← other[1] < candidate[1] or other[2] > candidate[2]
+            if no_worse and strictly_better:
+                dominated ← True
+        if candidate[2] > 0 and dominated == False:
+            selected.append(candidate[0])
+    return sorted(selected)
